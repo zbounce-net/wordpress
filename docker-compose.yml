@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # WordPress container
+  wordpress:
+    image: wordpress:latest
+    container_name: wp-email-validator
+    ports:
+      - "8000:80"
+    volumes:
+      - ./wordpress:/var/www/html
+      - ./plugins/zbounce-email-validator:/var/www/html/wp-content/plugins/zbounce-email-validator
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    depends_on:
+      - mysql
+    networks:
+      - wp-network
+
+  # MySQL container
+  mysql:
+    image: mysql:8.0
+    container_name: wp-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - wp-network
+
+  # MailHog for emails tests
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: wp-mailhog
+    ports:
+      - "8025:8025" # Web UI
+      - "1025:1025" # SMTP server
+    networks:
+      - wp-network
+
+volumes:
+  mysql-data:
+  wordpress:
+  plugins:
+
+networks:
+  wp-network:
+    driver: bridge

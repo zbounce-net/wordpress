@@ -1,0 +1,43 @@
+.zb-email-validator-settings {
+    max-width: 800px;
+}
+
+.zb-email-validator-settings h1 {
+    margin-bottom: 30px;
+}
+
+.zb-email-validator-settings .form-table th {
+    width: 250px;
+}
+
+.zb-email-validator-settings .form-table input[type="text"],
+.zb-email-validator-settings .form-table input[type="password"],
+.zb-email-validator-settings .form-table input[type="number"],
+.zb-email-validator-settings .form-table select {
+    width: 100%;
+    max-width: 400px;
+}
+
+.zb-settings-info {
+    margin-top: 40px;
+    padding: 25px;
+    background: #f8f9fa;
+    border-left: 4px solid #0073aa;
+}
+
+.zb-settings-info h3 {
+    margin-top: 0;
+}
+
+.zb-settings-info h4 {
+    margin-bottom: 10px;
+}
+
+.zb-settings-info ul {
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.zb-settings-info li {
+    margin-bottom: 5px;
+}

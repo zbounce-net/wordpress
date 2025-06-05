@@ -1,0 +1,161 @@
+/* Main container */
+.zb-email-validator {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 25px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Input group */
+.zb-input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.zb-email-input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.zb-email-input:focus {
+    border-color: #0073aa;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 115, 170, 0.2);
+}
+
+.zb-validate-btn {
+    padding: 12px 20px;
+    background: #0073aa;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.zb-validate-btn:hover {
+    background: #005177;
+}
+
+/* Validation status */
+.zb-validation-status {
+    margin-bottom: 20px;
+}
+
+.zb-status-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.zb-status-value {
+    font-weight: 600;
+}
+
+.zb-progress-container {
+    height: 8px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.zb-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #0073aa;
+    transition: width 0.5s ease;
+}
+
+/* Results */
+.zb-validation-results h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.zb-result-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #f8f8f8;
+}
+
+.zb-result-label {
+    font-weight: 600;
+    color: #555;
+}
+
+.zb-result-value {
+    text-align: right;
+}
+
+/* Status badges */
+.zb-validity-badge,
+.zb-exists-status,
+.zb-disposable-status,
+.zb-acceptall-status {
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.zb-valid { background: #e6f7ee; color: #0a7b4a; }
+.zb-invalid { background: #fce8e8; color: #d93025; }
+.zb-unknown { background: #f1f3f4; color: #5f6368; }
+
+.zb-status-yes { color: #0a7b4a; }
+.zb-status-no { color: #d93025; }
+.zb-status-warning { color: #f9ab00; }
+.zb-status-error { color: #d93025; font-weight: bold; }
+
+.zb-validity-badge {
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.zb-valid {
+    background: #e6f7ee;
+    color: #0a7b4a;
+}
+
+.zb-invalid {
+    background: #fce8e8;
+    color: #d93025;
+}
+
+.zb-unknown {
+    background: #f1f3f4;
+    color: #5f6368;
+}
+
+/* Status colors */
+.zb-exists-status,
+.zb-disposable-status,
+.zb-acceptall-status {
+    font-weight: 500;
+}
+
+.zb-status-yes {
+    color: #0a7b4a;
+}
+
+.zb-status-no {
+    color: #d93025;
+}
+
+.zb-status-warning {
+    color: #f9ab00;
+}
