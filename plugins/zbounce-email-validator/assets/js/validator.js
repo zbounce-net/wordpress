@@ -1,260 +1,69 @@
-jQuery(document).ready(function($) {
-    const validator = {
+jQuery(function($) {
+    const V = {
         init() {
-            this.cacheElements();
-            this.bindEvents();
-            this.$container.append('<button class="zb-debug-btn">Debug Info</button>');
-            this.$container.on('click', '.zb-debug-btn', () => {
-                console.log('Current State:', this);
-            });
+            this.$c   = $('.zb-email-validator');
+            this.$in  = this.$c.find('.zb-email-input');
+            this.$bt  = this.$c.find('.zb-validate-btn');
+            this.$st  = this.$c.find('.zb-status-value');
+            this.$res = this.$c.find('.zb-validation-results');
+            this.bind();
         },
-
-        cacheElements() {
-            this.$container = $('.zb-email-validator');
-            this.$emailInput = this.$container.find('.zb-email-input');
-            this.$validateBtn = this.$container.find('.zb-validate-btn');
-            this.$statusContainer = this.$container.find('.zb-validation-status');
-            this.$resultsContainer = this.$container.find('.zb-validation-results');
-            this.$statusValue = this.$container.find('.zb-status-value');
-            this.$progressBar = this.$container.find('.zb-progress-bar');
-            this.$resultEmail = this.$container.find('.zb-result-email');
-            this.$validityBadge = this.$container.find('.zb-validity-badge');
-            this.$existsStatus = this.$container.find('.zb-exists-status');
-            this.$disposableStatus = this.$container.find('.zb-disposable-status');
-            this.$acceptallStatus = this.$container.find('.zb-acceptall-status');
+        bind() {
+            this.$bt.on('click', ()=> this.submit());
+            this.$in.on('keypress', e=> { if(e.which===13) this.submit(); });
         },
-
-        bindEvents() {
-            this.$validateBtn.on('click', () => this.validateEmail());
-            this.$emailInput.on('keypress', (e) => {
-                if (e.which === 13) this.validateEmail();
-            });
-        },
-
-        validateEmail() {
-            const email = this.$emailInput.val().trim();
-
-            // Basic email validation
-            if (!this.isValidEmail(email)) {
-                this.showError(zbEmailValidator.strings.invalid_email);
-                return;
+        submit() {
+            const email = this.$in.val().trim();
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                return this.error(zbEmailValidator.strings.invalid_email);
             }
+            this.$st.hide();
+            this.$res.hide();
 
-            // Reset UI
-            this.resetPreviousResults();
-            this.$statusContainer.show();
-            this.$statusValue.text(zbEmailValidator.strings.processing);
-
-            // Create validation task
-            $.ajax({
-                url: zbEmailValidator.ajax_url,
-                type: 'POST',
-                data: {
-                    action: 'zb_create_validation_task',
-                    security: zbEmailValidator.nonce,
-                    email: email
-                },
-                dataType: 'json',
-                success: (response) => {
-                    if (response.success) {
-                        if (response.data.status === 'completed') {
-                            this.showResults(response.data.result);
-                        } else {
-                            this.monitorTaskProgress(
-                                response.data.task_id,
-                                response.data.cache_key,
-                                response.data.is_pro
-                            );
-                        }
-                    } else {
-                        this.showError(response.data?.message || zbEmailValidator.strings.error);
-                    }
-                },
-                error: () => {
-                    this.showError(zbEmailValidator.strings.error);
+            $.post(zbEmailValidator.ajax_url, {
+                action:   'zb_create_validation_task',
+                security: zbEmailValidator.nonce,
+                email:    email
+            }, resp=> {
+                if (resp.success) {
+                    this.show(resp.data.result);
+                } else {
+                    this.error(resp.data.message || zbEmailValidator.strings.error);
                 }
-            });
+            }, 'json').fail(()=> this.error(zbEmailValidator.strings.error));
         },
-
-        // monitorTaskProgress
-        monitorTaskProgress(taskId, cacheKey, isPro) {
-            const polling = setInterval(() => {
-                $.ajax({
-                    url: zbEmailValidator.ajax_url,
-                    type: 'POST',
-                    data: {
-                        action: 'zb_check_validation_status',
-                        security: zbEmailValidator.nonce,
-                        task_id: taskId,
-                        is_pro: isPro
-                    },
-                    dataType: 'json',
-                    success: (response) => {
-                        if (response.success) {
-                            const status = response.data.status;
-                            const progress = response.data.progress || 0;
-
-                            this.updateProgress(progress);
-
-                            // status work
-                            if (status === 'completed') {
-                                clearInterval(polling);
-                                this.fetchResults(taskId, cacheKey, isPro);
-                            }
-                            else if (status === 'failed' || status === 'error') {
-                                clearInterval(polling);
-                                this.showError('Validation failed: ' + (response.data.message || status));
-                            }
-                            else if (status === 'pending' || status === 'processing') {
-                                // not ready yet
-                            }
-                            else {
-                                clearInterval(polling);
-                                this.showError('Unknown status: ' + status);
-                            }
-                        } else {
-                            clearInterval(polling);
-
-                            // errors handling
-                            let errorMsg = 'Status check failed';
-                            if (response.data && response.data.message) {
-                                errorMsg += ': ' + response.data.message;
-                            }
-                            if (response.data && response.data.body) {
-                                console.error('API Response:', response.data.body);
-                            }
-
-                            this.showError(errorMsg);
-                        }
-                    },
-                    error: (xhr) => {
-                        clearInterval(polling);
-                        this.showError('Server error: ' + xhr.statusText);
-                    }
-                });
-            }, 2000);
-        },
-
-        fetchResults(taskId, cacheKey, isPro) {
-            $.ajax({
-                url: zbEmailValidator.ajax_url,
-                type: 'POST',
-                data: {
-                    action: 'zb_get_validation_result',
-                    security: zbEmailValidator.nonce,
-                    task_id: taskId,
-                    cache_key: cacheKey,
-                    is_pro: isPro
-                },
-                dataType: 'json',
-                success: (response) => {
-                    if (response.success) {
-                        this.showResults(response.data.result);
-                    } else {
-                        this.showError(response.data?.message || 'Failed to get results');
-                    }
-                },
-                error: () => {
-                    this.showError('Connection error');
-                }
-            });
-        },
-
-        showResults(data) {
-            this.$statusContainer.hide();
-            this.$resultsContainer.show();
-
-            this.$resultEmail.text(data.email);
-
-            // Format validity
-            const isValid = data.valid;
-            this.$validityBadge
-                .text(isValid ? 'Valid' : 'Invalid')
-                .removeClass('zb-valid zb-invalid zb-unknown')
-                .addClass(isValid ? 'zb-valid' : 'zb-invalid');
-
-            // Mailbox exists
-            const existsStatus = data.exists;
-            if (existsStatus !== null && existsStatus !== undefined) {
-                this.$existsStatus
-                    .text(existsStatus ? 'Yes' : 'No')
-                    .removeClass('zb-status-yes zb-status-no')
-                    .addClass(existsStatus ? 'zb-status-yes' : 'zb-status-no');
-            } else {
-                this.$existsStatus
-                    .text('Not checked')
-                    .addClass('zb-status-unknown');
+        show(d) {
+            this.$res.show();
+            this.$c.find('.zb-result-email').text(d.email);
+            this.badge('.zb-validity-badge', d.valid, 'Valid','Invalid');
+            this.badge('.zb-exists-status', d.exists,'Yes','No','Not checked');
+            this.badge('.zb-disposable-status', !d.disposable,'No','Yes');
+            let txt='Unknown',cls='zb-status-unknown',tip='';
+            if(d.permanent_error){
+                txt='Error';cls='zb-status-error';tip=d.error_category;
+            } else if(d.error_category==='accept_all'){
+                txt='Yes (unreliable)';cls='zb-status-warning';tip='Server accepts all';
+            } else if(typeof d.accept_all==='boolean'){
+                txt=d.accept_all?'Yes (unreliable)':'No';
+                cls=d.accept_all?'zb-status-warning':'zb-status-yes';
+                tip=d.accept_all?'Server accepts all':'';
             }
-
-            // Disposable
-            const isDisposable = data.disposable;
-            this.$disposableStatus
-                .text(isDisposable ? 'Yes' : 'No')
-                .removeClass('zb-status-yes zb-status-no')
-                .addClass(isDisposable ? 'zb-status-no' : 'zb-status-yes');
-
-            // Accept All
-            let acceptAllStatus = 'Unknown';
-            let acceptAllClass = 'zb-status-unknown';
-            let tooltip = '';
-
-            if (data.permanent_error) {
-                acceptAllStatus = 'Permanent error';
-                acceptAllClass = 'zb-status-error';
-                tooltip = 'Validation cannot be completed due to permanent error';
-            } else if (data.error_category === 'accept_all' || data.smtp_error === 'server_accepts_all') {
-                acceptAllStatus = 'Yes (unreliable)';
-                acceptAllClass = 'zb-status-warning';
-                tooltip = 'This mail server accepts all addresses, making verification unreliable';
-            } else if (data.accept_all !== undefined) {
-                acceptAllStatus = data.accept_all ? 'Yes (unreliable)' : 'No';
-                acceptAllClass = data.accept_all ? 'zb-status-warning' : 'zb-status-yes';
-                if (data.accept_all) {
-                    tooltip = 'This mail server accepts all addresses, making verification unreliable';
-                }
-            }
-
-            this.$acceptallStatus
-                .text(acceptAllStatus)
+            const $aa=this.$c.find('.zb-acceptall-status');
+            $aa.text(txt).attr('title',tip)
                 .removeClass('zb-status-yes zb-status-no zb-status-warning zb-status-error zb-status-unknown')
-                .addClass(acceptAllClass);
-
-            if (tooltip) {
-                this.$acceptallStatus.attr('title', tooltip);
-            } else {
-                this.$acceptallStatus.removeAttr('title');
-            }
+                .addClass(cls);
         },
-
-        updateProgress(percentage) {
-            this.$progressBar.css('width', percentage + '%');
-            this.$statusValue.text(`Processing (${percentage}%)`);
+        badge(sel,flag,yes,no,unk='') {
+            const $e = this.$c.find(sel).removeClass();
+            if (flag===true)    return $e.text(yes).addClass('zb-status-yes');
+            if (flag===false)   return $e.text(no ).addClass('zb-status-no');
+            return $e.text(unk||'Unknown').addClass('zb-status-unknown');
         },
-
-        resetPreviousResults() {
-            this.$progressBar.css('width', '0%');
-            this.$statusValue.text('❔ Waiting');
-            this.$resultsContainer.hide();
-
-            // Clear only values, keep labels
-            this.$validityBadge.text('').removeClass('zb-valid zb-invalid zb-unknown');
-            this.$existsStatus.text('').removeClass('zb-status-yes zb-status-no zb-status-unknown');
-            this.$disposableStatus.text('').removeClass('zb-status-yes zb-status-no');
-            this.$acceptallStatus.text('').removeClass('zb-status-yes zb-status-no zb-status-warning zb-status-error zb-status-unknown');
-        },
-
-        showError(message) {
-            this.$statusValue.text(message).css('color', '#d93025');
-        },
-
-        isValidEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
+        error(msg) {
+            this.$st.text(msg).css('color','#d93025').show();
         }
     };
-
-    // Initialize
     if ($('.zb-email-validator').length) {
-        validator.init();
+        V.init();
     }
 });

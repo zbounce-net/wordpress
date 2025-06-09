@@ -1,4 +1,4 @@
-=== ZBounce Email Validator ===
+#  ZBounce Email Validator 
 Contributors: zbounce.net
 Tags: email, validation, verification, zbounce, woocommerce, cf7
 Requires at least: 5.0         <!-- WP-vers. can stay, PHP-vers. ниже -->
@@ -14,36 +14,29 @@ This plugin hooks into Contact Form 7, WooCommerce checkout and WP registration 
 * Block disposable & catch-all addresses
 * Prevent invalid submissions (ideal alongside CAPTCHA)
 
-== Installation ==
+## Installation ##
 
 1. Upload to `/wp-content/plugins/zbounce-email-validator/`
 2. Activate via “Plugins” screen
 3. (Optional) Configure API key in Settings → ZBounce Email Validator
 4. Forms auto-validate email fields on submit
 
-== Frequently Asked Questions ==
+## Frequently Asked Questions ##
 
-= Do I need an API key? =
+### Do I need an API key? ###
 You can run in demo mode (rate-limited) without a key. For production, get a key at https://zbounce.net.
 
-= What forms are supported? =
+### What forms are supported? ###
 Contact Form 7, WooCommerce checkout, WordPress registration—works out of the box.
 
-== Screenshots ==
+## Changelog ##
 
-1. Admin settings page
-2. Front-end validation widget (shortcode)
-3. WooCommerce checkout error
-4. CF7 email field error
-
-== Changelog ==
-
-= 1.0.0 =
+### 1.0.0 ###
 * Initial release
 * CF7, WooCommerce and WP registration integration
 * Shortcode `[zb_email_validator]`
 
-== Upgrade Notice ==
+## Upgrade Notice ##
 
-= 1.0.0 =
+# 1.0.0 #
 Initial release.

@@ -2,11 +2,11 @@
 namespace ZbEmailValidator;
 
 class Settings {
-    const OPTION_KEY = 'zb_email_validator_settings';
+    const OPTION_KEY       = 'zb_email_validator_settings';
     const DEFAULT_SETTINGS = [
-        'api_key' => '',
-        'cache_duration' => 24, // hours
-        'validation_mode' => 'async' // async|sync
+        'api_key'         => '',
+        'cache_duration'  => 24,   // hours
+        'enable_logging'  => false // новый флаг для логирования
     ];
 
     public static function init() {
@@ -40,64 +40,63 @@ class Settings {
         );
 
         add_settings_field(
-            'validation_mode',
-            'Validation Mode',
-            [__CLASS__, 'render_validation_mode_field'],
+            'enable_logging',
+            'Enable Debug Logging',
+            [__CLASS__, 'render_logging_field'],
             'zb-email-validator',
             'api_settings'
         );
     }
 
     public static function render_api_key_field() {
-        $settings = self::get_settings();
-        ?>
-        <input type="password" name="<?= self::OPTION_KEY ?>[api_key]"
-               value="<?= esc_attr($settings['api_key']) ?>" class="regular-text">
-        <p class="description">For demo mode, leave blank</p>
-        <?php
-    }
+        $s = self::get_settings(); ?>
+        <input type="password"
+               name="<?= self::OPTION_KEY ?>[api_key]"
+               value="<?= esc_attr($s['api_key']) ?>"
+               class="regular-text">
+        <p class="description">Оставьте пустым для демо-режима</p>
+    <?php }
 
     public static function render_cache_duration_field() {
-        $settings = self::get_settings();
-        ?>
-        <input type="number" name="<?= self::OPTION_KEY ?>[cache_duration]"
-               value="<?= esc_attr($settings['cache_duration']) ?>" min="1" max="720" step="1">
-        <span>hours</span>
-        <p class="description">How long to store validation results</p>
-        <?php
-    }
+        $s = self::get_settings(); ?>
+        <input type="number"
+               name="<?= self::OPTION_KEY ?>[cache_duration]"
+               value="<?= esc_attr($s['cache_duration']) ?>"
+               min="1" max="720" step="1"> hours
+        <p class="description">Длительность хранения кэша</p>
+    <?php }
 
-    public static function render_validation_mode_field() {
-        $settings = self::get_settings();
-        ?>
-        <select name="<?= self::OPTION_KEY ?>[validation_mode]">
-            <option value="async" <?php selected($settings['validation_mode'], 'async'); ?>>Asynchronous (recommended)</option>
-            <option value="sync" <?php selected($settings['validation_mode'], 'sync'); ?>>Synchronous</option>
-        </select>
-        <p class="description">Async mode provides better performance</p>
-        <?php
-    }
+    public static function render_logging_field() {
+        $s = self::get_settings(); ?>
+        <label>
+            <input type="checkbox"
+                   name="<?= self::OPTION_KEY ?>[enable_logging]"
+                   value="1" <?= checked($s['enable_logging'], true, false) ?>>
+            Включить логирование (error_log)
+        </label>
+        <p class="description">Логи в PHP error_log для отладки работы плагина</p>
+    <?php }
 
-    public static function get_settings() {
+    public static function get_settings(): array {
         return wp_parse_args(
             get_option(self::OPTION_KEY, []),
             self::DEFAULT_SETTINGS
         );
     }
 
-    public static function is_pro() {
-        $settings = self::get_settings();
-        $api_key = trim($settings['api_key'] ?? '');
-        return !empty($api_key);  // !!!: check non empty after trim
+    public static function is_pro(): bool {
+        $s   = self::get_settings();
+        $key = trim($s['api_key'] ?? '');
+        return (bool) $key;
     }
 
-    public static function get_cache_duration() {
-        $settings = self::get_settings();
-        return (int) $settings['cache_duration'] * HOUR_IN_SECONDS;
+    public static function get_cache_duration(): int {
+        $s = self::get_settings();
+        return (int)$s['cache_duration'] * HOUR_IN_SECONDS;
     }
 
-    public static function get_validation_mode() {
-        $settings = self::get_settings();
-        return $settings['validation_mode'];
+    public static function is_logging_enabled(): bool {
+        $s = self::get_settings();
+        return !empty($s['enable_logging']);
     }
 }

@@ -1,37 +1,50 @@
 <?php
 /**
- * Plugin Name: ZBounce Email Validator
- * Description: Professional email verification service with WordPress integration
- * Version: 1.0.0
- * Author: zbounce.net
- * License: GPLv3
+ * Plugin Name: ZBounce Email Engine Platform Validator
+ * Plugin URI:  https://zbounce.net
+ * Description: Integrates your site with the ZBounce Email Engine Platform API for real-time email validation.
+ * Version:     1.0.0
+ * Author:      ZBounce.net
+ * Author URI:  https://zbounce.net
+ * License:     GPLv2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain: zb-email-validator
+ * Domain Path: /languages
+ *
+ * Requires at least: 5.0
+ * Tested up to:      6.4
+ * Requires PHP:      7.0
+ * Tags: email, validation, verification, cf7, woocommerce
  */
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
 // Plugin constants
-define('ZB_EVAL_VERSION', '2.0.0');
-define('ZB_EVAL_PATH', plugin_dir_path(__FILE__));
-define('ZB_EVAL_URL', plugin_dir_url(__FILE__));
-define('ZB_EVAL_API_BASE', 'https://api.zbounce.net');
+define( 'ZB_EVAL_VERSION', '2.0.0' );
+define( 'ZB_EVAL_PATH',    plugin_dir_path( __FILE__ ) );
+define( 'ZB_EVAL_URL',     plugin_dir_url( __FILE__ ) );
+define( 'ZB_EVAL_API_BASE','https://api.zbounce.net' );
 
 // Autoloader
-spl_autoload_register(function ($class) {
-    $prefix = 'ZbEmailValidator\\';
-    $base_dir = ZB_EVAL_PATH . 'includes/';
+spl_autoload_register( function ( $class ) {
+    $prefix  = 'ZbEmailValidator\\';
+    $baseDir = ZB_EVAL_PATH . 'includes/';
 
-    $len = strlen($prefix);
-    if (strncmp($prefix, $class, $len) !== 0) return;
+    if ( 0 !== strncmp( $prefix, $class, strlen( $prefix ) ) ) {
+        return;
+    }
 
-    $relative_class = substr($class, $len);
-    $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+    $relative_class = substr( $class, strlen( $prefix ) );
+    $file           = $baseDir . str_replace( '\\', '/', $relative_class ) . '.php';
 
-    if (file_exists($file)) require $file;
-});
+    if ( file_exists( $file ) ) {
+        require $file;
+    }
+} );
 
-// Activation/deactivation hooks
-register_activation_hook(__FILE__, ['ZbEmailValidator\\Core', 'activate']);
-register_deactivation_hook(__FILE__, ['ZbEmailValidator\\Core', 'deactivate']);
+// Activation / Deactivation
+register_activation_hook( __FILE__,   ['ZbEmailValidator\\Core', 'activate'] );
+register_deactivation_hook( __FILE__, ['ZbEmailValidator\\Core', 'deactivate'] );
 
 // Initialize plugin
-add_action('plugins_loaded', ['ZbEmailValidator\\Core', 'init']);
+add_action( 'plugins_loaded', ['ZbEmailValidator\\Core', 'init'] );

@@ -1,25 +1,20 @@
 <?php
 namespace ZbEmailValidator;
 
+use ZbEmailValidator\Logger;
+
 class Validator {
     public static function init() {
-        // Shortcode
-        add_shortcode('zb_email_validator', [__CLASS__, 'render_validator']);
-
-        // Contact Form 7 integration
-        add_filter('wpcf7_validate_email', [__CLASS__, 'validate_cf7_email'], 20, 2);
-        add_filter('wpcf7_validate_email*', [__CLASS__, 'validate_cf7_email'], 20, 2);
-
-        // WooCommerce checkout validation
-        add_action('woocommerce_after_checkout_validation', [__CLASS__, 'validate_woocommerce_email'], 10, 2);
-
-        // WordPress registration validation
-        add_filter('registration_errors', [__CLASS__, 'validate_registration_email'], 10, 3);
+        add_shortcode( 'zb_email_validator',        [ __CLASS__, 'render_validator' ] );
+        add_filter( 'wpcf7_validate_email',         [ __CLASS__, 'validate_cf7_email' ], 20, 2 );
+        add_filter( 'wpcf7_validate_email*',        [ __CLASS__, 'validate_cf7_email' ], 20, 2 );
+        add_action( 'woocommerce_after_checkout_validation', [ __CLASS__, 'validate_woocommerce_email' ], 10, 2 );
+        add_filter( 'registration_errors',          [ __CLASS__, 'validate_registration_email' ], 10, 3 );
     }
 
-    public static function render_validator($atts) {
-        wp_enqueue_style('zb-email-validator');
-        wp_enqueue_script('zb-email-validator');
+    public static function render_validator( $atts ) {
+        wp_enqueue_style(  'zb-email-validator' );
+        wp_enqueue_script( 'zb-email-validator' );
 
         ob_start();
         ?>
@@ -29,20 +24,10 @@ class Validator {
                 <button class="zb-validate-btn">Validate</button>
             </div>
 
-            <div class="zb-validation-status" style="display:none;">
-                <div class="zb-status-header">
-                    <span class="zb-status-label">Status:</span>
-                    <span class="zb-status-value">❔ Waiting</span>
-                </div>
-                <div class="zb-progress-container">
-                    <div class="zb-progress-bar"></div>
-                </div>
-            </div>
+            <div class="zb-status-value" style="display:none;"></div>
 
             <div class="zb-validation-results" style="display:none;">
                 <h3>Results for: <span class="zb-result-email"></span></h3>
-
-                <!-- Updated structure with labels -->
                 <div class="zb-result-item">
                     <span class="zb-result-label">Email Format:</span>
                     <span class="zb-result-value zb-validity-badge"></span>
@@ -65,101 +50,107 @@ class Validator {
         return ob_get_clean();
     }
 
-    public static function validate_cf7_email($result, $tag) {
-        if ($tag->basetype !== 'email') return $result;
+    /**
+     * Выполняет синхронную проверку и возвращает полный массив результатов.
+     */
+    private static function run_sync_validation( string $email ): array {
+        Logger::log( "Validator::run_sync_validation email={$email}" );
+        $data = ApiClient::sync_verify( $email ) ?: [];
+        Logger::log( "Validator result: " . print_r( $data, true ) );
+        return wp_parse_args( $data, [
+            'email'           => $email,
+            'valid'           => false,
+            'exists'          => null,
+            'disposable'      => false,
+            'accept_all'      => false,
+            'permanent_error' => false,
+            'error_category'  => '',
+        ] );
+    }
 
-        $email = isset($_POST[$tag->name]) ? sanitize_email($_POST[$tag->name]) : '';
+    /**
+     * Валидация поля Contact Form 7.
+     */
+    public static function validate_cf7_email( $result, $tag ) {
+        if ( $tag->basetype !== 'email' ) {
+            return $result;
+        }
 
-        if (!empty($email)) {
-            // Trigger async validation
-            self::trigger_async_validation($email);
+        $email = sanitize_email( $_POST[ $tag->name ] ?? '' );
+        Logger::log( "CF7 validate email={$email}" );
+        if ( ! $email ) {
+            return $result;
+        }
 
-            $validation = self::validate_email($email);
+        $v = self::run_sync_validation( $email );
 
-            if (!$validation['valid']) {
-                $result->invalidate($tag, 'Invalid email format');
-            } elseif ($validation['disposable']) {
-                $result->invalidate($tag, 'Disposable emails are not allowed');
-            } elseif ($validation['exists'] === false) {
-                $result->invalidate($tag, 'Email address does not exist');
-            } elseif ($validation['validation_pending']) {
-                $result->invalidate($tag, 'Email validation in progress. Please wait a moment and try again');
-            }
+        if ( ! $v['valid'] ) {
+            Logger::log( "CF7 invalid format" );
+            $result->invalidate( $tag, 'Invalid email format' );
+        }
+        elseif ( $v['disposable'] ) {
+            Logger::log( "CF7 disposable email" );
+            $result->invalidate( $tag, 'Disposable emails are not allowed' );
+        }
+        elseif ( $v['exists'] === false ) {
+            Logger::log( "CF7 email does not exist" );
+            $result->invalidate( $tag, 'Email address does not exist' );
         }
 
         return $result;
     }
 
-    public static function validate_woocommerce_email($data, $errors) {
-        $email = $data['billing_email'] ?? '';
+    /**
+     * Валидация WooCommerce checkout.
+     */
+    public static function validate_woocommerce_email( $data, $errors ) {
+        $email = sanitize_email( $data['billing_email'] ?? '' );
+        Logger::log( "WC validate billing_email={$email}" );
+        if ( ! $email ) {
+            return;
+        }
 
-        if (!empty($email)) {
-            // Trigger async validation
-            self::trigger_async_validation($email);
+        $v = self::run_sync_validation( $email );
 
-            $validation = self::validate_email($email);
-
-            if (!$validation['valid']) {
-                $errors->add('validation', 'Invalid email format');
-            } elseif ($validation['disposable']) {
-                $errors->add('validation', 'Disposable emails are not allowed');
-            } elseif ($validation['exists'] === false) {
-                $errors->add('validation', 'Email address does not exist');
-            } elseif ($validation['validation_pending']) {
-                $errors->add('validation', 'Email validation in progress. Please wait a moment and try again');
-            }
+        if ( ! $v['valid'] ) {
+            Logger::log( "WC invalid format" );
+            $errors->add( 'validation', 'Invalid email format' );
+        }
+        elseif ( $v['disposable'] ) {
+            Logger::log( "WC disposable email" );
+            $errors->add( 'validation', 'Disposable emails are not allowed' );
+        }
+        elseif ( $v['exists'] === false ) {
+            Logger::log( "WC email does not exist" );
+            $errors->add( 'validation', 'Email address does not exist' );
         }
     }
-    public static function validate_registration_email($errors, $sanitized_user_login, $user_email) {
-        // Trigger async validation
-        self::trigger_async_validation($user_email);
 
-        $validation = self::validate_email($user_email);
+    /**
+     * Валидация WordPress регистрации.
+     */
+    public static function validate_registration_email( $errors, $user_login, $user_email ) {
+        $email = sanitize_email( $user_email );
+        Logger::log( "WP registration validate email={$email}" );
+        if ( ! $email ) {
+            return $errors;
+        }
 
-        if (!$validation['valid']) {
-            $errors->add('invalid_email', 'Invalid email format');
-        } elseif ($validation['disposable']) {
-            $errors->add('disposable_email', 'Disposable emails are not allowed');
-        } elseif ($validation['exists'] === false) {
-            $errors->add('email_not_exists', 'Email address does not exist');
-        } elseif ($validation['validation_pending']) {
-            $errors->add('validation_pending', 'Email validation in progress. Please try again later');
+        $v = self::run_sync_validation( $email );
+
+        if ( ! $v['valid'] ) {
+            Logger::log( "Reg invalid format" );
+            $errors->add( 'invalid_email', 'Invalid email format' );
+        }
+        elseif ( $v['disposable'] ) {
+            Logger::log( "Reg disposable email" );
+            $errors->add( 'disposable_email', 'Disposable emails are not allowed' );
+        }
+        elseif ( $v['exists'] === false ) {
+            Logger::log( "Reg email does not exist" );
+            $errors->add( 'email_not_exists', 'Email address does not exist' );
         }
 
         return $errors;
-    }
-    private static function trigger_async_validation($email) {
-        $cache_key = md5($email);
-
-        // Check if validation is already in progress
-        $validation_lock = get_transient("zb_validation_lock_{$cache_key}");
-        if ($validation_lock) return;
-
-        // Set lock for 2 minutes to prevent duplicate requests
-        set_transient("zb_validation_lock_{$cache_key}", 'processing', 120);
-
-        // Schedule async validation
-        wp_schedule_single_event(time(), 'zb_async_email_validation', [$email]);
-    }
-
-    private static function validate_email($email) {
-        $cache_key = md5($email);
-        $cached = ApiClient::get_cached_result($cache_key);
-
-        if ($cached) {
-            return $cached;
-        }
-
-        // Check if validation is in progress
-        $validation_lock = get_transient("zb_validation_lock_{$cache_key}");
-
-        return [
-            'email' => $email,
-            'valid' => true, // Assume valid until proven otherwise
-            'exists' => null,
-            'disposable' => false,
-            'accept_all' => false,
-            'validation_pending' => (bool)$validation_lock
-        ];
     }
 }
