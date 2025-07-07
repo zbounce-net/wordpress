@@ -124,17 +124,31 @@ class ApiClient {
         ];
     }
 
-    public static function get_cached_result(string $key) {
+    public static function get_cached_result( string $key ) {
         global $wpdb;
         $table = $wpdb->prefix . 'zb_email_cache';
-        $row   = $wpdb->get_var($wpdb->prepare(
-            "SELECT validation_data FROM $table WHERE email_hash = %s",
+
+        $row = $wpdb->get_row( $wpdb->prepare(
+            "SELECT validation_data, UNIX_TIMESTAMP(created) AS ts
+           FROM {$table}
+          WHERE email_hash = %s",
             $key
-        ));
-        return $row ? json_decode($row, true) : false;
+        ), ARRAY_A );
+
+        if ( ! $row ) {
+            return false;
+        }
+
+        $age      = time() - (int) $row['ts'];
+        $max_time = Settings::get_cache_duration(); // в секундах
+        if ( $age > $max_time ) {
+            return false;
+        }
+
+        return json_decode( $row['validation_data'], true );
     }
 
-    private static function cache_result(string $key, array $data) {
+    public static function cache_result(string $key, array $data) {
         if (empty($data['email'])) {
             return;
         }

@@ -1,0 +1,156 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ZBounce Email Validator 1.1.0\n"
+"Report-Msgid-Bugs-To: https://zbounce.net\n"
+"POT-Creation-Date: 2025-07-06 18:11+0000\n"
+"PO-Revision-Date: 2025-07-06 00:00+0000\n"
+"Last-Translator: Ваше Ім’я <you@example.com>\n"
+"Language-Team: Ukrainian <uk@example.com>\n"
+"Language: uk_UA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Section titles & fields
+msgid "API Configuration"
+msgstr "Конфігурація API"
+
+msgid "API Key (Pro Version)"
+msgstr "Ключ API (Pro-версія)"
+
+msgid "Leave empty to use the free demo endpoint"
+msgstr "Залиште порожнім для безкоштовного демо"
+
+msgid "Cache Duration"
+msgstr "Тривалість кешу"
+
+msgid "hours"
+msgstr "годин"
+
+msgid "Cache storage duration (hours)"
+msgstr "Час збереження кешу (години)"
+
+msgid "Enable Debug Logging"
+msgstr "Увімкнути логування налагодження"
+
+msgid "Enable logging to PHP error_log"
+msgstr "Увімкнути запис у PHP error_log"
+
+msgid "Debug logs are written to PHP error_log"
+msgstr "Логи налагодження пишуться в PHP error_log"
+
+msgid "To write logs into wp-content/debug.log, add these lines to your wp-config.php:"
+msgstr "Щоб писати логи в wp-content/debug.log, додайте в wp-config.php:"
+
+#. Advanced Integrations section
+msgid "Advanced Integrations"
+msgstr "Розширені інтеграції"
+
+msgid "Gravity Forms to Validate"
+msgstr "Gravity Forms для перевірки"
+
+msgid "Gravity Forms not detected."
+msgstr "Gravity Forms не знайдено."
+
+msgid "Select Gravity Forms by ID"
+msgstr "Виберіть Gravity Forms за ID"
+
+msgid "WPForms to Validate"
+msgstr "WPForms для перевірки"
+
+msgid "WPForms not detected."
+msgstr "WPForms не знайдено."
+
+msgid "Select WPForms by ID"
+msgstr "Виберіть WPForms за ID"
+
+msgid "Ninja Forms to Validate"
+msgstr "Ninja Forms для перевірки"
+
+msgid "Ninja Forms not detected."
+msgstr "Ninja Forms не знайдено."
+
+msgid "Select Ninja Forms by ID"
+msgstr "Виберіть Ninja Forms за ID"
+
+#. Shortcode UI
+msgid "Enter email address"
+msgstr "Введіть електронну адресу"
+
+msgid "Validate"
+msgstr "Перевірити"
+
+msgid "Results for: %s"
+msgstr "Результати для: %s"
+
+msgid "Email Format:"
+msgstr "Формат електронної пошти:"
+
+msgid "Mailbox Exists:"
+msgstr "Пошта існує:"
+
+msgid "Disposable:"
+msgstr "Одноразова:"
+
+msgid "Accepts All:"
+msgstr "Приймає всі:"
+
+#. AJAX error messages
+msgid "Invalid email format"
+msgstr "Невірний формат електронної пошти"
+
+msgid "Disposable emails are not allowed"
+msgstr "Одноразові адреси не дозволені"
+
+msgid "Email address does not exist"
+msgstr "Адреса не існує"
+
+#. Localized JS strings
+msgid "Invalid email format – powered by ZBounce Email API"
+msgstr "Невірний формат – від ZBounce Email API"
+
+msgid "Validation error – powered by ZBounce Email API"
+msgstr "Помилка перевірки – від ZBounce Email API"
+
+#. Settings page template
+msgid "ZBounce Email Validator Settings"
+msgstr "Налаштування ZBounce Email Validator"
+
+msgid "Usage Instructions"
+msgstr "Інструкції з використання"
+
+msgid "Add the email validator to any page using the shortcode:"
+msgstr "Додайте валідатор на сторінку шорткодом:"
+
+msgid "Integrated Forms"
+msgstr "Підтримувані форми"
+
+msgid "Contact Form 7"
+msgstr "Contact Form 7"
+
+msgid "WooCommerce checkout"
+msgstr "Оформлення WooCommerce"
+
+msgid "WordPress registration"
+msgstr "Реєстрація WordPress"
+
+msgid "API Connection"
+msgstr "Підключення до API"
+
+msgid "This plugin talks to the <strong>%s</strong>."
+msgstr "Плагін звертається до <strong>%s</strong>."
+
+msgid "ZBounce Email Engine Platform API"
+msgstr "API ZBounce Email Engine Platform"
+
+msgid "Leave your API key blank to use the free demo endpoint, or get your production key at zbounce.net."
+msgstr "Залиште ключ пустим для демо або отримайте продакшн-ключ на zbounce.net."
+
+msgid "Powered by ZBounce Email Engine Platform — professional email verification & bulk sending."
+msgstr "Працює на ZBounce Email Engine Platform — професійна перевірка та масова розсилка."
+
+msgid "Save Settings"
+msgstr "Зберегти налаштування"
+
+msgid "Leave all checked to validate all forms. Uncheck to disable validation for a specific form."
+msgstr "Залиште всі позначеними для перевірки всіх форм. Зніміть позначку, щоб вимкнути перевірку конкретної форми."

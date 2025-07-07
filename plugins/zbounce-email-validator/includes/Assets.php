@@ -8,7 +8,6 @@ class Assets {
     }
 
     public static function enqueue_frontend_assets() {
-        // Register & enqueue CSS
         wp_register_style(
             'zb-email-validator',
             ZB_EVAL_URL . 'assets/css/validator.css',
@@ -17,7 +16,6 @@ class Assets {
         );
         wp_enqueue_style( 'zb-email-validator' );
 
-        // Register & enqueue JS
         wp_register_script(
             'zb-email-validator',
             ZB_EVAL_URL . 'assets/js/validator.js',
@@ -27,14 +25,13 @@ class Assets {
         );
         wp_enqueue_script( 'zb-email-validator' );
 
-        // Localize strings & settings
         wp_localize_script( 'zb-email-validator', 'zbEmailValidator', [
             'ajax_url' => admin_url( 'admin-ajax.php' ),
             'nonce'    => wp_create_nonce( 'zb_email_validator' ),
             'is_pro'   => Settings::is_pro(),
             'strings'  => [
-                'invalid_email' => __( 'Invalid email format – powered by ZBounce Email Engine Platform API', 'zb-email-validator' ),
-                'error'         => __( 'Validation error – powered by ZBounce Email Engine Platform API', 'zb-email-validator' ),
+                'invalid_email' => __( 'Invalid email format – powered by ZBounce Email API', 'zb-email-validator' ),
+                'error'         => __( 'Validation error – powered by ZBounce Email API', 'zb-email-validator' ),
             ],
         ] );
     }

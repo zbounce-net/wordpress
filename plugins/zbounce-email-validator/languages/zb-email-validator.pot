@@ -1,0 +1,155 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ZBounce Email Validator 1.1.0\n"
+"Report-Msgid-Bugs-To: https://zbounce.net\n"
+"POT-Creation-Date: 2025-07-06 18:11+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Section titles & fields
+msgid "API Configuration"
+msgstr ""
+
+msgid "API Key (Pro Version)"
+msgstr ""
+
+msgid "Leave empty to use the free demo endpoint"
+msgstr ""
+
+msgid "Cache Duration"
+msgstr ""
+
+msgid "hours"
+msgstr ""
+
+msgid "Cache storage duration (hours)"
+msgstr ""
+
+msgid "Enable Debug Logging"
+msgstr ""
+
+msgid "Enable logging to PHP error_log"
+msgstr ""
+
+msgid "Debug logs are written to PHP error_log"
+msgstr ""
+
+msgid "To write logs into wp-content/debug.log, add these lines to your wp-config.php:"
+msgstr ""
+
+#. Advanced Integrations section
+msgid "Advanced Integrations"
+msgstr ""
+
+msgid "Gravity Forms to Validate"
+msgstr ""
+
+msgid "Gravity Forms not detected."
+msgstr ""
+
+msgid "Select Gravity Forms by ID"
+msgstr ""
+
+msgid "WPForms to Validate"
+msgstr ""
+
+msgid "WPForms not detected."
+msgstr ""
+
+msgid "Select WPForms by ID"
+msgstr ""
+
+msgid "Ninja Forms to Validate"
+msgstr ""
+
+msgid "Ninja Forms not detected."
+msgstr ""
+
+msgid "Select Ninja Forms by ID"
+msgstr ""
+
+#. Shortcode UI
+msgid "Enter email address"
+msgstr ""
+
+msgid "Validate"
+msgstr ""
+
+msgid "Results for: %s"
+msgstr ""
+
+msgid "Email Format:"
+msgstr ""
+
+msgid "Mailbox Exists:"
+msgstr ""
+
+msgid "Disposable:"
+msgstr ""
+
+msgid "Accepts All:"
+msgstr ""
+
+#. AJAX error messages
+msgid "Invalid email format"
+msgstr ""
+
+msgid "Disposable emails are not allowed"
+msgstr ""
+
+msgid "Email address does not exist"
+msgstr ""
+
+#. Localized JS strings
+msgid "Invalid email format – powered by ZBounce Email API"
+msgstr ""
+
+msgid "Validation error – powered by ZBounce Email API"
+msgstr ""
+
+#. Settings page template
+msgid "ZBounce Email Validator Settings"
+msgstr ""
+
+msgid "Usage Instructions"
+msgstr ""
+
+msgid "Add the email validator to any page using the shortcode:"
+msgstr ""
+
+msgid "Integrated Forms"
+msgstr ""
+
+msgid "Contact Form 7"
+msgstr ""
+
+msgid "WooCommerce checkout"
+msgstr ""
+
+msgid "WordPress registration"
+msgstr ""
+
+msgid "API Connection"
+msgstr ""
+
+msgid "This plugin talks to the <strong>%s</strong>."
+msgstr ""
+
+msgid "ZBounce Email Engine Platform API"
+msgstr ""
+
+msgid "Leave your API key blank to use the free demo endpoint, or get your production key at zbounce.net."
+msgstr ""
+
+msgid "Powered by ZBounce Email Engine Platform — professional email verification & bulk sending."
+msgstr ""
+
+msgid "Save Settings"
+msgstr ""
+
+msgid "Leave all checked to validate all forms. Uncheck to disable validation for a specific form."
+msgstr ""

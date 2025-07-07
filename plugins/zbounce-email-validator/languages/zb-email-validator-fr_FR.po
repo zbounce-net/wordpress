@@ -1,0 +1,156 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ZBounce Email Validator 1.1.0\n"
+"Report-Msgid-Bugs-To: https://zbounce.net\n"
+"POT-Creation-Date: 2025-07-06 18:11+0000\n"
+"PO-Revision-Date: 2025-07-06 00:00+0000\n"
+"Last-Translator: Votre Nom <you@example.com>\n"
+"Language-Team: French <fr@example.com>\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. Section titles & fields
+msgid "API Configuration"
+msgstr "Configuration de l’API"
+
+msgid "API Key (Pro Version)"
+msgstr "Clé API (version Pro)"
+
+msgid "Leave empty to use the free demo endpoint"
+msgstr "Laissez vide pour la démo gratuite"
+
+msgid "Cache Duration"
+msgstr "Durée du cache"
+
+msgid "hours"
+msgstr "heures"
+
+msgid "Cache storage duration (hours)"
+msgstr "Durée de stockage du cache (heures)"
+
+msgid "Enable Debug Logging"
+msgstr "Activer la journalisation de débogage"
+
+msgid "Enable logging to PHP error_log"
+msgstr "Activer l’enregistrement dans PHP error_log"
+
+msgid "Debug logs are written to PHP error_log"
+msgstr "Les journaux de débogage sont écrits dans PHP error_log"
+
+msgid "To write logs into wp-content/debug.log, add these lines to your wp-config.php:"
+msgstr "Pour écrire les journaux dans wp-content/debug.log, ajoutez dans wp-config.php :"
+
+#. Advanced Integrations section
+msgid "Advanced Integrations"
+msgstr "Intégrations avancées"
+
+msgid "Gravity Forms to Validate"
+msgstr "Gravity Forms à valider"
+
+msgid "Gravity Forms not detected."
+msgstr "Gravity Forms non détecté."
+
+msgid "Select Gravity Forms by ID"
+msgstr "Sélectionnez Gravity Forms par ID"
+
+msgid "WPForms to Validate"
+msgstr "WPForms à valider"
+
+msgid "WPForms not detected."
+msgstr "WPForms non détecté."
+
+msgid "Select WPForms by ID"
+msgstr "Sélectionnez WPForms par ID"
+
+msgid "Ninja Forms to Validate"
+msgstr "Ninja Forms à valider"
+
+msgid "Ninja Forms not detected."
+msgstr "Ninja Forms non détecté."
+
+msgid "Select Ninja Forms by ID"
+msgstr "Sélectionnez Ninja Forms par ID"
+
+#. Shortcode UI
+msgid "Enter email address"
+msgstr "Saisissez l’adresse e-mail"
+
+msgid "Validate"
+msgstr "Valider"
+
+msgid "Results for: %s"
+msgstr "Résultats pour : %s"
+
+msgid "Email Format:"
+msgstr "Format de l’e-mail :"
+
+msgid "Mailbox Exists:"
+msgstr "Boîte aux lettres existante :"
+
+msgid "Disposable:"
+msgstr "Jetable :"
+
+msgid "Accepts All:"
+msgstr "Accepte tout :"
+
+#. AJAX error messages
+msgid "Invalid email format"
+msgstr "Format d’e-mail invalide"
+
+msgid "Disposable emails are not allowed"
+msgstr "Les e-mails jetables ne sont pas autorisés"
+
+msgid "Email address does not exist"
+msgstr "L’adresse e-mail n’existe pas"
+
+#. Localized JS strings
+msgid "Invalid email format – powered by ZBounce Email API"
+msgstr "Format d’e-mail invalide – par ZBounce Email API"
+
+msgid "Validation error – powered by ZBounce Email API"
+msgstr "Erreur de validation – par ZBounce Email API"
+
+#. Settings page template
+msgid "ZBounce Email Validator Settings"
+msgstr "Paramètres de ZBounce Email Validator"
+
+msgid "Usage Instructions"
+msgstr "Instructions d’utilisation"
+
+msgid "Add the email validator to any page using the shortcode:"
+msgstr "Ajoutez le validateur par shortcode :"
+
+msgid "Integrated Forms"
+msgstr "Formulaires pris en charge"
+
+msgid "Contact Form 7"
+msgstr "Contact Form 7"
+
+msgid "WooCommerce checkout"
+msgstr "Paiement WooCommerce"
+
+msgid "WordPress registration"
+msgstr "Inscription WordPress"
+
+msgid "API Connection"
+msgstr "Connexion à l’API"
+
+msgid "This plugin talks to the <strong>%s</strong>."
+msgstr "Ce plugin communique avec <strong>%s</strong>."
+
+msgid "ZBounce Email Engine Platform API"
+msgstr "API de ZBounce Email Engine Platform"
+
+msgid "Leave your API key blank to use the free demo endpoint, or get your production key at zbounce.net."
+msgstr "Laissez la clé vide pour la démo, ou récupérez-la sur zbounce.net."
+
+msgid "Powered by ZBounce Email Engine Platform — professional email verification & bulk sending."
+msgstr "Propulsé par ZBounce Email Engine Platform — vérification pro & envoi en masse."
+
+msgid "Save Settings"
+msgstr "Enregistrer les paramètres"
+
+msgid "Leave all checked to validate all forms. Uncheck to disable validation for a specific form."
+msgstr "Laissez tout coché pour valider tous les formulaires. Décochez pour désactiver la validation d’un formulaire spécifique."

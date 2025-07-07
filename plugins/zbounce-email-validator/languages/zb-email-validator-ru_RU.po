@@ -1,0 +1,156 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ZBounce Email Validator 1.1.0\n"
+"Report-Msgid-Bugs-To: https://zbounce.net\n"
+"POT-Creation-Date: 2025-07-06 18:11+0000\n"
+"PO-Revision-Date: 2025-07-06 00:00+0000\n"
+"Last-Translator: Ваше Имя <you@example.com>\n"
+"Language-Team: Russian <ru@example.com>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Section titles & fields
+msgid "API Configuration"
+msgstr "Конфигурация API"
+
+msgid "API Key (Pro Version)"
+msgstr "Ключ API (про версия)"
+
+msgid "Leave empty to use the free demo endpoint"
+msgstr "Оставьте пустым для демо-режима"
+
+msgid "Cache Duration"
+msgstr "Длительность кэша"
+
+msgid "hours"
+msgstr "часов"
+
+msgid "Cache storage duration (hours)"
+msgstr "Время хранения кэша (в часах)"
+
+msgid "Enable Debug Logging"
+msgstr "Включить отладочное логирование"
+
+msgid "Enable logging to PHP error_log"
+msgstr "Включить запись логов в PHP error_log"
+
+msgid "Debug logs are written to PHP error_log"
+msgstr "Логи отладки записываются в PHP error_log"
+
+msgid "To write logs into wp-content/debug.log, add these lines to your wp-config.php:"
+msgstr "Чтобы писать логи в wp-content/debug.log, добавьте в wp-config.php:"
+
+#. Advanced Integrations section
+msgid "Advanced Integrations"
+msgstr "Расширенные интеграции"
+
+msgid "Gravity Forms to Validate"
+msgstr "Gravity Forms для проверки"
+
+msgid "Gravity Forms not detected."
+msgstr "Gravity Forms не обнаружен."
+
+msgid "Select Gravity Forms by ID"
+msgstr "Выберите Gravity Forms по ID"
+
+msgid "WPForms to Validate"
+msgstr "WPForms для проверки"
+
+msgid "WPForms not detected."
+msgstr "WPForms не обнаружен."
+
+msgid "Select WPForms by ID"
+msgstr "Выберите WPForms по ID"
+
+msgid "Ninja Forms to Validate"
+msgstr "Ninja Forms для проверки"
+
+msgid "Ninja Forms not detected."
+msgstr "Ninja Forms не обнаружен."
+
+msgid "Select Ninja Forms by ID"
+msgstr "Выберите Ninja Forms по ID"
+
+#. Shortcode UI
+msgid "Enter email address"
+msgstr "Введите адрес электронной почты"
+
+msgid "Validate"
+msgstr "Проверить"
+
+msgid "Results for: %s"
+msgstr "Результаты для: %s"
+
+msgid "Email Format:"
+msgstr "Формат Email:"
+
+msgid "Mailbox Exists:"
+msgstr "Почта существует:"
+
+msgid "Disposable:"
+msgstr "Одноразовый:"
+
+msgid "Accepts All:"
+msgstr "Принимает все:"
+
+#. AJAX error messages
+msgid "Invalid email format"
+msgstr "Неверный формат email"
+
+msgid "Disposable emails are not allowed"
+msgstr "Одноразовые email не разрешены"
+
+msgid "Email address does not exist"
+msgstr "Адрес электронной почты не существует"
+
+#. Localized JS strings
+msgid "Invalid email format – powered by ZBounce Email API"
+msgstr "Неверный формат email – от ZBounce Email API"
+
+msgid "Validation error – powered by ZBounce Email API"
+msgstr "Ошибка валидации – от ZBounce Email API"
+
+#. Settings page template
+msgid "ZBounce Email Validator Settings"
+msgstr "Настройки ZBounce Email Validator"
+
+msgid "Usage Instructions"
+msgstr "Инструкции по использованию"
+
+msgid "Add the email validator to any page using the shortcode:"
+msgstr "Добавьте валидатор email на страницу шорткодом:"
+
+msgid "Integrated Forms"
+msgstr "Поддерживаемые формы"
+
+msgid "Contact Form 7"
+msgstr "Contact Form 7"
+
+msgid "WooCommerce checkout"
+msgstr "Оформление заказа WooCommerce"
+
+msgid "WordPress registration"
+msgstr "Регистрация WordPress"
+
+msgid "API Connection"
+msgstr "Соединение с API"
+
+msgid "This plugin talks to the <strong>%s</strong>."
+msgstr "Плагин общается с <strong>%s</strong>."
+
+msgid "ZBounce Email Engine Platform API"
+msgstr "API платформы ZBounce Email Engine"
+
+msgid "Leave your API key blank to use the free demo endpoint, or get your production key at zbounce.net."
+msgstr "Оставьте ключ API пустым для демо или получите рабочий ключ на zbounce.net."
+
+msgid "Powered by ZBounce Email Engine Platform — professional email verification & bulk sending."
+msgstr "Работает на ZBounce Email Engine Platform — профессиональная проверка и массовая рассылка."
+
+msgid "Save Settings"
+msgstr "Сохранить настройки"
+
+msgid "Leave all checked to validate all forms. Uncheck to disable validation for a specific form."
+msgstr "Оставьте все отмеченными, чтобы проверить все формы. Снимите отметку, чтобы отключить проверку конкретной формы."

@@ -1,0 +1,157 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ZBounce Email Validator 1.1.0\n"
+"Report-Msgid-Bugs-To: https://zbounce.net\n"
+"POT-Creation-Date: 2025-07-06 18:11+0000\n"
+"PO-Revision-Date: 2025-07-07 00:00+0000\n"
+"Last-Translator: 您的姓名 <you@example.com>\n"
+"Language-Team: Chinese (Simplified) <zh_CN@example.com>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. Section titles & fields
+msgid "API Configuration"
+msgstr "API 配置"
+
+msgid "API Key (Pro Version)"
+msgstr "API 密钥（专业版）"
+
+msgid "Leave empty to use the free demo endpoint"
+msgstr "留空以使用免费演示端点"
+
+msgid "Cache Duration"
+msgstr "缓存时长"
+
+msgid "hours"
+msgstr "小时"
+
+msgid "Cache storage duration (hours)"
+msgstr "缓存存储时长（小时）"
+
+msgid "Enable Debug Logging"
+msgstr "启用调试日志"
+
+msgid "Enable logging to PHP error_log"
+msgstr "启用记录到 PHP error_log"
+
+msgid "Debug logs are written to PHP error_log"
+msgstr "调试日志将写入 PHP error_log"
+
+msgid "To write logs into wp-content/debug.log, add these lines to your wp-config.php:"
+msgstr "要将日志写入 wp-content/debug.log，请将以下行添加到您的 wp-config.php："
+
+#. Advanced Integrations section
+msgid "Advanced Integrations"
+msgstr "高级集成"
+
+msgid "Gravity Forms to Validate"
+msgstr "要验证的 Gravity Forms"
+
+msgid "Gravity Forms not detected."
+msgstr "未检测到 Gravity Forms。"
+
+msgid "Select Gravity Forms by ID"
+msgstr "按 ID 选择 Gravity Forms"
+
+msgid "WPForms to Validate"
+msgstr "要验证的 WPForms"
+
+msgid "WPForms not detected."
+msgstr "未检测到 WPForms。"
+
+msgid "Select WPForms by ID"
+msgstr "按 ID 选择 WPForms"
+
+msgid "Ninja Forms to Validate"
+msgstr "要验证的 Ninja Forms"
+
+msgid "Ninja Forms not detected."
+msgstr "未检测到 Ninja Forms。"
+
+msgid "Select Ninja Forms by ID"
+msgstr "按 ID 选择 Ninja Forms"
+
+#. Shortcode UI
+msgid "Enter email address"
+msgstr "输入电子邮件地址"
+
+msgid "Validate"
+msgstr "验证"
+
+msgid "Results for: %s"
+msgstr "结果：%s"
+
+msgid "Email Format:"
+msgstr "电子邮件格式："
+
+msgid "Mailbox Exists:"
+msgstr "邮箱存在："
+
+msgid "Disposable:"
+msgstr "一次性邮箱："
+
+msgid "Accepts All:"
+msgstr "接受所有："
+
+#. AJAX error messages
+msgid "Invalid email format"
+msgstr "无效的电子邮件格式"
+
+msgid "Disposable emails are not allowed"
+msgstr "不允许使用一次性电子邮件"
+
+msgid "Email address does not exist"
+msgstr "电子邮件地址不存在"
+
+#. Localized JS strings
+msgid "Invalid email format – powered by ZBounce Email API"
+msgstr "无效的电子邮件格式 – 由 ZBounce Email API 提供"
+
+msgid "Validation error – powered by ZBounce Email API"
+msgstr "验证错误 – 由 ZBounce Email API 提供"
+
+#. Settings page template
+msgid "ZBounce Email Validator Settings"
+msgstr "ZBounce 电子邮件验证器 设置"
+
+msgid "Usage Instructions"
+msgstr "使用说明"
+
+msgid "Add the email validator to any page using the shortcode:"
+msgstr "使用短代码将电子邮件验证器添加到任意页面："
+
+msgid "Integrated Forms"
+msgstr "集成表单"
+
+msgid "Contact Form 7"
+msgstr "Contact Form 7"
+
+msgid "WooCommerce checkout"
+msgstr "WooCommerce 结账"
+
+msgid "WordPress registration"
+msgstr "WordPress 注册"
+
+msgid "API Connection"
+msgstr "API 连接"
+
+msgid "This plugin talks to the <strong>%s</strong>."
+msgstr "此插件与 <strong>%s</strong> 通信。"
+
+msgid "ZBounce Email Engine Platform API"
+msgstr "ZBounce 电子邮件引擎平台 API"
+
+msgid "Leave your API key blank to use the free demo endpoint, or get your production key at zbounce.net."
+msgstr "留空 API 密钥以使用免费演示端点，或在 zbounce.net 获取生产密钥。"
+
+msgid "Powered by ZBounce Email Engine Platform — professional email verification & bulk sending."
+msgstr "由 ZBounce 电子邮件引擎平台 提供支持 — 专业的电子邮件验证 & 批量发送。"
+
+msgid "Save Settings"
+msgstr "保存设置"
+
+msgid "Leave all checked to validate all forms. Uncheck to disable validation for a specific form."
+msgstr "保持全部选中以验证所有表单。取消选中以禁用特定表单的验证。"

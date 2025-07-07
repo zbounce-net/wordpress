@@ -3,7 +3,7 @@
  * Plugin Name: ZBounce Email Engine Platform Validator
  * Plugin URI:  https://zbounce.net
  * Description: Integrates your site with the ZBounce Email Engine Platform API for real-time email validation.
- * Version:     1.0.0
+ * Version:     1.1.0
  * Author:      ZBounce.net
  * Author URI:  https://zbounce.net
  * License:     GPLv2 or later
@@ -19,13 +19,20 @@
 
 defined( 'ABSPATH' ) || exit;
 
-// Plugin constants
 define( 'ZB_EVAL_VERSION', '2.0.0' );
 define( 'ZB_EVAL_PATH',    plugin_dir_path( __FILE__ ) );
 define( 'ZB_EVAL_URL',     plugin_dir_url( __FILE__ ) );
 define( 'ZB_EVAL_API_BASE','https://api.zbounce.net' );
 
-// Autoloader
+// Load translations
+add_action( 'plugins_loaded', function() {
+    load_plugin_textdomain(
+        'zb-email-validator',
+        false,
+        dirname( plugin_basename( __FILE__ ) ) . '/languages/'
+    );
+}, 1 );
+
 spl_autoload_register( function ( $class ) {
     $prefix  = 'ZbEmailValidator\\';
     $baseDir = ZB_EVAL_PATH . 'includes/';
@@ -42,9 +49,7 @@ spl_autoload_register( function ( $class ) {
     }
 } );
 
-// Activation / Deactivation
 register_activation_hook( __FILE__,   ['ZbEmailValidator\\Core', 'activate'] );
 register_deactivation_hook( __FILE__, ['ZbEmailValidator\\Core', 'deactivate'] );
 
-// Initialize plugin
 add_action( 'plugins_loaded', ['ZbEmailValidator\\Core', 'init'] );
