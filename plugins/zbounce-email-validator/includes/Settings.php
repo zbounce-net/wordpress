@@ -9,6 +9,7 @@ class Settings {
         'api_key'        => '',
         'cache_duration' => 24,
         'enable_logging' => false,
+        'api_key_expired'=> false,
 
         'cf7_forms'      => [],    // Contact Form 7 IDs
         'wc_enable'      => true,  // WooCommerce checkout

@@ -30,6 +30,7 @@ class Core {
         // В админке добавляем пункт меню
         if ( is_admin() ) {
             add_action( 'admin_menu', [ __CLASS__, 'add_admin_menu' ] );
+            add_action( 'admin_notices', [ __CLASS__, 'maybe_show_expired_notice' ] );
         }
     }
 
@@ -83,6 +84,14 @@ class Core {
 
     public static function render_settings_page() {
         require ZB_EVAL_PATH . 'templates/settings-page.php';
+    }
+    public static function maybe_show_expired_notice() {
+        $s = Settings::get_settings();
+        if ( ! empty( $s['api_key_expired'] ) ) {
+            echo '<div class="notice notice-error"><p>'
+                . esc_html__( 'Your ZBounce API key is invalid or expired. The plugin is running in demo mode. Please enter a new key in settings.', 'zb-email-validator' )
+            . '</p></div>';
+        }
     }
 }
 

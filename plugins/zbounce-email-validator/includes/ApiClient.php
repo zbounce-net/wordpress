@@ -47,7 +47,6 @@ class ApiClient {
         Logger::log("Using DEMO demo_verify for {$email}");
         return self::demo_verify($email);
     }
-
     private static function fast_verify(string $email): ?array {
         Logger::log("fast_verify POST /v1/fast-verify body=" . wp_json_encode(['email'=>$email]));
         $s = Settings::get_settings();
@@ -64,14 +63,26 @@ class ApiClient {
         );
         if (is_wp_error($resp)) {
             Logger::log("fast_verify WP_Error: " . $resp->get_error_message());
-            return null;
+            return ['email'=>$email,'valid'=>true]; // пропускаем email
         }
-        $code = wp_remote_retrieve_response_code($resp);
-        $body = wp_remote_retrieve_body($resp);
-        Logger::log("fast_verify response code={$code}, body={$body}");
+           $code = wp_remote_retrieve_response_code($resp);
+            $body = wp_remote_retrieve_body($resp);
+            Logger::log("fast_verify response code={$code}, body={$body}");
+
+            if ($code === 403) {
+                Logger::log("API key expired, switching to demo endpoint");
+                $settings = $s;
+                $settings['api_key_expired'] = true;
+                update_option(Settings::OPTION_KEY, $settings);
+                $demo = self::demo_verify($email);
+                return $demo ?: ['email'=>$email,'valid'=>true];
+        }
+
         if ($code !== 200) {
-            return null;
+                        Logger::log("fast_verify error code={$code}, skipping validation");
+                        return ['email'=>$email,'valid'=>true]; // пропускаем email
         }
+
         return self::normalize_pro_result(json_decode($body, true));
     }
 
