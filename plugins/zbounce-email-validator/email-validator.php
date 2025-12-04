@@ -3,7 +3,7 @@
  * Plugin Name: ZBounce Email Engine Platform Validator
  * Plugin URI:  https://zbounce.net
  * Description: Integrates your site with the ZBounce Email Engine Platform API for real-time email validation.
- * Version:     1.1.0
+ * Version:     1.1.1
  * Author:      ZBounce.net
  * Author URI:  https://zbounce.net
  * License:     GPLv2 or later
