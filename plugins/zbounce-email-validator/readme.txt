@@ -17,7 +17,7 @@ The plugin is free and open source. External verification requires a paid ZBounc
 
 API use requires a saved key and accepted service agreement. Automatic form checks are separately disabled until explicitly enabled. The plugin does not use the public demo endpoint or fall back to a free service when a key fails.
 
-The plugin rejects addresses reported by the API as invalid, disposable, or having no mailbox. Catch-all and undecided mailbox results are not automatically rejected. Verification cannot guarantee delivery or prevent every spam submission; use it alongside your existing form protections.
+By default, the plugin rejects addresses reported by the API as invalid, disposable, or having no mailbox. Catch-all and undecided mailbox results are not automatically rejected. Verification cannot guarantee delivery or prevent every spam submission; use it alongside your existing form protections.
 
 Integrations:
 * Contact Form 7.
@@ -44,6 +44,7 @@ The API key is stored in WordPress options. Cached results, including checked em
 Site owners are responsible for informing their visitors about this external processing. Review the service policies before enabling checks:
 * Terms of service: https://zbounce.net/terms.html
 * Privacy policy: https://zbounce.net/privacy.html
+* Service license agreement: https://zbounce.net/license.html
 
 == Installation ==
 
@@ -112,6 +113,9 @@ Yes. PHP, JavaScript and CSS are supplied as readable source. Compiled translati
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.2.4 =
+Save your API key and accept the service agreement to use the manual tester and balance. Automatic form verification remains a separate opt-in switch.
 
 = 1.2.0 =
 External checks now require your purchased API key and explicit enablement in Settings. Demo fallback is removed. Review the external service disclosure before enabling checks.

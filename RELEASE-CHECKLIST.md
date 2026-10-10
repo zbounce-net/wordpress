@@ -33,3 +33,11 @@ A saved key and service license acceptance enable the administrator balance and 
 Verification on a separate isolated Docker project on pi: 105 PHP assertions, Chrome manual fresh/cache/bypass and balance with automatic checks off, invalid nonce/anonymous rejection, paused selected integrations with a cached negative result, guest/subscriber and revoked-consent guards. Plugin Check: zero errors, existing four warnings. PHP 7.4 syntax checks passed.
 
 Русский: ключ и принятие соглашения открывают баланс и ручной тестер. Отдельный переключатель включает только автоматические проверки форм. При выключенных автоматических проверках даже отрицательный результат из кеша не блокирует формы. Исправление проверено на отдельном временном Docker-стенде на pi; настройки и настоящий ключ пользователя при тестах не менялись.
+
+## 1.2.4 release distribution
+
+English/Russian manuals now cover setup, policies, integrations, upgrade/rollback, plugin data handling, security reporting and WordPress.org submission. The installer readme explicitly links the service license and explains the default result policy and independent manual tools.
+
+`python3 tools/package_release.py` checks source/POT/catalog parity, rejects untranslated or fuzzy entries, checks gettext formats and compiles all five catalogs (109 messages each). It builds the 27-file installer, tracked development-source archive and bilingual documentation bundle. Two consecutive builds produced identical ZIP hashes. ZIP integrity, manifest hashes, runtime allowlist and readme size (<10,000 bytes) passed. GNU gettext emits a nonfatal advisory about an existing embedded agreement URL. The prior runtime validation and four Plugin Check warnings remain documented; no WordPress.org approval or submission is claimed.
+
+Русский: полный комплект содержит установочный ZIP, исходники с инструментами сборки и тестами, русскую и английскую документацию, GPL, манифест и SHA-256. Проверены пять переводов по 109 сообщений, воспроизводимость сборки, целостность архивов и контрольные суммы. Установочный архив отделён от документации и тестового окружения. Подача в каталог не выполнялась.
