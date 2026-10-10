@@ -95,12 +95,10 @@ class ApiClient {
         ] );
         delete_transient( 'zb_balance_' . hash( 'sha256', $s['api_key'] ) );
         if ( is_wp_error( $resp ) ) {
-            Logger::log( 'Verification connection failed.' );
             return null;
         }
         $code = wp_remote_retrieve_response_code( $resp );
         if ( 200 !== $code ) {
-            Logger::log( 'Verification failed; HTTP status ' . intval( $code ) . '.' );
             return null;
         }
         $data = json_decode( wp_remote_retrieve_body( $resp ), true );

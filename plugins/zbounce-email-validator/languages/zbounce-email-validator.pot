@@ -6,7 +6,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: ZBounce Email Validator 1.2.4\n"
+"Project-Id-Version: ZBounce Email Validator 1.2.5\n"
 "Report-Msgid-Bugs-To: https://zbounce.net\n"
 "POT-Creation-Date: 2026-10-10 11:38+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -157,10 +157,6 @@ msgstr ""
 msgid "Cache Duration"
 msgstr ""
 
-#: plugins/zbounce-email-validator/includes/Settings.php:59
-msgid "Enable Debug Logging"
-msgstr ""
-
 #: plugins/zbounce-email-validator/includes/Settings.php:67
 msgid "Automatic form verification"
 msgstr ""
@@ -213,20 +209,6 @@ msgstr ""
 
 #: plugins/zbounce-email-validator/includes/Settings.php:149
 msgid "Cache storage duration (hours)"
-msgstr ""
-
-#: plugins/zbounce-email-validator/includes/Settings.php:161
-msgid "Enable logging to PHP error_log"
-msgstr ""
-
-#: plugins/zbounce-email-validator/includes/Settings.php:164
-msgid "Debug logs are written to PHP error_log"
-msgstr ""
-
-#: plugins/zbounce-email-validator/includes/Settings.php:170
-msgid ""
-"To write logs into wp-content/debug.log, add these lines to your wp-"
-"config.php:"
 msgstr ""
 
 #: plugins/zbounce-email-validator/includes/Settings.php:208
@@ -464,11 +446,11 @@ msgstr ""
 #: plugins/zbounce-email-validator/templates/settings-page.php:43
 msgid ""
 "During a manual or enabled automatic check, the plugin sends the email "
-"address being checked and your API key to https://api.zbounce.net/v1/fast-"
-"verify over HTTPS. Checking the connection sends your key to /v1/me without "
-"an email address. ZBounce also receives the network address of your "
-"WordPress server. Other form fields, passwords, names and payment details "
-"are not included by this plugin."
+"address being checked and your API key to the ZBounce verification API over "
+"HTTPS. Checking the connection sends your key to /v1/me without an email "
+"address. ZBounce also receives the network address of your WordPress server."
+" Other form fields, passwords, names and payment details are not included by"
+" this plugin."
 msgstr ""
 
 #: plugins/zbounce-email-validator/templates/settings-page.php:44

@@ -4,7 +4,6 @@ namespace ZbEmailValidator;
 defined( 'ABSPATH' ) || exit;
 
 use ZbEmailValidator\Settings;
-use ZbEmailValidator\Logger;
 use ZbEmailValidator\ApiClient;
 use ZbEmailValidator\Validator;
 use ZbEmailValidator\Assets;
@@ -36,7 +35,6 @@ class Core {
                 'api_key'        => '',
                 'service_enabled'=> false,
                 'cache_duration' => 24,
-                'enable_logging' => false,
                 'cf7_forms'      => [],
                 'wc_enable'      => true,
                 'reg_enable'     => true,

@@ -1,7 +1,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ZBounce Email Validator 1.2.4\n"
+"Project-Id-Version: ZBounce Email Validator 1.2.5\n"
 "Report-Msgid-Bugs-To: https://zbounce.net\n"
 "POT-Creation-Date: 2026-10-10 11:38+0300\n"
 "PO-Revision-Date: 2026-10-10 00:00+0000\n"
@@ -114,9 +114,6 @@ msgstr "购买后获得的 ZBounce API 密钥"
 msgid "Cache Duration"
 msgstr "缓存时长"
 
-msgid "Enable Debug Logging"
-msgstr "启用调试日志"
-
 msgid "Automatic form verification"
 msgstr "表单自动验证"
 
@@ -157,17 +154,6 @@ msgstr "小时"
 
 msgid "Cache storage duration (hours)"
 msgstr "缓存存储时长（小时）"
-
-msgid "Enable logging to PHP error_log"
-msgstr "启用记录到 PHP error_log"
-
-msgid "Debug logs are written to PHP error_log"
-msgstr "调试日志将写入 PHP error_log"
-
-msgid ""
-"To write logs into wp-content/debug.log, add these lines to your wp-"
-"config.php:"
-msgstr "要将日志写入 wp-content/debug.log，请将以下行添加到您的 wp-config.php："
 
 msgid "Contact Form 7 not detected."
 msgstr "未检测到 Contact Form 7。"
@@ -348,15 +334,14 @@ msgstr "外部服务与隐私"
 
 msgid ""
 "During a manual or enabled automatic check, the plugin sends the email "
-"address being checked and your API key to https://api.zbounce.net/v1/fast-"
-"verify over HTTPS. Checking the connection sends your key to /v1/me without "
-"an email address. ZBounce also receives the network address of your "
-"WordPress server. Other form fields, passwords, names and payment details "
-"are not included by this plugin."
+"address being checked and your API key to the ZBounce verification API over "
+"HTTPS. Checking the connection sends your key to /v1/me without an email "
+"address. ZBounce also receives the network address of your WordPress server."
+" Other form fields, passwords, names and payment details are not included by"
+" this plugin."
 msgstr ""
-"手动验证或已启用的自动验证会通过 HTTPS 将邮箱地址和 API 密钥发送至 https://api.zbounce.net/v1/fast-"
-"verify。连接检查仅将密钥发送至 /v1/me，不包含邮箱地址。ZBounce 还会接收 WordPress "
-"服务器的网络地址。插件不会发送其他表单字段、密码、姓名或付款信息。"
+"手动验证或已启用的自动验证会通过 HTTPS 将邮箱地址和 API 密钥发送至 ZBounce API。连接检查仅将密钥发送至 "
+"/v1/me，不包含邮箱地址。ZBounce 还会接收 WordPress 服务器的网络地址。插件不会发送其他表单字段、密码、姓名或付款信息。"
 
 msgid "Privacy policy"
 msgstr "隐私政策"

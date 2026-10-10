@@ -13,6 +13,6 @@ The key is stored in WordPress options. Local cache contains checked addresses a
 Service policies: https://zbounce.net/privacy.html, https://zbounce.net/terms.html and https://zbounce.net/license.html. Site owners must explain their own processing to visitors. Installing this plugin does not itself establish regulatory compliance.
 
 ## Security and reporting
-Administrative API actions require `manage_options` and a valid nonce. Public forms use enabled integrations; the standalone tester is administrator-only. API keys stay on the server. Inputs are sanitized, rendered values escaped and browser results inserted as text. Optional debug logs omit keys, email addresses and response bodies.
+Administrative API actions require `manage_options` and a valid nonce. Public forms use enabled integrations; the standalone tester is administrator-only. API keys stay on the server. Inputs are sanitized, rendered values escaped and browser results inserted as text. The plugin does not write its own diagnostic logs.
 
 Use HTTPS, keep WordPress and integrations updated, restrict administrative and database access, and protect backups. Report suspected vulnerabilities privately to support@zbounce.net with reproduction details and versions. Remove credentials and personal data from reports. Never install the test stand's mock MU-plugin on a production site.

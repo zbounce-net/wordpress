@@ -11,7 +11,6 @@ class Settings {
         'api_key'        => '',
         'cache_duration' => 24,
         'allowed_statuses' => [ 'valid', 'risky', 'unknown', 'unavailable' ],
-        'enable_logging' => false,
         'service_enabled'=> false,
         'license_accepted' => false,
         'license_accepted_at' => 0,
@@ -54,14 +53,6 @@ class Settings {
             'zbounce-email-validator',
             'api_settings'
         );
-        add_settings_field(
-            'enable_logging',
-            __( 'Enable Debug Logging', 'zbounce-email-validator' ),
-            [ __CLASS__, 'render_logging_field' ],
-            'zbounce-email-validator',
-            'api_settings'
-        );
-
         add_settings_field(
             'service_enabled',
             __( 'Automatic form verification', 'zbounce-email-validator' ),
@@ -149,35 +140,6 @@ class Settings {
             <?php esc_html_e( 'Cache storage duration (hours)', 'zbounce-email-validator' ); ?>
         </p>
         <?php
-    }
-
-    public static function render_logging_field() {
-        $s  = self::get_settings();
-        $on = ! empty( $s['enable_logging'] );
-        ?>
-        <label>
-            <input type="checkbox" name="<?php echo esc_attr( self::OPTION_KEY ); ?>[enable_logging]"
-                   value="1" <?php checked( $on, true ); ?>>
-            <?php esc_html_e( 'Enable logging to PHP error_log', 'zbounce-email-validator' ); ?>
-        </label>
-        <p class="description">
-            <?php esc_html_e( 'Debug logs are written to PHP error_log', 'zbounce-email-validator' ); ?>
-        </p>
-        <?php if ( $on ): ?>
-            <div style="margin-top:10px;padding:10px;background:#fffbe6;border-left:4px solid #ffba00;">
-                <strong>
-                    <?php esc_html_e(
-                        'To write logs into wp-content/debug.log, add these lines to your wp-config.php:',
-                        'zbounce-email-validator'
-                    ); ?>
-                </strong>
-                <pre style="background:#f6f8fa;padding:8px;border:1px solid #ddd;border-radius:4px;">
-define('WP_DEBUG', true);
-define('WP_DEBUG_LOG', true);
-define('WP_DEBUG_DISPLAY', false);
-                </pre>
-            </div>
-        <?php endif;
     }
 
     public static function render_cf7_forms_field() {
@@ -284,11 +246,6 @@ define('WP_DEBUG_DISPLAY', false);
         echo '<p class="description">' . esc_html__( 'Select WPForms by ID', 'zbounce-email-validator' ) . '</p>';
     }
 
-    public static function is_logging_enabled(): bool {
-        $s = self::get_settings();
-        return ! empty( $s['enable_logging'] );
-    }
-
     public static function is_api_configured(): bool {
         $settings = self::get_settings();
         return ! empty( $settings['license_accepted'] ) && '' !== trim( $settings['api_key'] );
@@ -312,7 +269,7 @@ define('WP_DEBUG_DISPLAY', false);
         $clean = self::DEFAULT_SETTINGS;
         $clean['api_key'] = isset( $input['api_key'] ) && is_string( $input['api_key'] ) ? sanitize_text_field( $input['api_key'] ) : '';
         $clean['cache_duration'] = max( 1, min( 168, absint( $input['cache_duration'] ?? 24 ) ) );
-        foreach ( [ 'service_enabled', 'enable_logging', 'wc_enable', 'reg_enable' ] as $field ) {
+        foreach ( [ 'service_enabled', 'wc_enable', 'reg_enable' ] as $field ) {
             $clean[ $field ] = ! empty( $input[ $field ] );
         }
         foreach ( [ 'cf7_forms', 'gf_forms', 'wpf_forms', 'nf_forms' ] as $field ) {

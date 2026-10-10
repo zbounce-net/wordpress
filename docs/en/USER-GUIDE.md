@@ -1,7 +1,7 @@
-# ZBounce Email Validator 1.2.4
+# ZBounce Email Validator 1.2.5
 
 ## Installation and setup
-Requires WordPress 5.0 or newer and PHP 7.4 or newer. Install `zbounce-email-validator-1.2.4.zip` through Plugins → Add New → Upload Plugin, then activate it. The complete release archive is not an installable plugin.
+Requires WordPress 5.0 or newer and PHP 7.4 or newer. Install `zbounce-email-validator-1.2.5.zip` through Plugins → Add New → Upload Plugin, then activate it. The complete release archive is not an installable plugin.
 
 Open Settings → ZBounce Email. Purchase verification credits at https://zbounce.net/pricing.html, save your API key and accept the service agreement at https://zbounce.net/license.html. The plugin source is GPLv2-or-later; the external service has separate terms. No verification credits or API key are included in the download.
 
@@ -29,7 +29,7 @@ Use the settings checkboxes to choose your policy. Independent form syntax check
 ## Integrations and languages
 Supports Contact Form 7, WordPress registration, WooCommerce classic checkout and Checkout Block, and selected Gravity Forms, WPForms and Ninja Forms forms. Checkout Block verification runs on the order-submission POST before payment; draft GET/PUT/PATCH calls do not spend credits. Test the actual forms used on your site. The `[zb_email_validator]` shortcode is an administrator-only tester, not a public credit-consuming widget.
 
-English is the source language. Bundled translations: Russian, German, French, Ukrainian and Simplified Chinese. WordPress chooses the locale from its site/user language settings. Each catalog contains all 109 current source messages.
+English is the source language. Bundled translations: Russian, German, French, Ukrainian and Simplified Chinese. WordPress chooses the locale from its site/user language settings. Each catalog contains all 105 current source messages.
 
 ## Troubleshooting and support
 Disabled controls: save a nonempty key and accept the agreement. Connection errors: check the key, credits, server HTTPS connectivity and service availability. Unexpected allowed/rejected results: inspect the accepted-status policy and the form's own validation. Avoid bypassing cache repeatedly when testing a real key.

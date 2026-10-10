@@ -3,7 +3,7 @@
  * Plugin Name: ZBounce Email Validator
  * Plugin URI:  https://zbounce.net
  * Description: Checks form email addresses through the ZBounce service using your purchased API key.
- * Version:     1.2.4
+ * Version:     1.2.5
  * Author:      ZBounce.net
  * Author URI:  https://zbounce.net
  * License:     GPLv2 or later
@@ -19,19 +19,10 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'ZB_EVAL_VERSION', '1.2.4' );
+define( 'ZB_EVAL_VERSION', '1.2.5' );
 define( 'ZB_EVAL_PATH',    plugin_dir_path( __FILE__ ) );
 define( 'ZB_EVAL_URL',     plugin_dir_url( __FILE__ ) );
 define( 'ZB_EVAL_API_BASE','https://api.zbounce.net' );
-
-// Load translations
-add_action( 'plugins_loaded', function() {
-    load_plugin_textdomain(
-        'zbounce-email-validator',
-        false,
-        dirname( plugin_basename( __FILE__ ) ) . '/languages/'
-    );
-}, 1 );
 
 spl_autoload_register( function ( $class ) {
     $prefix  = 'ZbEmailValidator\\';
@@ -53,6 +44,7 @@ register_activation_hook( __FILE__,   ['ZbEmailValidator\\Core', 'activate'] );
 register_deactivation_hook( __FILE__, ['ZbEmailValidator\\Core', 'deactivate'] );
 
 add_action( 'plugins_loaded', ['ZbEmailValidator\\Core', 'init'] );
+add_action( 'init', ['ZbEmailValidator\\Translations', 'register'], 0 );
 
 add_action( 'before_woocommerce_init', function() {
     if ( class_exists( '\\Automattic\\WooCommerce\\Utilities\\FeaturesUtil' ) ) {

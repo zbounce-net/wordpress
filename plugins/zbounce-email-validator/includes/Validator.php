@@ -4,7 +4,6 @@ namespace ZbEmailValidator;
 defined( 'ABSPATH' ) || exit;
 
 use ZbEmailValidator\Settings;
-use ZbEmailValidator\Logger;
 use WPCF7_ContactForm;
 
 class Validator {

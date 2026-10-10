@@ -13,11 +13,13 @@
             <?php submit_button( __( 'Check connection and balance', 'zbounce-email-validator' ), 'secondary', 'submit', true, \ZbEmailValidator\Settings::is_api_configured() ? [] : [ 'disabled' => 'disabled' ] ); ?>
         </form>
         <?php
-        $zbounce_email_validator_connection = get_transient( 'zb_connection_' . get_current_user_id() );
-        if ( is_array( $zbounce_email_validator_connection ) ) {
-            echo '<p role="status">' . esc_html( $zbounce_email_validator_connection['message'] ) . '</p>';
-            delete_transient( 'zb_connection_' . get_current_user_id() );
-        }
+        ( static function (): void {
+            $zb_email_validator_connection = get_transient( 'zb_connection_' . get_current_user_id() );
+            if ( is_array( $zb_email_validator_connection ) ) {
+                echo '<p role="status">' . esc_html( $zb_email_validator_connection['message'] ) . '</p>';
+                delete_transient( 'zb_connection_' . get_current_user_id() );
+            }
+        } )();
         ?>
         <?php if ( \ZbEmailValidator\Settings::is_api_configured() && ! \ZbEmailValidator\Settings::is_verification_enabled() ) : ?>
             <p><?php esc_html_e( 'Automatic form verification is off. The balance and manual tester remain available.', 'zbounce-email-validator' ); ?></p>
@@ -40,7 +42,7 @@
     </form>
     <div class="zb-settings-info">
         <h2><?php esc_html_e( 'External service and privacy', 'zbounce-email-validator' ); ?></h2>
-        <p><?php esc_html_e( 'During a manual or enabled automatic check, the plugin sends the email address being checked and your API key to https://api.zbounce.net/v1/fast-verify over HTTPS. Checking the connection sends your key to /v1/me without an email address. ZBounce also receives the network address of your WordPress server. Other form fields, passwords, names and payment details are not included by this plugin.', 'zbounce-email-validator' ); ?></p>
+        <p><?php esc_html_e( 'During a manual or enabled automatic check, the plugin sends the email address being checked and your API key to the ZBounce verification API over HTTPS. Checking the connection sends your key to /v1/me without an email address. ZBounce also receives the network address of your WordPress server. Other form fields, passwords, names and payment details are not included by this plugin.', 'zbounce-email-validator' ); ?></p>
         <p><a href="<?php echo esc_url( 'https://zbounce.net/privacy.html' ); ?>"><?php esc_html_e( 'Privacy policy', 'zbounce-email-validator' ); ?></a> · <a href="<?php echo esc_url( 'https://zbounce.net/terms.html' ); ?>"><?php esc_html_e( 'Terms of service', 'zbounce-email-validator' ); ?></a></p>
         <p><?php esc_html_e( 'Verification results, including email addresses, are cached in your WordPress database. Expired results are ignored and removed on later writes. Include this external processing in your own site privacy information.', 'zbounce-email-validator' ); ?></p>
         <h2><?php esc_html_e( 'Using the plugin', 'zbounce-email-validator' ); ?></h2>

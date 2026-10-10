@@ -3,7 +3,7 @@ Tags: email validation, email verification, contact form 7, woocommerce, spam pr
 Requires at least: 5.0
 Requires PHP: 7.4
 Tested up to: 7.1
-Stable tag: 1.2.4
+Stable tag: 1.2.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,7 +39,7 @@ Opening the settings page and the administrator's Check connection and balance b
 
 Requests are made from the WordPress server over HTTPS. The service receives the server's network address and normal HTTP request metadata. The plugin does not include other form fields, names, passwords, payment details or the visitor's IP address in its API payload. API keys are not exposed to frontend JavaScript.
 
-The API key is stored in WordPress options. Cached results, including checked email addresses, are stored in the site's WordPress database. Expired cache entries are ignored on reads and removed during subsequent writes; expiration is not a promise of immediate physical deletion. Optional debug logging records request outcomes without email addresses, keys or response bodies. WordPress personal-data export and erasure tools include this local verification cache. These tools do not request new checks or erase data held by the external service. Deactivation preserves settings and cache; deletion of the plugin removes them.
+The API key is stored in WordPress options. Cached results, including checked email addresses, are stored in the site's WordPress database. Expired cache entries are ignored on reads and removed during subsequent writes; expiration is not a promise of immediate physical deletion. WordPress personal-data export and erasure tools include this local verification cache. These tools do not request new checks or erase data held by the external service. Deactivation preserves settings and cache; deletion of the plugin removes them.
 
 Site owners are responsible for informing their visitors about this external processing. Review the service policies before enabling checks:
 * Terms of service: https://zbounce.net/terms.html
@@ -76,6 +76,11 @@ Uncheck Automatic form verification and save to stop automatic form checks. Remo
 Yes. PHP, JavaScript and CSS are supplied as readable source. Compiled translation MO files have the corresponding PO sources in languages/.
 
 == Changelog ==
+
+= 1.2.5 =
+* Remove developer error logging and its settings.
+* Register bundled translations on init using WordPress lazy loading with a legacy fallback.
+* Limit temporary variables to local scope.
 
 = 1.2.4 =
 * Make admin balance and manual checks available with an accepted agreement and saved key, independently of automatic form verification.
@@ -114,7 +119,7 @@ Yes. PHP, JavaScript and CSS are supplied as readable source. Compiled translati
 
 == Upgrade Notice ==
 
-= 1.2.4 =
+= 1.2.5 =
 Save your API key and accept the service agreement to use the manual tester and balance. Automatic form verification remains a separate opt-in switch.
 
 = 1.2.0 =
