@@ -29,7 +29,7 @@ class Validator {
     }
 
     public static function render_validator( $atts ) {
-        $ready = Settings::is_connected();
+        $ready = Settings::is_api_configured();
         $settings_preview = is_admin() && ! empty( $atts['settings_preview'] );
         if ( ! current_user_can( 'manage_options' ) || ( ! $ready && ! $settings_preview ) ) {
             return '';
@@ -53,7 +53,7 @@ class Validator {
             <div class="zb-status-value" role="status" aria-live="polite" style="display:none;"></div>
             <div class="zb-validation-results" style="display:none;">
                 <p><strong><?php esc_html_e( 'Verification result:', 'zbounce-email-validator' ); ?></strong> <span class="zb-policy-status"></span></p>
-                <p><strong><?php esc_html_e( 'Your policy:', 'zbounce-email-validator' ); ?></strong> <span class="zb-policy-decision"></span></p>
+                <p><strong><?php esc_html_e( 'Result under your form policy:', 'zbounce-email-validator' ); ?></strong> <span class="zb-policy-decision"></span></p>
                 <p><strong><?php esc_html_e( 'Result source:', 'zbounce-email-validator' ); ?></strong> <span class="zb-result-source"></span></p>
                 <h3>
                     <?php printf(
@@ -98,7 +98,7 @@ class Validator {
             'verification_status' => 'unavailable',
         ];
 
-        if ( ! Settings::is_connected() || ! is_email( $email ) ) {
+        if ( ! Settings::is_verification_enabled() || ! is_email( $email ) ) {
             return $defaults;
         }
         $cache_key = md5( $email );
@@ -115,7 +115,7 @@ class Validator {
     }
 
     public static function validation_error( string $email ): string {
-        if ( ! Settings::is_connected() || '' === $email ) { return ''; }
+        if ( ! Settings::is_verification_enabled() || '' === $email ) { return ''; }
         return self::result_error( self::run_sync_validation( $email ) );
     }
 

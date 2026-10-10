@@ -10,7 +10,7 @@ class Assets {
     }
 
     public static function enqueue_frontend_assets( $settings_preview = false ) {
-        if ( ! current_user_can( 'manage_options' ) || ( ! Settings::is_connected() && ! $settings_preview ) ) {
+        if ( ! current_user_can( 'manage_options' ) || ( ! Settings::is_api_configured() && ! $settings_preview ) ) {
             return;
         }
         wp_register_style(

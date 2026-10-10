@@ -15,8 +15,8 @@ class ApiClient {
             wp_die( esc_html__( 'Administrator access required.', 'zbounce-email-validator' ) );
         }
         check_admin_referer( 'zb_check_connection' );
-        $message = __( 'Enable external verification and save your API key first.', 'zbounce-email-validator' );
-        if ( Settings::is_connected() ) {
+        $message = __( 'Accept the agreement and save your API key first.', 'zbounce-email-validator' );
+        if ( Settings::is_api_configured() ) {
             $data = self::get_balance( true );
             $message = __( 'Connection failed. Check your API key and try again.', 'zbounce-email-validator' );
             if ( isset( $data['remaining'] ) ) {
@@ -30,7 +30,7 @@ class ApiClient {
     }
 
     public static function get_balance( bool $refresh = false ): array {
-        if ( ! current_user_can( 'manage_options' ) || ! Settings::is_connected() ) { return []; }
+        if ( ! current_user_can( 'manage_options' ) || ! Settings::is_api_configured() ) { return []; }
         $settings = Settings::get_settings();
         $key = 'zb_balance_' . hash( 'sha256', $settings['api_key'] );
         $cached = get_transient( $key );
@@ -52,22 +52,22 @@ class ApiClient {
         if ( ! current_user_can( 'manage_options' ) ) {
             wp_send_json_error( [ 'message' => __( 'Administrator access required.', 'zbounce-email-validator' ) ], 403 );
         }
-        if ( ! Settings::is_connected() ) {
-            wp_send_json_error( [ 'message' => __( 'Enable ZBounce and enter your purchased API key in Settings first.', 'zbounce-email-validator' ) ], 400 );
+        if ( ! Settings::is_api_configured() ) {
+            wp_send_json_error( [ 'message' => __( 'Accept the agreement and save your purchased API key in Settings first.', 'zbounce-email-validator' ) ], 400 );
         }
         $email = isset( $_POST['email'] ) && is_string( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
         if ( ! is_email( $email ) ) {
             wp_send_json_error( [ 'message' => __( 'Invalid email format', 'zbounce-email-validator' ) ], 400 );
         }
         $use_cache = ! isset( $_POST['use_cache'] ) || '0' !== $_POST['use_cache'];
-        $result = $use_cache ? self::get_cached_result( md5( $email ) ) : false;
+        $result = $use_cache ? self::get_cached_result( md5( $email ), true ) : false;
         $from_cache = (bool) $result;
         if ( ! $result ) {
-            $result = self::sync_verify( $email );
+            $result = self::sync_verify( $email, true );
             if ( ! $result ) {
                 wp_send_json_error( [ 'message' => __( 'ZBounce could not complete this check. Check your key, balance and connection.', 'zbounce-email-validator' ) ], 502 );
             }
-            self::cache_result( md5( $email ), $result );
+            self::cache_result( md5( $email ), $result, true );
         }
         $labels = Settings::status_labels();
         $balance = self::get_balance();
@@ -80,8 +80,8 @@ class ApiClient {
         ] );
     }
 
-    public static function sync_verify( string $email ): ?array {
-        if ( ! Settings::is_connected() ) {
+    public static function sync_verify( string $email, bool $manual = false ): ?array {
+        if ( ! Settings::can_request_api( $manual ) ) {
             return null;
         }
         if ( ! is_email( $email ) ) { return null; }
@@ -143,8 +143,8 @@ class ApiClient {
         return $result;
     }
 
-    public static function get_cached_result( string $key ) {
-        if ( ! Settings::is_connected() ) {
+    public static function get_cached_result( string $key, bool $manual = false ) {
+        if ( ! Settings::can_request_api( $manual ) ) {
             return false;
         }
         global $wpdb;
@@ -162,8 +162,8 @@ class ApiClient {
         return $normalized && 'unknown' !== $normalized['verification_status'] ? $normalized : false;
     }
 
-    public static function cache_result( string $key, array $data ) {
-        if ( ! Settings::is_connected() || empty( $data['email'] ) || ! is_string( $data['email'] ) || md5( $data['email'] ) !== $key ) {
+    public static function cache_result( string $key, array $data, bool $manual = false ) {
+        if ( ! Settings::can_request_api( $manual ) || empty( $data['email'] ) || ! is_string( $data['email'] ) || md5( $data['email'] ) !== $key ) {
             return;
         }
         $data = self::normalize_result( $data['email'], $data );

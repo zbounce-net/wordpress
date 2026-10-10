@@ -25,3 +25,11 @@ Settings now show remaining credits, cached for up to 60 seconds per key; a fres
 Русский: перед запросами к API необходимо явно принять соглашение сервиса. Время и пользователь принятия фиксируются сервером. После обновления старые настройки не получают согласие автоматически. В настройках видны баланс и тестер; галочка кэша по умолчанию включена. Без кэша выполняется новая платная проверка. Ошибка баланса не отображается как ноль. Настройки стенда после тестов восстановлены; принять соглашение нужно самостоятельно.
 
 1.2.2: balance and tester are always visible at the top of settings. Disconnected controls are disabled, with setup guidance and a link to the external-verification switch; the administrator’s saved enablement is preserved. Browser checks cover both disabled and connected states.
+
+## 1.2.4 independent manual tools
+
+A saved key and service license acceptance enable the administrator balance and manual tester. Automatic form verification is separately opt-in. Generic HTTP/cache calls preserve the automatic gate by default; the AJAX tester explicitly requests administrator-only manual mode. Paused integrations return before reading cached decisions, so an old rejection does not block a form. Balance/nonce/role/consent gates remain in place. Readiness does not mean the upstream key has been validated or has a positive balance.
+
+Verification on a separate isolated Docker project on pi: 105 PHP assertions, Chrome manual fresh/cache/bypass and balance with automatic checks off, invalid nonce/anonymous rejection, paused selected integrations with a cached negative result, guest/subscriber and revoked-consent guards. Plugin Check: zero errors, existing four warnings. PHP 7.4 syntax checks passed.
+
+Русский: ключ и принятие соглашения открывают баланс и ручной тестер. Отдельный переключатель включает только автоматические проверки форм. При выключенных автоматических проверках даже отрицательный результат из кеша не блокирует формы. Исправление проверено на отдельном временном Docker-стенде на pi; настройки и настоящий ключ пользователя при тестах не менялись.

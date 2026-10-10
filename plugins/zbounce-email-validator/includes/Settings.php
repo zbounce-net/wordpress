@@ -64,7 +64,7 @@ class Settings {
 
         add_settings_field(
             'service_enabled',
-            __( 'External verification', 'zbounce-email-validator' ),
+            __( 'Automatic form verification', 'zbounce-email-validator' ),
             [ __CLASS__, 'render_service_enabled_field' ],
             'zbounce-email-validator',
             'api_settings'
@@ -289,9 +289,22 @@ define('WP_DEBUG_DISPLAY', false);
         return ! empty( $s['enable_logging'] );
     }
 
+    public static function is_api_configured(): bool {
+        $settings = self::get_settings();
+        return ! empty( $settings['license_accepted'] ) && '' !== trim( $settings['api_key'] );
+    }
+
+    public static function is_verification_enabled(): bool {
+        return self::is_api_configured() && ! empty( self::get_settings()['service_enabled'] );
+    }
+
+    // Preserve the previous strict behavior for callers using the old method.
     public static function is_connected(): bool {
-        $s = self::get_settings();
-        return ! empty( $s['license_accepted'] ) && ! empty( $s['service_enabled'] ) && '' !== trim( $s['api_key'] );
+        return self::is_verification_enabled();
+    }
+
+    public static function can_request_api( bool $manual = false ): bool {
+        return $manual ? self::is_api_configured() && current_user_can( 'manage_options' ) : self::is_verification_enabled();
     }
 
     public static function sanitize_settings( $input ): array {
@@ -356,9 +369,9 @@ define('WP_DEBUG_DISPLAY', false);
     }
 
     public static function render_balance_field() {
-        if ( ! self::is_connected() ) {
+        if ( ! self::is_api_configured() ) {
             /* translators: %s: number of remaining verification credits. */
-            echo '<strong class="zb-key-balance">' . esc_html( sprintf( __( 'Remaining credits: %s', 'zbounce-email-validator' ), '—' ) ) . '</strong><p>' . esc_html__( 'Accept the agreement, save your key and enable verification to see the balance.', 'zbounce-email-validator' ) . '</p>';
+            echo '<strong class="zb-key-balance">' . esc_html( sprintf( __( 'Remaining credits: %s', 'zbounce-email-validator' ), '—' ) ) . '</strong><p>' . esc_html__( 'Accept the agreement and save your API key to see the balance.', 'zbounce-email-validator' ) . '</p>';
             return;
         }
         $balance = ApiClient::get_balance();
@@ -374,8 +387,8 @@ define('WP_DEBUG_DISPLAY', false);
         $s = self::get_settings();
         ?>
         <label><input type="checkbox" id="zb-service-enabled" name="<?php echo esc_attr( self::OPTION_KEY ); ?>[service_enabled]" value="1" <?php checked( ! empty( $s['service_enabled'] ) ); ?>>
-        <?php esc_html_e( 'Enable checks and send submitted email addresses to ZBounce.', 'zbounce-email-validator' ); ?></label>
-        <p class="description"><?php esc_html_e( 'Checks use your purchased credits. No requests are sent until you enable this option and enter a key.', 'zbounce-email-validator' ); ?></p>
+        <?php esc_html_e( 'Automatically verify email addresses when forms are submitted.', 'zbounce-email-validator' ); ?></label>
+        <p class="description"><?php esc_html_e( 'This switch controls automatic form checks using your credits. The administrator tester and balance work with a saved key and accepted agreement even when automatic checks are off.', 'zbounce-email-validator' ); ?></p>
         <?php
     }
 

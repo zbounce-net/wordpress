@@ -3,7 +3,7 @@
  * Plugin Name: ZBounce Email Validator
  * Plugin URI:  https://zbounce.net
  * Description: Checks form email addresses through the ZBounce service using your purchased API key.
- * Version:     1.2.3
+ * Version:     1.2.4
  * Author:      ZBounce.net
  * Author URI:  https://zbounce.net
  * License:     GPLv2 or later
@@ -19,7 +19,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'ZB_EVAL_VERSION', '1.2.3' );
+define( 'ZB_EVAL_VERSION', '1.2.4' );
 define( 'ZB_EVAL_PATH',    plugin_dir_path( __FILE__ ) );
 define( 'ZB_EVAL_URL',     plugin_dir_url( __FILE__ ) );
 define( 'ZB_EVAL_API_BASE','https://api.zbounce.net' );

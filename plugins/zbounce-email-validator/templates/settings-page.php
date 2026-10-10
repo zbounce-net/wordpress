@@ -10,7 +10,7 @@
         <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
             <input type="hidden" name="action" value="zb_check_connection">
             <?php wp_nonce_field( 'zb_check_connection' ); ?>
-            <?php submit_button( __( 'Check connection and balance', 'zbounce-email-validator' ), 'secondary', 'submit', true, \ZbEmailValidator\Settings::is_connected() ? [] : [ 'disabled' => 'disabled' ] ); ?>
+            <?php submit_button( __( 'Check connection and balance', 'zbounce-email-validator' ), 'secondary', 'submit', true, \ZbEmailValidator\Settings::is_api_configured() ? [] : [ 'disabled' => 'disabled' ] ); ?>
         </form>
         <?php
         $zbounce_email_validator_connection = get_transient( 'zb_connection_' . get_current_user_id() );
@@ -19,13 +19,16 @@
             delete_transient( 'zb_connection_' . get_current_user_id() );
         }
         ?>
+        <?php if ( \ZbEmailValidator\Settings::is_api_configured() && ! \ZbEmailValidator\Settings::is_verification_enabled() ) : ?>
+            <p><?php esc_html_e( 'Automatic form verification is off. The balance and manual tester remain available.', 'zbounce-email-validator' ); ?></p>
+        <?php endif; ?>
         <h2><?php esc_html_e( 'Check an email address', 'zbounce-email-validator' ); ?></h2>
         <?php // The widget escapes every field and is restricted to administrators.
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo \ZbEmailValidator\Validator::render_validator( [ 'settings_preview' => true ] ); ?>
-        <?php if ( ! \ZbEmailValidator\Settings::is_connected() ) : ?>
-            <p><?php esc_html_e( 'Accept the agreement, save your key and enable verification to use the tester.', 'zbounce-email-validator' ); ?>
-            <a href="#zb-service-enabled"><?php esc_html_e( 'External verification', 'zbounce-email-validator' ); ?></a></p>
+        <?php if ( ! \ZbEmailValidator\Settings::is_api_configured() ) : ?>
+            <p><?php esc_html_e( 'Accept the agreement and save your API key to use the tester.', 'zbounce-email-validator' ); ?>
+</p>
         <?php endif; ?>
     </section>
     <form method="post" action="options.php">
@@ -37,7 +40,7 @@
     </form>
     <div class="zb-settings-info">
         <h2><?php esc_html_e( 'External service and privacy', 'zbounce-email-validator' ); ?></h2>
-        <p><?php esc_html_e( 'When enabled, the plugin sends the email address being checked and your API key to https://api.zbounce.net/v1/fast-verify over HTTPS. Checking the connection sends your key to /v1/me without an email address. ZBounce also receives the network address of your WordPress server. Other form fields, passwords, names and payment details are not included by this plugin.', 'zbounce-email-validator' ); ?></p>
+        <p><?php esc_html_e( 'During a manual or enabled automatic check, the plugin sends the email address being checked and your API key to https://api.zbounce.net/v1/fast-verify over HTTPS. Checking the connection sends your key to /v1/me without an email address. ZBounce also receives the network address of your WordPress server. Other form fields, passwords, names and payment details are not included by this plugin.', 'zbounce-email-validator' ); ?></p>
         <p><a href="<?php echo esc_url( 'https://zbounce.net/privacy.html' ); ?>"><?php esc_html_e( 'Privacy policy', 'zbounce-email-validator' ); ?></a> · <a href="<?php echo esc_url( 'https://zbounce.net/terms.html' ); ?>"><?php esc_html_e( 'Terms of service', 'zbounce-email-validator' ); ?></a></p>
         <p><?php esc_html_e( 'Verification results, including email addresses, are cached in your WordPress database. Expired results are ignored and removed on later writes. Include this external processing in your own site privacy information.', 'zbounce-email-validator' ); ?></p>
         <h2><?php esc_html_e( 'Using the plugin', 'zbounce-email-validator' ); ?></h2>
