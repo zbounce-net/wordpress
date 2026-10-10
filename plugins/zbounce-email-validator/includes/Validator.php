@@ -29,7 +29,9 @@ class Validator {
     }
 
     public static function render_validator( $atts ) {
-        if ( ! current_user_can( 'manage_options' ) || ! Settings::is_connected() ) {
+        $ready = Settings::is_connected();
+        $settings_preview = is_admin() && ! empty( $atts['settings_preview'] );
+        if ( ! current_user_can( 'manage_options' ) || ( ! $ready && ! $settings_preview ) ) {
             return '';
         }
         wp_enqueue_style(  'zbounce-email-validator' );
@@ -42,11 +44,11 @@ class Validator {
         <div class="zb-email-validator">
             <div class="zb-input-group">
                 <label class="screen-reader-text" for="<?php echo esc_attr( $zbounce_input_id ); ?>"><?php esc_html_e( 'Enter email address', 'zbounce-email-validator' ); ?></label>
-                <input id="<?php echo esc_attr( $zbounce_input_id ); ?>" type="email" class="zb-email-input"
+                <input id="<?php echo esc_attr( $zbounce_input_id ); ?>" type="email" class="zb-email-input" <?php disabled( ! $ready ); ?>
                        placeholder="<?php echo esc_attr( __( 'Enter email address', 'zbounce-email-validator' ) ); ?>">
-                <button type="button" class="zb-validate-btn"><?php echo esc_html( __( 'Validate', 'zbounce-email-validator' ) ); ?></button>
+                <button type="button" class="zb-validate-btn" <?php disabled( ! $ready ); ?>><?php echo esc_html( __( 'Validate', 'zbounce-email-validator' ) ); ?></button>
             </div>
-            <label><input type="checkbox" class="zb-use-cache" checked> <?php esc_html_e( 'Use cached results', 'zbounce-email-validator' ); ?></label>
+            <label><input type="checkbox" class="zb-use-cache" checked <?php disabled( ! $ready ); ?>> <?php esc_html_e( 'Use cached results', 'zbounce-email-validator' ); ?></label>
             <p class="description"><?php esc_html_e( 'Disable cache to request a fresh API check using verification credits.', 'zbounce-email-validator' ); ?></p>
             <div class="zb-status-value" role="status" aria-live="polite" style="display:none;"></div>
             <div class="zb-validation-results" style="display:none;">

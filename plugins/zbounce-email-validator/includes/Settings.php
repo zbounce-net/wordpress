@@ -73,7 +73,6 @@ class Settings {
         add_settings_field( 'allowed_statuses', __( 'Accepted verification results', 'zbounce-email-validator' ), [ __CLASS__, 'render_allowed_statuses_field' ], 'zbounce-email-validator', 'api_settings' );
 
         add_settings_field( 'license_accepted', __( 'License agreement', 'zbounce-email-validator' ), [ __CLASS__, 'render_license_field' ], 'zbounce-email-validator', 'api_settings' );
-        add_settings_field( 'key_balance', __( 'Verification credits', 'zbounce-email-validator' ), [ __CLASS__, 'render_balance_field' ], 'zbounce-email-validator', 'api_settings' );
         // --- Advanced Integrations ---
         add_settings_section(
             'advanced_settings',
@@ -358,7 +357,8 @@ define('WP_DEBUG_DISPLAY', false);
 
     public static function render_balance_field() {
         if ( ! self::is_connected() ) {
-            echo esc_html__( 'Accept the agreement, save your key and enable verification to see the balance.', 'zbounce-email-validator' );
+            /* translators: %s: number of remaining verification credits. */
+            echo '<strong class="zb-key-balance">' . esc_html( sprintf( __( 'Remaining credits: %s', 'zbounce-email-validator' ), '—' ) ) . '</strong><p>' . esc_html__( 'Accept the agreement, save your key and enable verification to see the balance.', 'zbounce-email-validator' ) . '</p>';
             return;
         }
         $balance = ApiClient::get_balance();
@@ -373,7 +373,7 @@ define('WP_DEBUG_DISPLAY', false);
     public static function render_service_enabled_field() {
         $s = self::get_settings();
         ?>
-        <label><input type="checkbox" name="<?php echo esc_attr( self::OPTION_KEY ); ?>[service_enabled]" value="1" <?php checked( ! empty( $s['service_enabled'] ) ); ?>>
+        <label><input type="checkbox" id="zb-service-enabled" name="<?php echo esc_attr( self::OPTION_KEY ); ?>[service_enabled]" value="1" <?php checked( ! empty( $s['service_enabled'] ) ); ?>>
         <?php esc_html_e( 'Enable checks and send submitted email addresses to ZBounce.', 'zbounce-email-validator' ); ?></label>
         <p class="description"><?php esc_html_e( 'Checks use your purchased credits. No requests are sent until you enable this option and enter a key.', 'zbounce-email-validator' ); ?></p>
         <?php

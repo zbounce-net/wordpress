@@ -4,6 +4,18 @@
     <?php settings_errors( 'zb_email_validator_settings' ); ?>
     <p><?php esc_html_e( 'Buy verification credits on ZBounce, then paste the API key you receive after payment. The plugin itself is free; remote checks use your credits.', 'zbounce-email-validator' ); ?></p>
     <p><a href="<?php echo esc_url( 'https://zbounce.net/pricing.html' ); ?>"><?php esc_html_e( 'Buy credits / get an API key', 'zbounce-email-validator' ); ?></a></p>
+    <section class="zb-settings-tester" aria-label="<?php esc_attr_e( 'Check an email address', 'zbounce-email-validator' ); ?>">
+        <h2><?php esc_html_e( 'Verification credits', 'zbounce-email-validator' ); ?></h2>
+        <?php \ZbEmailValidator\Settings::render_balance_field(); ?>
+        <h2><?php esc_html_e( 'Check an email address', 'zbounce-email-validator' ); ?></h2>
+        <?php // The widget escapes every field and is restricted to administrators.
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo \ZbEmailValidator\Validator::render_validator( [ 'settings_preview' => true ] ); ?>
+        <?php if ( ! \ZbEmailValidator\Settings::is_connected() ) : ?>
+            <p><?php esc_html_e( 'Accept the agreement, save your key and enable verification to use the tester.', 'zbounce-email-validator' ); ?>
+            <a href="#zb-service-enabled"><?php esc_html_e( 'External verification', 'zbounce-email-validator' ); ?></a></p>
+        <?php endif; ?>
+    </section>
     <form method="post" action="options.php">
         <?php
         settings_fields( 'zb_email_validator_settings' );
@@ -24,14 +36,6 @@
         <?php wp_nonce_field( 'zb_check_connection' ); ?>
         <?php submit_button( __( 'Check connection and balance', 'zbounce-email-validator' ), 'secondary' ); ?>
     </form>
-    <?php endif; ?>
-    <h2><?php esc_html_e( 'Check an email address', 'zbounce-email-validator' ); ?></h2>
-    <?php if ( \ZbEmailValidator\Settings::is_connected() ) : ?>
-        <?php // The widget escapes every field and is restricted to administrators.
-        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        echo \ZbEmailValidator\Validator::render_validator( [] ); ?>
-    <?php else : ?>
-        <p><?php esc_html_e( 'Accept the agreement, save your key and enable verification to use the tester.', 'zbounce-email-validator' ); ?></p>
     <?php endif; ?>
     <div class="zb-settings-info">
         <h2><?php esc_html_e( 'External service and privacy', 'zbounce-email-validator' ); ?></h2>

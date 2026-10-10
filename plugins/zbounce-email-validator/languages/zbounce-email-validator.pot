@@ -6,7 +6,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: ZBounce Email Validator 1.2.1\n"
+"Project-Id-Version: ZBounce Email Validator 1.2.2\n"
 "Report-Msgid-Bugs-To: https://zbounce.net\n"
 "POT-Creation-Date: 2026-10-10 10:59+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"

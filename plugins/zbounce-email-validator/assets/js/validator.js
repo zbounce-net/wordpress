@@ -12,7 +12,7 @@ jQuery(function($) {
         function error(message) { $status.text(message).css('color', '#d93025').show(); }
         function submit(event) {
             if (event) event.preventDefault();
-            if (pending) return;
+            if (pending || $input.prop('disabled')) return;
             if (!$input[0].checkValidity() || !$input.val().trim()) return error(strings.invalid_email);
             pending = true; $button.prop('disabled', true); $input.prop('disabled', true); $results.hide();
             $status.text(strings.checking).css('color', '').show();

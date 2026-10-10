@@ -12,7 +12,7 @@ try{
  const license=page.locator('input[name="zb_email_validator_settings[license_accepted]"]');
  await license.uncheck();await page.locator('input[name="zb_email_validator_settings[api_key]"]').fill('isolated-fixture-key-not-real');await page.locator('input[name="zb_email_validator_settings[service_enabled]"]').check();await page.getByRole('button',{name:'Save Settings',exact:true}).click();
  await page.getByText('Accept the ZBounce service license agreement before enabling verification.',{exact:true}).first().waitFor();
- assert.equal(await page.locator('.zb-email-validator').count(),0);
+ assert.equal(await page.locator('.zb-email-validator').count(),1);assert(await page.locator('.zb-validate-btn').isDisabled());assert((await page.locator('.zb-key-balance').innerText()).includes('—'));
  await license.check();await page.locator('input[name="zb_email_validator_settings[service_enabled]"]').check();await page.getByRole('button',{name:'Save Settings',exact:true}).click();
  await page.locator('.zb-key-balance').filter({hasText:'Remaining credits: 1,234'}).waitFor();
  const widget=page.locator('.zb-email-validator');assert.equal(await widget.count(),1);

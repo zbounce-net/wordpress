@@ -9,8 +9,8 @@ class Assets {
         add_action( 'admin_enqueue_scripts', [ __CLASS__, 'enqueue_admin_assets' ] );
     }
 
-    public static function enqueue_frontend_assets() {
-        if ( ! current_user_can( 'manage_options' ) || ! Settings::is_connected() ) {
+    public static function enqueue_frontend_assets( $settings_preview = false ) {
+        if ( ! current_user_can( 'manage_options' ) || ( ! Settings::is_connected() && ! $settings_preview ) ) {
             return;
         }
         wp_register_style(
@@ -52,11 +52,9 @@ class Assets {
 
     public static function enqueue_admin_assets( $hook ) {
         if ( 'settings_page_zbounce-email-validator' === $hook ) {
-            self::enqueue_frontend_assets();
-            if ( Settings::is_connected() ) {
-                wp_enqueue_style( 'zbounce-email-validator' );
-                wp_enqueue_script( 'zbounce-email-validator' );
-            }
+            self::enqueue_frontend_assets( true );
+            wp_enqueue_style( 'zbounce-email-validator' );
+            wp_enqueue_script( 'zbounce-email-validator' );
             wp_enqueue_style(
                 'zb-email-validator-admin',
                 ZB_EVAL_URL . 'assets/css/admin.css',
