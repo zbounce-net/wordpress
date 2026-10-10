@@ -49,3 +49,11 @@ Removed the optional developer `error_log` feature and its settings instead of s
 Final installer on the independent pi Docker project: Plugin Check 2.1.0, zero errors and zero warnings. Repeated 105 intercepted PHP assertions and Chrome settings tests (consent, auto-off, balance, fresh/cache/bypass, nonce and guest guards) passed. Five actual bundled locale loading checks passed on WordPress 7.1.3. All 11 runtime PHP files passed PHP 7.4 syntax checking. Five PO catalogs contain 105 messages each, with source/POT parity and clean gettext compilation. No complete legacy WordPress runtime matrix is claimed. Previous 1.2.4 warning records above are historical.
 
 Русский: все четыре предупреждения устранены в коде, без подавления проверок. Отладочный журнал удалён, загрузка переводов перенесена на штатную отложенную загрузку, переменные ограничены локальной областью видимости. Итоговый ZIP проходит Plugin Check без ошибок и предупреждений. Повторно пройдены API- и браузерные проверки, загрузка пяти переводов и синтаксис PHP 7.4. Кредиты пользователя не расходовались.
+
+## WordPress.org submission and stand retirement
+
+2026-10-10: the user submitted the 1.2.5 installer, and WordPress.org reported Automated Plugin Scanning: Pass. Initial slug: `zbounce-email-validator`; status: Awaiting Review. Plugin URI points to the plugin repository; Author URI points to ZBounce. `Tested up to` is declared only in readme.txt. Both metadata requirements are checked during packaging. Directory approval remains pending.
+
+The temporary ZBounce WordPress review projects and email-checker test caches/files on pi were removed at the user's request. Containers belonging to the `verbooorg` project were preserved. GitHub publication uses the local authenticated GitHub CLI; no GitHub Actions workflow was created.
+
+Русский: автоматическая проверка WordPress.org пройдена, заявка ожидает ручного рассмотрения. Временные ресурсы ZBounce на pi удалены; проект verbooorg не затронут. Публикация GitHub выполняется через gh без GitHub Actions.
