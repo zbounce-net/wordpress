@@ -1,9 +1,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ZBounce Email Validator 1.2.0\n"
+"Project-Id-Version: ZBounce Email Validator 1.2.1\n"
 "Report-Msgid-Bugs-To: https://zbounce.net\n"
-"POT-Creation-Date: 2026-10-10 09:58+0300\n"
+"POT-Creation-Date: 2026-10-10 10:59+0300\n"
 "PO-Revision-Date: 2026-10-10 00:00+0000\n"
 "Last-Translator: ZBounce\n"
 "Language-Team: ZBounce\n"
@@ -41,6 +41,13 @@ msgstr ""
 "ZBounce n’a pas pu terminer cette vérification. Vérifiez la clé, le solde et"
 " la connexion."
 
+#, php-format
+msgid "Remaining credits: %s"
+msgstr "Crédits restants : %s"
+
+msgid "Balance unavailable. Check your key and connection."
+msgstr "Solde indisponible. Vérifiez votre clé et la connexion."
+
 msgid "Valid"
 msgstr "Valide"
 
@@ -64,6 +71,18 @@ msgstr "Le serveur accepte toutes les adresses"
 
 msgid "Checking…"
 msgstr "Vérification…"
+
+msgid "Allowed"
+msgstr "Autorisé"
+
+msgid "Rejected"
+msgstr "Refusé"
+
+msgid "Cache"
+msgstr "Cache"
+
+msgid "ZBounce API"
+msgstr "API ZBounce"
 
 msgid "Validation error"
 msgstr "Erreur de vérification"
@@ -107,6 +126,12 @@ msgstr "Vérification externe"
 
 msgid "Accepted verification results"
 msgstr "Résultats de vérification acceptés"
+
+msgid "License agreement"
+msgstr "Accord de licence"
+
+msgid "Verification credits"
+msgstr "Crédits de vérification"
 
 msgid "Advanced Integrations"
 msgstr "Intégrations avancées"
@@ -184,6 +209,12 @@ msgstr "WPForms non détecté."
 msgid "Select WPForms by ID"
 msgstr "Sélectionnez WPForms par ID"
 
+msgid ""
+"Accept the ZBounce service license agreement before enabling verification."
+msgstr ""
+"Acceptez l’accord de licence du service ZBounce avant d’activer la "
+"vérification."
+
 msgid "Enter your purchased API key before enabling external verification."
 msgstr ""
 "Saisissez votre clé API achetée avant d’activer la vérification externe."
@@ -220,6 +251,26 @@ msgstr ""
 "La validation du format par le formulaire reste active. L’indisponibilité de"
 " l’API est distincte d’une boîte non confirmée."
 
+msgid "I accept the ZBounce service license agreement."
+msgstr "J’accepte l’accord de licence du service ZBounce."
+
+msgid "Read the license agreement"
+msgstr "Lire l’accord de licence"
+
+msgid ""
+"Acceptance is required before using ZBounce verification. Removing "
+"acceptance stops all API requests."
+msgstr ""
+"L’acceptation est requise pour utiliser les vérifications ZBounce. Son "
+"retrait arrête toutes les requêtes API."
+
+msgid ""
+"Accept the agreement, save your key and enable verification to see the "
+"balance."
+msgstr ""
+"Acceptez l’accord, enregistrez votre clé et activez la vérification pour "
+"voir le solde."
+
 msgid "Enable checks and send submitted email addresses to ZBounce."
 msgstr "Activer les vérifications et envoyer les adresses saisies à ZBounce."
 
@@ -241,6 +292,23 @@ msgstr "Saisissez l’adresse e-mail"
 
 msgid "Validate"
 msgstr "Valider"
+
+msgid "Use cached results"
+msgstr "Utiliser les résultats en cache"
+
+msgid "Disable cache to request a fresh API check using verification credits."
+msgstr ""
+"Désactivez le cache pour une nouvelle vérification API consommant des "
+"crédits."
+
+msgid "Verification result:"
+msgstr "Résultat de vérification :"
+
+msgid "Your policy:"
+msgstr "Votre règle :"
+
+msgid "Result source:"
+msgstr "Source du résultat :"
 
 #, php-format
 msgid "Results for: %s"
@@ -294,6 +362,16 @@ msgstr "Enregistrer les paramètres"
 
 msgid "Check connection and balance"
 msgstr "Vérifier la connexion et le solde"
+
+msgid "Check an email address"
+msgstr "Vérifier une adresse e-mail"
+
+msgid ""
+"Accept the agreement, save your key and enable verification to use the "
+"tester."
+msgstr ""
+"Acceptez l’accord, enregistrez votre clé et activez la vérification pour "
+"utiliser le testeur."
 
 msgid "External service and privacy"
 msgstr "Service externe et confidentialité"

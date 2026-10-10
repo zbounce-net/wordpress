@@ -1,9 +1,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ZBounce Email Validator 1.2.0\n"
+"Project-Id-Version: ZBounce Email Validator 1.2.1\n"
 "Report-Msgid-Bugs-To: https://zbounce.net\n"
-"POT-Creation-Date: 2026-10-10 09:58+0300\n"
+"POT-Creation-Date: 2026-10-10 10:59+0300\n"
 "PO-Revision-Date: 2026-10-10 00:00+0000\n"
 "Last-Translator: ZBounce\n"
 "Language-Team: ZBounce\n"
@@ -37,6 +37,13 @@ msgid ""
 "connection."
 msgstr "ZBounce 无法完成验证。请检查密钥、余额和连接。"
 
+#, php-format
+msgid "Remaining credits: %s"
+msgstr "剩余额度：%s"
+
+msgid "Balance unavailable. Check your key and connection."
+msgstr "余额不可用，请检查密钥和连接。"
+
 msgid "Valid"
 msgstr "有效"
 
@@ -60,6 +67,18 @@ msgstr "服务器接受所有地址"
 
 msgid "Checking…"
 msgstr "正在检查…"
+
+msgid "Allowed"
+msgstr "允许"
+
+msgid "Rejected"
+msgstr "拒绝"
+
+msgid "Cache"
+msgstr "缓存"
+
+msgid "ZBounce API"
+msgstr "ZBounce API"
 
 msgid "Validation error"
 msgstr "验证错误"
@@ -102,6 +121,12 @@ msgstr "外部验证"
 
 msgid "Accepted verification results"
 msgstr "允许的验证结果"
+
+msgid "License agreement"
+msgstr "许可协议"
+
+msgid "Verification credits"
+msgstr "验证额度"
 
 msgid "Advanced Integrations"
 msgstr "高级集成"
@@ -172,6 +197,10 @@ msgstr "未检测到 WPForms。"
 msgid "Select WPForms by ID"
 msgstr "按 ID 选择 WPForms"
 
+msgid ""
+"Accept the ZBounce service license agreement before enabling verification."
+msgstr "启用验证前请接受 ZBounce 服务许可协议。"
+
 msgid "Enter your purchased API key before enabling external verification."
 msgstr "请先输入购买后获得的 API 密钥，再启用外部验证。"
 
@@ -204,6 +233,22 @@ msgid ""
 msgstr ""
 "选中的结果允许提交，未选中的结果拒绝提交。规则适用于所有已启用的集成及缓存结果。表单自身的邮箱格式验证仍然有效。API 不可用与邮箱结果不确定分别处理。"
 
+msgid "I accept the ZBounce service license agreement."
+msgstr "我接受 ZBounce 服务许可协议。"
+
+msgid "Read the license agreement"
+msgstr "阅读许可协议"
+
+msgid ""
+"Acceptance is required before using ZBounce verification. Removing "
+"acceptance stops all API requests."
+msgstr "使用 ZBounce 验证前必须接受协议。取消接受将停止所有 API 请求。"
+
+msgid ""
+"Accept the agreement, save your key and enable verification to see the "
+"balance."
+msgstr "接受协议、保存密钥并启用验证后即可查看余额。"
+
 msgid "Enable checks and send submitted email addresses to ZBounce."
 msgstr "启用检查并将提交的邮箱地址发送给 ZBounce。"
 
@@ -223,6 +268,21 @@ msgstr "输入电子邮件地址"
 
 msgid "Validate"
 msgstr "验证"
+
+msgid "Use cached results"
+msgstr "使用缓存结果"
+
+msgid "Disable cache to request a fresh API check using verification credits."
+msgstr "取消缓存以重新通过 API 验证并消耗验证额度。"
+
+msgid "Verification result:"
+msgstr "验证结果："
+
+msgid "Your policy:"
+msgstr "您的规则："
+
+msgid "Result source:"
+msgstr "结果来源："
 
 #, php-format
 msgid "Results for: %s"
@@ -271,6 +331,14 @@ msgstr "保存设置"
 
 msgid "Check connection and balance"
 msgstr "检查连接和余额"
+
+msgid "Check an email address"
+msgstr "验证邮箱地址"
+
+msgid ""
+"Accept the agreement, save your key and enable verification to use the "
+"tester."
+msgstr "接受协议、保存密钥并启用验证后即可使用测试工具。"
 
 msgid "External service and privacy"
 msgstr "外部服务与隐私"

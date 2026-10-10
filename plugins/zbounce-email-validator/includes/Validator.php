@@ -46,8 +46,13 @@ class Validator {
                        placeholder="<?php echo esc_attr( __( 'Enter email address', 'zbounce-email-validator' ) ); ?>">
                 <button type="button" class="zb-validate-btn"><?php echo esc_html( __( 'Validate', 'zbounce-email-validator' ) ); ?></button>
             </div>
+            <label><input type="checkbox" class="zb-use-cache" checked> <?php esc_html_e( 'Use cached results', 'zbounce-email-validator' ); ?></label>
+            <p class="description"><?php esc_html_e( 'Disable cache to request a fresh API check using verification credits.', 'zbounce-email-validator' ); ?></p>
             <div class="zb-status-value" role="status" aria-live="polite" style="display:none;"></div>
             <div class="zb-validation-results" style="display:none;">
+                <p><strong><?php esc_html_e( 'Verification result:', 'zbounce-email-validator' ); ?></strong> <span class="zb-policy-status"></span></p>
+                <p><strong><?php esc_html_e( 'Your policy:', 'zbounce-email-validator' ); ?></strong> <span class="zb-policy-decision"></span></p>
+                <p><strong><?php esc_html_e( 'Result source:', 'zbounce-email-validator' ); ?></strong> <span class="zb-result-source"></span></p>
                 <h3>
                     <?php printf(
                         /* translators: %s: email address displayed in a text-only span. */
@@ -109,7 +114,10 @@ class Validator {
 
     public static function validation_error( string $email ): string {
         if ( ! Settings::is_connected() || '' === $email ) { return ''; }
-        $result = self::run_sync_validation( $email );
+        return self::result_error( self::run_sync_validation( $email ) );
+    }
+
+    public static function result_error( array $result ): string {
         $status = ! $result['valid'] ? 'invalid' : $result['verification_status'];
         $settings = Settings::get_settings();
         if ( in_array( $status, $settings['allowed_statuses'], true ) ) { return ''; }

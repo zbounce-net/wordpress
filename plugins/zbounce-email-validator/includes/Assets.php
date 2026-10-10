@@ -41,6 +41,10 @@ class Assets {
                 'unreliable' => __( 'Yes (unreliable)', 'zbounce-email-validator' ),
                 'accepts_all' => __( 'Server accepts all', 'zbounce-email-validator' ),
                 'checking' => __( 'Checking…', 'zbounce-email-validator' ),
+                'allowed' => __( 'Allowed', 'zbounce-email-validator' ),
+                'rejected' => __( 'Rejected', 'zbounce-email-validator' ),
+                'cached' => __( 'Cache', 'zbounce-email-validator' ),
+                'fresh' => __( 'ZBounce API', 'zbounce-email-validator' ),
                 'error'         => __( 'Validation error', 'zbounce-email-validator' ),
             ],
         ] );
@@ -48,6 +52,11 @@ class Assets {
 
     public static function enqueue_admin_assets( $hook ) {
         if ( 'settings_page_zbounce-email-validator' === $hook ) {
+            self::enqueue_frontend_assets();
+            if ( Settings::is_connected() ) {
+                wp_enqueue_style( 'zbounce-email-validator' );
+                wp_enqueue_script( 'zbounce-email-validator' );
+            }
             wp_enqueue_style(
                 'zb-email-validator-admin',
                 ZB_EVAL_URL . 'assets/css/admin.css',

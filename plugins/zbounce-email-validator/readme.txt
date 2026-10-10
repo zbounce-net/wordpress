@@ -3,7 +3,7 @@ Tags: email validation, email verification, contact form 7, woocommerce, spam pr
 Requires at least: 5.0
 Requires PHP: 7.4
 Tested up to: 7.1
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,7 +60,7 @@ Site owners are responsible for informing their visitors about this external pro
 No. The plugin is GPL software. The remote ZBounce verification service requires a purchased credit package and API key. Current packages are listed at https://zbounce.net/pricing.html.
 
 = Does it send data before I configure it? =
-No. You must enter an API key and explicitly enable external verification first. There is no automatic demo mode.
+No. You must enter an API key and accept the service license agreement at https://zbounce.net/license.html and explicitly enable external verification first. There is no automatic demo mode.
 
 = Does it block catch-all addresses? =
 By default they pass. Uncheck Risky in Accepted verification results to reject accept-all domains, or Unknown to reject unconfirmed mailboxes. These outcomes are kept separate from missing mailboxes.
@@ -75,6 +75,11 @@ Uncheck External verification and save. An empty Contact Form 7 selection means 
 Yes. PHP, JavaScript and CSS are supplied as readable source. Compiled translation MO files have the corresponding PO sources in languages/.
 
 == Changelog ==
+
+= 1.2.1 =
+* Require explicit acceptance of the ZBounce service license agreement before any API use.
+* Add an administrator email tester to settings, with an optional cache bypass and policy/source results.
+* Display the key balance in settings and refresh it after verification.
 
 = 1.2.0 =
 * Require a purchased ZBounce API key and administrator opt-in before external requests.

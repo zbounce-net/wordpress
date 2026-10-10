@@ -1,9 +1,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ZBounce Email Validator 1.2.0\n"
+"Project-Id-Version: ZBounce Email Validator 1.2.1\n"
 "Report-Msgid-Bugs-To: https://zbounce.net\n"
-"POT-Creation-Date: 2026-10-10 09:58+0300\n"
+"POT-Creation-Date: 2026-10-10 10:59+0300\n"
 "PO-Revision-Date: 2026-10-10 00:00+0000\n"
 "Last-Translator: ZBounce\n"
 "Language-Team: ZBounce\n"
@@ -39,6 +39,13 @@ msgid ""
 msgstr ""
 "ZBounce не зміг завершити перевірку. Перевірте ключ, баланс і з’єднання."
 
+#, php-format
+msgid "Remaining credits: %s"
+msgstr "Залишилося кредитів: %s"
+
+msgid "Balance unavailable. Check your key and connection."
+msgstr "Баланс недоступний. Перевірте ключ і з’єднання."
+
 msgid "Valid"
 msgstr "Коректна"
 
@@ -62,6 +69,18 @@ msgstr "Сервер приймає всі адреси"
 
 msgid "Checking…"
 msgstr "Перевіряємо…"
+
+msgid "Allowed"
+msgstr "Дозволено"
+
+msgid "Rejected"
+msgstr "Відхилено"
+
+msgid "Cache"
+msgstr "Кеш"
+
+msgid "ZBounce API"
+msgstr "ZBounce API"
 
 msgid "Validation error"
 msgstr "Помилка перевірки"
@@ -104,6 +123,12 @@ msgstr "Зовнішня перевірка"
 
 msgid "Accepted verification results"
 msgstr "Дозволені результати перевірки"
+
+msgid "License agreement"
+msgstr "Ліцензійна угода"
+
+msgid "Verification credits"
+msgstr "Кредити на перевірки"
 
 msgid "Advanced Integrations"
 msgstr "Розширені інтеграції"
@@ -179,6 +204,11 @@ msgstr "WPForms не знайдено."
 msgid "Select WPForms by ID"
 msgstr "Виберіть WPForms за ID"
 
+msgid ""
+"Accept the ZBounce service license agreement before enabling verification."
+msgstr ""
+"Прийміть ліцензійну угоду сервісу ZBounce перед увімкненням перевірок."
+
 msgid "Enter your purchased API key before enabling external verification."
 msgstr "Введіть придбаний API-ключ перед увімкненням зовнішньої перевірки."
 
@@ -214,6 +244,25 @@ msgstr ""
 "формату адреси формою залишається. Недоступність API враховується окремо від"
 " невизначеного результату перевірки скриньки."
 
+msgid "I accept the ZBounce service license agreement."
+msgstr "Я приймаю ліцензійну угоду сервісу ZBounce."
+
+msgid "Read the license agreement"
+msgstr "Прочитати ліцензійну угоду"
+
+msgid ""
+"Acceptance is required before using ZBounce verification. Removing "
+"acceptance stops all API requests."
+msgstr ""
+"Для використання перевірок ZBounce потрібно прийняти угоду. Зняття позначки "
+"зупиняє всі запити до API."
+
+msgid ""
+"Accept the agreement, save your key and enable verification to see the "
+"balance."
+msgstr ""
+"Прийміть угоду, збережіть ключ і ввімкніть перевірки, щоб побачити баланс."
+
 msgid "Enable checks and send submitted email addresses to ZBounce."
 msgstr "Увімкнути перевірки та надсилати введені адреси до ZBounce."
 
@@ -235,6 +284,21 @@ msgstr "Введіть електронну адресу"
 
 msgid "Validate"
 msgstr "Перевірити"
+
+msgid "Use cached results"
+msgstr "Використовувати кеш"
+
+msgid "Disable cache to request a fresh API check using verification credits."
+msgstr "Вимкніть кеш для нової перевірки через API з витратою кредитів."
+
+msgid "Verification result:"
+msgstr "Результат перевірки:"
+
+msgid "Your policy:"
+msgstr "Ваше правило:"
+
+msgid "Result source:"
+msgstr "Джерело результату:"
 
 #, php-format
 msgid "Results for: %s"
@@ -286,6 +350,16 @@ msgstr "Зберегти налаштування"
 
 msgid "Check connection and balance"
 msgstr "Перевірити з’єднання та баланс"
+
+msgid "Check an email address"
+msgstr "Перевірити адресу пошти"
+
+msgid ""
+"Accept the agreement, save your key and enable verification to use the "
+"tester."
+msgstr ""
+"Прийміть угоду, збережіть ключ і ввімкніть перевірки, щоб користуватися "
+"тестером."
 
 msgid "External service and privacy"
 msgstr "Зовнішній сервіс і конфіденційність"

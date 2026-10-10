@@ -15,3 +15,11 @@ Build: `python3 tools/build_translations.py`, then `python3 tools/package_plugin
 Поддерживаются обычный checkout WooCommerce и Checkout Block. Проверка блока выполняется при POST оформления заказа до оплаты; промежуточные GET/PUT/PATCH не расходуют кредиты. CF7, регистрация WordPress и выбранные формы Gravity Forms/WPForms/Ninja Forms используют ту же политику.
 
 Стенд на pi работает отдельным Docker-проектом. Для демонстрации задан тестовый ключ: адреса с префиксами good, catchall, rejected, disposable, unknown, nomx и failure воспроизводят соответствующие результаты. Замена тестового ключа своим ключом включает настоящий ZBounce API и расходует реальные кредиты. Исходящая почта на стенде отключена. Стенд и его данные не являются продакшеном. Не устанавливайте тестовый MU-плагин на рабочий сайт.
+
+## 1.2.1 settings update
+
+All API usage (including balance queries and cached result access) requires explicit saved license acceptance. The administrator save records acceptance time and user ID; input cannot forge these fields. Older configurations do not acquire acceptance automatically. The service agreement link is https://zbounce.net/license.html; the plugin source remains GPLv2-or-later.
+
+Settings now show remaining credits, cached for up to 60 seconds per key; a fresh verification invalidates the balance cache and updates the displayed balance. Errors show unavailable rather than zero. The settings tester identifies the result, policy acceptance and source; its default cache checkbox avoids repeated charges, while disabling it requests a fresh paid check. Both paths retain administrator capability and nonce checks.
+
+Русский: перед запросами к API необходимо явно принять соглашение сервиса. Время и пользователь принятия фиксируются сервером. После обновления старые настройки не получают согласие автоматически. В настройках видны баланс и тестер; галочка кэша по умолчанию включена. Без кэша выполняется новая платная проверка. Ошибка баланса не отображается как ноль. Настройки стенда после тестов восстановлены; принять соглашение нужно самостоятельно.

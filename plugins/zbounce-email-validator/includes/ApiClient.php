@@ -17,25 +17,34 @@ class ApiClient {
         check_admin_referer( 'zb_check_connection' );
         $message = __( 'Enable external verification and save your API key first.', 'zbounce-email-validator' );
         if ( Settings::is_connected() ) {
-            $s = Settings::get_settings();
-            $response = wp_remote_get( ZB_EVAL_API_BASE . '/v1/me', [
-                'headers' => [ 'X-API-Key' => $s['api_key'] ],
-                'timeout' => 15,
-                'redirection' => 0,
-                'limit_response_size' => 65536,
-            ] );
+            $data = self::get_balance( true );
             $message = __( 'Connection failed. Check your API key and try again.', 'zbounce-email-validator' );
-            if ( ! is_wp_error( $response ) && 200 === wp_remote_retrieve_response_code( $response ) ) {
-                $data = json_decode( wp_remote_retrieve_body( $response ), true );
-                if ( is_array( $data ) && isset( $data['remaining'] ) && is_numeric( $data['remaining'] ) ) {
-                    /* translators: %s: remaining verification credits. */
-                    $message = sprintf( __( 'Connected. Remaining verification credits: %s.', 'zbounce-email-validator' ), number_format_i18n( $data['remaining'] ) );
-                }
+            if ( isset( $data['remaining'] ) ) {
+                /* translators: %s: remaining verification credits. */
+                $message = sprintf( __( 'Connected. Remaining verification credits: %s.', 'zbounce-email-validator' ), number_format_i18n( $data['remaining'] ) );
             }
         }
         set_transient( 'zb_connection_' . get_current_user_id(), [ 'message' => $message ], 60 );
         wp_safe_redirect( admin_url( 'options-general.php?page=zbounce-email-validator' ) );
         exit;
+    }
+
+    public static function get_balance( bool $refresh = false ): array {
+        if ( ! current_user_can( 'manage_options' ) || ! Settings::is_connected() ) { return []; }
+        $settings = Settings::get_settings();
+        $key = 'zb_balance_' . hash( 'sha256', $settings['api_key'] );
+        $cached = get_transient( $key );
+        if ( ! $refresh && is_array( $cached ) ) { return $cached; }
+        $response = wp_remote_get( ZB_EVAL_API_BASE . '/v1/me', [
+            'headers' => [ 'X-API-Key' => $settings['api_key'] ], 'timeout' => 15,
+            'redirection' => 0, 'limit_response_size' => 65536,
+        ] );
+        if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) { delete_transient( $key ); return []; }
+        $data = json_decode( wp_remote_retrieve_body( $response ), true );
+        if ( ! is_array( $data ) || ! isset( $data['remaining'] ) || ! is_numeric( $data['remaining'] ) || $data['remaining'] < 0 ) { delete_transient( $key ); return []; }
+        $result = [ 'remaining' => $data['remaining'] ];
+        set_transient( $key, $result, 60 );
+        return $result;
     }
 
     public static function create_validation_task() {
@@ -50,7 +59,9 @@ class ApiClient {
         if ( ! is_email( $email ) ) {
             wp_send_json_error( [ 'message' => __( 'Invalid email format', 'zbounce-email-validator' ) ], 400 );
         }
-        $result = self::get_cached_result( md5( $email ) );
+        $use_cache = ! isset( $_POST['use_cache'] ) || '0' !== $_POST['use_cache'];
+        $result = $use_cache ? self::get_cached_result( md5( $email ) ) : false;
+        $from_cache = (bool) $result;
         if ( ! $result ) {
             $result = self::sync_verify( $email );
             if ( ! $result ) {
@@ -58,7 +69,15 @@ class ApiClient {
             }
             self::cache_result( md5( $email ), $result );
         }
-        wp_send_json_success( [ 'result' => $result ] );
+        $labels = Settings::status_labels();
+        $balance = self::get_balance();
+        /* translators: %s: number of remaining verification credits. */
+        $balance_text = isset( $balance['remaining'] ) ? sprintf( __( 'Remaining credits: %s', 'zbounce-email-validator' ), number_format_i18n( $balance['remaining'] ) ) : __( 'Balance unavailable. Check your key and connection.', 'zbounce-email-validator' );
+        wp_send_json_success( [ 'result' => $result, 'from_cache' => $from_cache,
+            'balance_text' => $balance_text,
+            'status_label' => $labels[ $result['verification_status'] ] ?? '',
+            'allowed' => '' === Validator::result_error( $result ),
+        ] );
     }
 
     public static function sync_verify( string $email ): ?array {
@@ -74,6 +93,7 @@ class ApiClient {
             'redirection' => 0,
             'limit_response_size' => 65536,
         ] );
+        delete_transient( 'zb_balance_' . hash( 'sha256', $s['api_key'] ) );
         if ( is_wp_error( $resp ) ) {
             Logger::log( 'Verification connection failed.' );
             return null;

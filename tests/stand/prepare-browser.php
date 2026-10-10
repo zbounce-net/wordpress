@@ -1,6 +1,6 @@
 <?php
 $options=\ZbEmailValidator\Settings::DEFAULT_SETTINGS;
-$options['api_key']='isolated-fixture-key-not-real';$options['service_enabled']=true;
+$options['api_key']='isolated-fixture-key-not-real';$options['service_enabled']=true;$options['license_accepted']=true;
 update_option(\ZbEmailValidator\Settings::OPTION_KEY,$options);
 wp_set_current_user(1);
 $form=WPCF7_ContactForm::get_template();$form->set_title('ZBounce isolated CF7');

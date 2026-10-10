@@ -1,9 +1,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ZBounce Email Validator 1.2.0\n"
+"Project-Id-Version: ZBounce Email Validator 1.2.1\n"
 "Report-Msgid-Bugs-To: https://zbounce.net\n"
-"POT-Creation-Date: 2026-10-10 09:58+0300\n"
+"POT-Creation-Date: 2026-10-10 10:59+0300\n"
 "PO-Revision-Date: 2026-10-10 00:00+0000\n"
 "Last-Translator: ZBounce\n"
 "Language-Team: ZBounce\n"
@@ -45,6 +45,13 @@ msgstr ""
 "ZBounce konnte diese Prüfung nicht abschließen. Prüfen Sie Schlüssel, "
 "Guthaben und Verbindung."
 
+#, php-format
+msgid "Remaining credits: %s"
+msgstr "Verbleibendes Guthaben: %s"
+
+msgid "Balance unavailable. Check your key and connection."
+msgstr "Guthaben nicht verfügbar. Prüfen Sie Schlüssel und Verbindung."
+
 msgid "Valid"
 msgstr "Gültig"
 
@@ -68,6 +75,18 @@ msgstr "Server akzeptiert alle Adressen"
 
 msgid "Checking…"
 msgstr "Prüfung läuft…"
+
+msgid "Allowed"
+msgstr "Erlaubt"
+
+msgid "Rejected"
+msgstr "Abgelehnt"
+
+msgid "Cache"
+msgstr "Cache"
+
+msgid "ZBounce API"
+msgstr "ZBounce API"
 
 msgid "Validation error"
 msgstr "Prüffehler"
@@ -112,6 +131,12 @@ msgstr "Externe Prüfung"
 
 msgid "Accepted verification results"
 msgstr "Akzeptierte Prüfergebnisse"
+
+msgid "License agreement"
+msgstr "Lizenzvereinbarung"
+
+msgid "Verification credits"
+msgstr "Prüfguthaben"
 
 msgid "Advanced Integrations"
 msgstr "Erweiterte Integrationen"
@@ -189,6 +214,12 @@ msgstr "WPForms nicht gefunden."
 msgid "Select WPForms by ID"
 msgstr "WPForms per ID auswählen"
 
+msgid ""
+"Accept the ZBounce service license agreement before enabling verification."
+msgstr ""
+"Akzeptieren Sie die ZBounce-Lizenzvereinbarung, bevor Sie die Prüfung "
+"aktivieren."
+
 msgid "Enter your purchased API key before enabling external verification."
 msgstr ""
 "Geben Sie Ihren gekauften API-Schlüssel ein, bevor Sie die externe Prüfung "
@@ -226,6 +257,26 @@ msgstr ""
 "Ergebnisse. Die Formatprüfung des Formulars bleibt bestehen. API-Ausfälle "
 "werden getrennt von unbekannten Postfächern behandelt."
 
+msgid "I accept the ZBounce service license agreement."
+msgstr "Ich akzeptiere die Lizenzvereinbarung des ZBounce-Dienstes."
+
+msgid "Read the license agreement"
+msgstr "Lizenzvereinbarung lesen"
+
+msgid ""
+"Acceptance is required before using ZBounce verification. Removing "
+"acceptance stops all API requests."
+msgstr ""
+"Die Zustimmung ist für ZBounce-Prüfungen erforderlich. Ohne Zustimmung "
+"werden alle API-Anfragen gestoppt."
+
+msgid ""
+"Accept the agreement, save your key and enable verification to see the "
+"balance."
+msgstr ""
+"Akzeptieren Sie die Vereinbarung, speichern Sie den Schlüssel und aktivieren"
+" Sie die Prüfung, um das Guthaben zu sehen."
+
 msgid "Enable checks and send submitted email addresses to ZBounce."
 msgstr ""
 "Prüfungen aktivieren und eingereichte E-Mail-Adressen an ZBounce senden."
@@ -248,6 +299,23 @@ msgstr "E-Mail-Adresse eingeben"
 
 msgid "Validate"
 msgstr "Überprüfen"
+
+msgid "Use cached results"
+msgstr "Zwischengespeicherte Ergebnisse verwenden"
+
+msgid "Disable cache to request a fresh API check using verification credits."
+msgstr ""
+"Deaktivieren Sie den Cache für eine neue API-Prüfung, die Guthaben "
+"verbraucht."
+
+msgid "Verification result:"
+msgstr "Prüfergebnis:"
+
+msgid "Your policy:"
+msgstr "Ihre Regel:"
+
+msgid "Result source:"
+msgstr "Ergebnisquelle:"
 
 #, php-format
 msgid "Results for: %s"
@@ -303,6 +371,16 @@ msgstr "Einstellungen speichern"
 
 msgid "Check connection and balance"
 msgstr "Verbindung und Guthaben prüfen"
+
+msgid "Check an email address"
+msgstr "E-Mail-Adresse prüfen"
+
+msgid ""
+"Accept the agreement, save your key and enable verification to use the "
+"tester."
+msgstr ""
+"Akzeptieren Sie die Vereinbarung, speichern Sie den Schlüssel und aktivieren"
+" Sie die Prüfung, um den Tester zu nutzen."
 
 msgid "External service and privacy"
 msgstr "Externer Dienst und Datenschutz"

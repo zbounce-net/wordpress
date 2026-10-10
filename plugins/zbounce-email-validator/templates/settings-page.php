@@ -25,6 +25,14 @@
         <?php submit_button( __( 'Check connection and balance', 'zbounce-email-validator' ), 'secondary' ); ?>
     </form>
     <?php endif; ?>
+    <h2><?php esc_html_e( 'Check an email address', 'zbounce-email-validator' ); ?></h2>
+    <?php if ( \ZbEmailValidator\Settings::is_connected() ) : ?>
+        <?php // The widget escapes every field and is restricted to administrators.
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo \ZbEmailValidator\Validator::render_validator( [] ); ?>
+    <?php else : ?>
+        <p><?php esc_html_e( 'Accept the agreement, save your key and enable verification to use the tester.', 'zbounce-email-validator' ); ?></p>
+    <?php endif; ?>
     <div class="zb-settings-info">
         <h2><?php esc_html_e( 'External service and privacy', 'zbounce-email-validator' ); ?></h2>
         <p><?php esc_html_e( 'When enabled, the plugin sends the email address being checked and your API key to https://api.zbounce.net/v1/fast-verify over HTTPS. Checking the connection sends your key to /v1/me without an email address. ZBounce also receives the network address of your WordPress server. Other form fields, passwords, names and payment details are not included by this plugin.', 'zbounce-email-validator' ); ?></p>

@@ -13,6 +13,9 @@ class Settings {
         'allowed_statuses' => [ 'valid', 'risky', 'unknown', 'unavailable' ],
         'enable_logging' => false,
         'service_enabled'=> false,
+        'license_accepted' => false,
+        'license_accepted_at' => 0,
+        'license_accepted_by' => 0,
 
         'cf7_forms'      => [],    // Contact Form 7 IDs
         'wc_enable'      => true,  // WooCommerce checkout
@@ -69,6 +72,8 @@ class Settings {
 
         add_settings_field( 'allowed_statuses', __( 'Accepted verification results', 'zbounce-email-validator' ), [ __CLASS__, 'render_allowed_statuses_field' ], 'zbounce-email-validator', 'api_settings' );
 
+        add_settings_field( 'license_accepted', __( 'License agreement', 'zbounce-email-validator' ), [ __CLASS__, 'render_license_field' ], 'zbounce-email-validator', 'api_settings' );
+        add_settings_field( 'key_balance', __( 'Verification credits', 'zbounce-email-validator' ), [ __CLASS__, 'render_balance_field' ], 'zbounce-email-validator', 'api_settings' );
         // --- Advanced Integrations ---
         add_settings_section(
             'advanced_settings',
@@ -287,7 +292,7 @@ define('WP_DEBUG_DISPLAY', false);
 
     public static function is_connected(): bool {
         $s = self::get_settings();
-        return ! empty( $s['service_enabled'] ) && '' !== trim( $s['api_key'] );
+        return ! empty( $s['license_accepted'] ) && ! empty( $s['service_enabled'] ) && '' !== trim( $s['api_key'] );
     }
 
     public static function sanitize_settings( $input ): array {
@@ -304,6 +309,15 @@ define('WP_DEBUG_DISPLAY', false);
         if ( array_key_exists( 'allowed_statuses', $input ) ) {
             $values = is_array( $input['allowed_statuses'] ) ? $input['allowed_statuses'] : [];
             $clean['allowed_statuses'] = array_values( array_intersect( array_keys( self::status_labels() ), array_filter( $values, 'is_string' ) ) );
+        }
+        $previous = self::get_settings();
+        $clean['license_accepted'] = isset( $input['license_accepted'] ) && in_array( $input['license_accepted'], [ '1', 1, true ], true );
+        if ( $clean['license_accepted'] ) {
+            $clean['license_accepted_at'] = ! empty( $previous['license_accepted_at'] ) && ! empty( $previous['license_accepted'] ) ? absint( $previous['license_accepted_at'] ) : time();
+            $clean['license_accepted_by'] = ! empty( $previous['license_accepted_at'] ) && ! empty( $previous['license_accepted'] ) ? absint( $previous['license_accepted_by'] ) : get_current_user_id();
+        } elseif ( $clean['service_enabled'] ) {
+            $clean['service_enabled'] = false;
+            add_settings_error( self::OPTION_KEY, 'zb_license_required', __( 'Accept the ZBounce service license agreement before enabling verification.', 'zbounce-email-validator' ) );
         }
         if ( $clean['service_enabled'] && '' === $clean['api_key'] ) {
             $clean['service_enabled'] = false;
@@ -333,6 +347,27 @@ define('WP_DEBUG_DISPLAY', false);
             printf( '<label><input type="checkbox" name="%1$s[allowed_statuses][]" value="%2$s" %3$s> %4$s</label><br>', esc_attr( self::OPTION_KEY ), esc_attr( $status ), checked( in_array( $status, $settings['allowed_statuses'], true ), true, false ), esc_html( $label ) );
         }
         echo '<p class="description">' . esc_html__( 'Checked results pass; unchecked results reject the submission. Rules apply to every enabled integration, including cached results. Native form email-format validation still applies. API availability is separate from an unknown mailbox result.', 'zbounce-email-validator' ) . '</p>';
+    }
+
+    public static function render_license_field() {
+        $settings = self::get_settings();
+        printf( '<label><input type="checkbox" name="%s[license_accepted]" value="1" %s> %s</label> ', esc_attr( self::OPTION_KEY ), checked( ! empty( $settings['license_accepted'] ), true, false ), esc_html__( 'I accept the ZBounce service license agreement.', 'zbounce-email-validator' ) );
+        printf( '<a href="%s" target="_blank" rel="noopener noreferrer">%s</a>', esc_url( 'https://zbounce.net/license.html' ), esc_html__( 'Read the license agreement', 'zbounce-email-validator' ) );
+        echo '<p class="description">' . esc_html__( 'Acceptance is required before using ZBounce verification. Removing acceptance stops all API requests.', 'zbounce-email-validator' ) . '</p>';
+    }
+
+    public static function render_balance_field() {
+        if ( ! self::is_connected() ) {
+            echo esc_html__( 'Accept the agreement, save your key and enable verification to see the balance.', 'zbounce-email-validator' );
+            return;
+        }
+        $balance = ApiClient::get_balance();
+        if ( isset( $balance['remaining'] ) ) {
+            /* translators: %s: number of remaining verification credits. */
+            echo '<strong class="zb-key-balance">' . esc_html( sprintf( __( 'Remaining credits: %s', 'zbounce-email-validator' ), number_format_i18n( $balance['remaining'] ) ) ) . '</strong>';
+        } else {
+            echo '<span class="zb-key-balance">' . esc_html__( 'Balance unavailable. Check your key and connection.', 'zbounce-email-validator' ) . '</span>';
+        }
     }
 
     public static function render_service_enabled_field() {
