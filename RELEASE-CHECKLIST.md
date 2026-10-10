@@ -1,0 +1,17 @@
+# WordPress 1.2.0
+
+The plugin requires a purchased ZBounce key and explicit consent to external verification. Settings → ZBounce Email Validator controls accepted results across all enabled integrations. Checked results pass; unchecked results reject. The default policy accepts valid, risky/accept-all, unknown and API unavailable. It rejects disposable addresses, invalid syntax, no-mail domains and missing mailboxes. A form's own syntax validation is independent. SMTP uncertainty and an API outage are different results; uncertain/outage results are not cached. Changing policy applies immediately to cached facts without another API charge.
+
+Classic WooCommerce checkout and Checkout Block are supported. Block verification runs on place-order POST, before payment. Draft GET/PUT/PATCH requests do not spend verification credits. CF7, WordPress registration and selected Gravity Forms/WPForms/Ninja Forms use the same policy.
+
+Verification: WordPress 7.1.3, WooCommerce 11.2.1, CF7 6.2.1 on the isolated Docker stand on pi. 73 PHP integration assertions; real Store API missing-mailbox rejection and accepted catch-all order; Chrome settings and form checks. Plugin Check reports no errors (optional debug logging, bundled translation loader and global-name warnings remain). PHP 7.4 syntax validation is separate from a complete legacy-version runtime matrix. Gravity Forms was checked through its callback, not a licensed browser installation.
+
+Build: `python3 tools/build_translations.py`, then `python3 tools/package_plugin.py`. ZIP includes only the plugin runtime, translations and GPL license. Stand mock API, tests, WordPress core, unrelated plugins and developer files are excluded. The output archive and SHA-256 are in `releases/`. No WordPress.org submission is performed.
+
+## Русский
+
+Настройки → ZBounce Email Validator позволяют выбрать разрешённые результаты во всех интеграциях. По умолчанию разрешены valid, risky/accept-all, unknown и недоступность API. Остальные результаты отклоняют форму. Встроенная проверка формата адреса самой формой сохраняется. Неопределённый SMTP-результат отличается от недоступности API. Эти результаты не кэшируются. Правила применяются к кэшу сразу, без повторной платной проверки.
+
+Поддерживаются обычный checkout WooCommerce и Checkout Block. Проверка блока выполняется при POST оформления заказа до оплаты; промежуточные GET/PUT/PATCH не расходуют кредиты. CF7, регистрация WordPress и выбранные формы Gravity Forms/WPForms/Ninja Forms используют ту же политику.
+
+Стенд на pi работает отдельным Docker-проектом. Для демонстрации задан тестовый ключ: адреса с префиксами good, catchall, rejected, disposable, unknown, nomx и failure воспроизводят соответствующие результаты. Замена тестового ключа своим ключом включает настоящий ZBounce API и расходует реальные кредиты. Исходящая почта на стенде отключена. Стенд и его данные не являются продакшеном. Не устанавливайте тестовый MU-плагин на рабочий сайт.

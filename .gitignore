@@ -3,3 +3,12 @@
 **/listing.sh
 **/excludes.txt
 **/pack.sh
+.DS_Store
+/wordpress/
+/plugins/akismet/
+/plugins/hello.php
+/plugins/index.php
+/plugins/*.zip
+/*.zip
+/releases/
+__pycache__/

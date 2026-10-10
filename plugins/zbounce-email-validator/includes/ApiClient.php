@@ -1,178 +1,164 @@
 <?php
 namespace ZbEmailValidator;
 
-use ZbEmailValidator\Logger;
+defined( 'ABSPATH' ) || exit;
 
 class ApiClient {
     public static function init() {
-        add_action('wp_ajax_zb_create_validation_task',     [__CLASS__, 'create_validation_task']);
-        add_action('wp_ajax_nopriv_zb_create_validation_task', [__CLASS__, 'create_validation_task']);
+        add_action( 'admin_post_zb_check_connection', [ __CLASS__, 'check_connection' ] );
+        // The standalone tester is administrator-only; forms validate server-side.
+        add_action( 'wp_ajax_zb_create_validation_task', [ __CLASS__, 'create_validation_task' ] );
+    }
+
+    public static function check_connection() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_die( esc_html__( 'Administrator access required.', 'zbounce-email-validator' ) );
+        }
+        check_admin_referer( 'zb_check_connection' );
+        $message = __( 'Enable external verification and save your API key first.', 'zbounce-email-validator' );
+        if ( Settings::is_connected() ) {
+            $s = Settings::get_settings();
+            $response = wp_remote_get( ZB_EVAL_API_BASE . '/v1/me', [
+                'headers' => [ 'X-API-Key' => $s['api_key'] ],
+                'timeout' => 15,
+                'redirection' => 0,
+                'limit_response_size' => 65536,
+            ] );
+            $message = __( 'Connection failed. Check your API key and try again.', 'zbounce-email-validator' );
+            if ( ! is_wp_error( $response ) && 200 === wp_remote_retrieve_response_code( $response ) ) {
+                $data = json_decode( wp_remote_retrieve_body( $response ), true );
+                if ( is_array( $data ) && isset( $data['remaining'] ) && is_numeric( $data['remaining'] ) ) {
+                    /* translators: %s: remaining verification credits. */
+                    $message = sprintf( __( 'Connected. Remaining verification credits: %s.', 'zbounce-email-validator' ), number_format_i18n( $data['remaining'] ) );
+                }
+            }
+        }
+        set_transient( 'zb_connection_' . get_current_user_id(), [ 'message' => $message ], 60 );
+        wp_safe_redirect( admin_url( 'options-general.php?page=zbounce-email-validator' ) );
+        exit;
     }
 
     public static function create_validation_task() {
-        check_ajax_referer('zb_email_validator', 'security');
-        $email = sanitize_email($_POST['email'] ?? '');
-        Logger::log("AJAX create_validation_task called, email={$email}");
-
-        if (!is_email($email)) {
-            Logger::log("Invalid email format: {$email}");
-            wp_send_json_error(['message' => 'Invalid email format']);
+        check_ajax_referer( 'zb_email_validator', 'security' );
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( [ 'message' => __( 'Administrator access required.', 'zbounce-email-validator' ) ], 403 );
         }
-
-        $cache_key = md5($email);
-        if ($cached = self::get_cached_result($cache_key)) {
-            Logger::log("Cache HIT for {$cache_key}");
-            wp_send_json_success(['result' => $cached]);
+        if ( ! Settings::is_connected() ) {
+            wp_send_json_error( [ 'message' => __( 'Enable ZBounce and enter your purchased API key in Settings first.', 'zbounce-email-validator' ) ], 400 );
         }
-        Logger::log("Cache MISS for {$cache_key}");
-
-        $result = self::sync_verify($email);
-        if (!$result) {
-            Logger::log("sync_verify returned null for {$email}");
-            wp_send_json_error(['message' => 'Verification failed']);
+        $email = isset( $_POST['email'] ) && is_string( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+        if ( ! is_email( $email ) ) {
+            wp_send_json_error( [ 'message' => __( 'Invalid email format', 'zbounce-email-validator' ) ], 400 );
         }
-        Logger::log("sync_verify success: " . print_r($result, true));
-
-        self::cache_result($cache_key, $result);
-        Logger::log("Result cached under {$cache_key}");
-
-        wp_send_json_success(['result' => $result]);
+        $result = self::get_cached_result( md5( $email ) );
+        if ( ! $result ) {
+            $result = self::sync_verify( $email );
+            if ( ! $result ) {
+                wp_send_json_error( [ 'message' => __( 'ZBounce could not complete this check. Check your key, balance and connection.', 'zbounce-email-validator' ) ], 502 );
+            }
+            self::cache_result( md5( $email ), $result );
+        }
+        wp_send_json_success( [ 'result' => $result ] );
     }
 
-    public static function sync_verify(string $email): ?array {
-        if (Settings::is_pro()) {
-            Logger::log("Using PRO fast_verify for {$email}");
-            return self::fast_verify($email);
+    public static function sync_verify( string $email ): ?array {
+        if ( ! Settings::is_connected() ) {
+            return null;
         }
-        Logger::log("Using DEMO demo_verify for {$email}");
-        return self::demo_verify($email);
-    }
-    private static function fast_verify(string $email): ?array {
-        Logger::log("fast_verify POST /v1/fast-verify body=" . wp_json_encode(['email'=>$email]));
+        if ( ! is_email( $email ) ) { return null; }
         $s = Settings::get_settings();
-        $resp = wp_remote_post(
-            ZB_EVAL_API_BASE . '/v1/fast-verify',
-            [
-                'headers' => [
-                    'Content-Type' => 'application/json',
-                    'X-API-Key'    => $s['api_key'],
-                ],
-                'body'    => wp_json_encode(['email'=>$email]),
-                'timeout' => 15
-            ]
-        );
-        if (is_wp_error($resp)) {
-            Logger::log("fast_verify WP_Error: " . $resp->get_error_message());
-            return ['email'=>$email,'valid'=>true]; // пропускаем email
-        }
-           $code = wp_remote_retrieve_response_code($resp);
-            $body = wp_remote_retrieve_body($resp);
-            Logger::log("fast_verify response code={$code}, body={$body}");
-
-            if ($code === 403) {
-                Logger::log("API key expired, switching to demo endpoint");
-                $settings = $s;
-                $settings['api_key_expired'] = true;
-                update_option(Settings::OPTION_KEY, $settings);
-                $demo = self::demo_verify($email);
-                return $demo ?: ['email'=>$email,'valid'=>true];
-        }
-
-        if ($code !== 200) {
-                        Logger::log("fast_verify error code={$code}, skipping validation");
-                        return ['email'=>$email,'valid'=>true]; // пропускаем email
-        }
-
-        return self::normalize_pro_result(json_decode($body, true));
-    }
-
-    private static function demo_verify(string $email): ?array {
-        Logger::log("demo_verify POST /v1/demo body=" . wp_json_encode(['email'=>$email]));
-        $resp = wp_remote_post(
-            ZB_EVAL_API_BASE . '/v1/demo',
-            [
-                'headers' => ['Content-Type' => 'application/json'],
-                'body'    => wp_json_encode(['email'=>$email]),
-                'timeout' => 15
-            ]
-        );
-        if (is_wp_error($resp)) {
-            Logger::log("demo_verify WP_Error: " . $resp->get_error_message());
+        $resp = wp_remote_post( ZB_EVAL_API_BASE . '/v1/fast-verify', [
+            'headers' => [ 'Content-Type' => 'application/json', 'X-API-Key' => $s['api_key'] ],
+            'body' => wp_json_encode( [ 'email' => $email ] ),
+            'timeout' => 15,
+            'redirection' => 0,
+            'limit_response_size' => 65536,
+        ] );
+        if ( is_wp_error( $resp ) ) {
+            Logger::log( 'Verification connection failed.' );
             return null;
         }
-        $code = wp_remote_retrieve_response_code($resp);
-        $body = wp_remote_retrieve_body($resp);
-        Logger::log("demo_verify response code={$code}, body={$body}");
-        if ($code !== 200) {
+        $code = wp_remote_retrieve_response_code( $resp );
+        if ( 200 !== $code ) {
+            Logger::log( 'Verification failed; HTTP status ' . intval( $code ) . '.' );
             return null;
         }
-        return self::normalize_demo_result(json_decode($body, true));
+        $data = json_decode( wp_remote_retrieve_body( $resp ), true );
+        return self::normalize_result( $email, $data );
     }
 
-    private static function normalize_pro_result(array $d): array {
-        Logger::log("normalize_pro_result: " . print_r($d, true));
-        return [
-            'email'           => $d['email']           ?? '',
-            'valid'           => (bool)$d['valid'],
-            'exists'          => isset($d['exists'])   ? (bool)$d['exists']   : null,
-            'disposable'      => (bool)$d['disposable'],
-            'accept_all'      => (bool)$d['accept_all'],
-            'permanent_error' => (bool)$d['permanent_error'],
-            'error_category'  => $d['error_category'] ?? '',
+    private static function normalize_result( string $email, $data ): ?array {
+        if ( ! is_array( $data ) ) { return null; }
+        foreach ( [ 'valid', 'disposable', 'accept_all' ] as $field ) {
+            if ( ! isset( $data[ $field ] ) || ! is_bool( $data[ $field ] ) ) { return null; }
+        }
+        foreach ( [ 'exists', 'permanent_error' ] as $field ) {
+            if ( isset( $data[ $field ] ) && ! is_bool( $data[ $field ] ) ) { return null; }
+        }
+        $category = isset( $data['error_category'] ) && is_string( $data['error_category'] ) ? sanitize_text_field( $data['error_category'] ) : '';
+        $exists = $data['exists'] ?? null;
+        $permanent = $data['permanent_error'] ?? false;
+        // SMTP refusal/timeout is not proof of a missing mailbox. Keep the
+        // engine's known missing-address outcomes distinct from probe failures.
+        $missing = [ 'mailbox_not_found', 'mailbox_name_invalid', 'no_mx', 'no_mail', 'domain_not_accepts_mail' ];
+        if ( $data['valid'] && ! $data['disposable'] && false === $exists && ! $data['accept_all'] && ( ! $permanent || ! in_array( $category, $missing, true ) ) ) { $exists = null; }
+        if ( $data['accept_all'] ) { $exists = null; }
+        $status = 'unknown';
+        if ( ! $data['valid'] ) { $status = 'invalid'; }
+        elseif ( $data['disposable'] ) { $status = 'disposable'; }
+        elseif ( $data['accept_all'] ) { $status = 'risky'; }
+        elseif ( false === $exists ) { $status = in_array( $category, [ 'no_mx', 'no_mail', 'domain_not_accepts_mail' ], true ) ? 'no_mx' : 'mailbox_not_found'; }
+        elseif ( true === $exists ) { $status = 'valid'; }
+        $result = [
+            'verification_status' => $status,
+            'email' => $email,
+            'valid' => $data['valid'],
+            'exists' => $exists,
+            'disposable' => $data['disposable'],
+            'accept_all' => $data['accept_all'],
+            'permanent_error' => $permanent,
+            'error_category' => $category,
         ];
-    }
-
-    private static function normalize_demo_result(array $d): array {
-        Logger::log("normalize_demo_result: " . print_r($d, true));
-        return [
-            'email'           => $d['email']           ?? '',
-            'valid'           => (bool)$d['valid'],
-            'exists'          => isset($d['exists'])   ? (bool)$d['exists']   : null,
-            'disposable'      => (bool)$d['disposable'],
-            'accept_all'      => (bool)$d['accept_all'],
-            'permanent_error' => (bool)$d['permanent_error'],
-            'error_category'  => $d['error_category'] ?? '',
-        ];
+        if ( isset( $data['ttl'] ) && is_int( $data['ttl'] ) && $data['ttl'] > 0 ) { $result['ttl'] = $data['ttl']; }
+        return $result;
     }
 
     public static function get_cached_result( string $key ) {
+        if ( ! Settings::is_connected() ) {
+            return false;
+        }
         global $wpdb;
-        $table = $wpdb->prefix . 'zb_email_cache';
-
-        $row = $wpdb->get_row( $wpdb->prepare(
-            "SELECT validation_data, UNIX_TIMESTAMP(created) AS ts
-           FROM {$table}
-          WHERE email_hash = %s",
-            $key
-        ), ARRAY_A );
-
-        if ( ! $row ) {
+        $table = esc_sql( $wpdb->prefix . 'zb_email_cache' );
+        // Table name is derived only from WordPress' trusted database prefix.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $row = $wpdb->get_row( $wpdb->prepare( "SELECT validation_data, created FROM {$table} WHERE email_hash = %s", $key ), ARRAY_A );
+        if ( ! $row || time() - strtotime( $row['created'] . ' UTC' ) > Settings::get_cache_duration() ) {
             return false;
         }
-
-        $age      = time() - (int) $row['ts'];
-        $max_time = Settings::get_cache_duration(); // в секундах
-        if ( $age > $max_time ) {
-            return false;
-        }
-
-        return json_decode( $row['validation_data'], true );
+        $data = json_decode( $row['validation_data'], true );
+        if ( ! is_array( $data ) || empty( $data['email'] ) || ! is_string( $data['email'] ) || md5( $data['email'] ) !== $key ) { return false; }
+        if ( isset( $data['_expires_at'] ) && ( ! is_int( $data['_expires_at'] ) || $data['_expires_at'] <= time() ) ) { return false; }
+        $normalized = self::normalize_result( $data['email'], $data );
+        return $normalized && 'unknown' !== $normalized['verification_status'] ? $normalized : false;
     }
 
-    public static function cache_result(string $key, array $data) {
-        if (empty($data['email'])) {
+    public static function cache_result( string $key, array $data ) {
+        if ( ! Settings::is_connected() || empty( $data['email'] ) || ! is_string( $data['email'] ) || md5( $data['email'] ) !== $key ) {
             return;
         }
+        $data = self::normalize_result( $data['email'], $data );
+        if ( null === $data || 'unknown' === $data['verification_status'] ) { return; }
+        $data['_expires_at'] = time() + min( Settings::get_cache_duration(), $data['ttl'] ?? Settings::get_cache_duration() );
         global $wpdb;
-        $table = $wpdb->prefix . 'zb_email_cache';
-        $wpdb->replace(
-            $table,
-            [
-                'email_hash'      => $key,
-                'validation_data' => wp_json_encode($data),
-                'created'         => current_time('mysql'),
-            ]
-        );
+        $table = esc_sql( $wpdb->prefix . 'zb_email_cache' );
+        // Remove expired rows on writes; expiry also applies on reads.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $wpdb->query( $wpdb->prepare( "DELETE FROM {$table} WHERE created < %s", gmdate( 'Y-m-d H:i:s', time() - Settings::get_cache_duration() ) ) );
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $wpdb->replace( $table, [
+            'email_hash' => $key,
+            'validation_data' => wp_json_encode( $data ),
+            'created' => current_time( 'mysql', true ),
+        ], [ '%s', '%s', '%s' ] );
     }
 }
-

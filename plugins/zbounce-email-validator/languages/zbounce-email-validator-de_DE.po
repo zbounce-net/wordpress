@@ -1,0 +1,352 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ZBounce Email Validator 1.2.0\n"
+"Report-Msgid-Bugs-To: https://zbounce.net\n"
+"POT-Creation-Date: 2026-10-10 09:58+0300\n"
+"PO-Revision-Date: 2026-10-10 00:00+0000\n"
+"Last-Translator: ZBounce\n"
+"Language-Team: ZBounce\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Administrator access required."
+msgstr "Administratorzugriff erforderlich."
+
+msgid "Enable external verification and save your API key first."
+msgstr ""
+"Aktivieren Sie zuerst die externe Prüfung und speichern Sie Ihren API-"
+"Schlüssel."
+
+msgid "Connection failed. Check your API key and try again."
+msgstr ""
+"Verbindung fehlgeschlagen. Prüfen Sie Ihren API-Schlüssel und versuchen Sie "
+"es erneut."
+
+#, php-format
+msgid "Connected. Remaining verification credits: %s."
+msgstr "Verbunden. Verbleibende Prüfguthaben: %s."
+
+msgid "Enable ZBounce and enter your purchased API key in Settings first."
+msgstr ""
+"Aktivieren Sie zuerst ZBounce und geben Sie Ihren gekauften API-Schlüssel in"
+" den Einstellungen ein."
+
+msgid "Invalid email format"
+msgstr "Ungültiges E-Mail-Format"
+
+msgid ""
+"ZBounce could not complete this check. Check your key, balance and "
+"connection."
+msgstr ""
+"ZBounce konnte diese Prüfung nicht abschließen. Prüfen Sie Schlüssel, "
+"Guthaben und Verbindung."
+
+msgid "Valid"
+msgstr "Gültig"
+
+msgid "Invalid"
+msgstr "Ungültig"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nein"
+
+msgid "Not checked"
+msgstr "Nicht geprüft"
+
+msgid "Yes (unreliable)"
+msgstr "Ja (unzuverlässig)"
+
+msgid "Server accepts all"
+msgstr "Server akzeptiert alle Adressen"
+
+msgid "Checking…"
+msgstr "Prüfung läuft…"
+
+msgid "Validation error"
+msgstr "Prüffehler"
+
+msgid "ZBounce Email Validator"
+msgstr "ZBounce Email Validator"
+
+msgid "ZBounce Email"
+msgstr "ZBounce Email"
+
+msgid "Email verification cache"
+msgstr "E-Mail-Prüfcache"
+
+msgid "Email address"
+msgstr "E-Mail-Adresse"
+
+msgid "Cached at (UTC)"
+msgstr "Zwischengespeichert am (UTC)"
+
+msgid "Verification result"
+msgstr "Prüfergebnis"
+
+msgid "Could not remove cached verification data. Try again."
+msgstr ""
+"Die zwischengespeicherten Prüfdaten konnten nicht gelöscht werden. Versuchen"
+" Sie es erneut."
+
+msgid "API Configuration"
+msgstr "API-Konfiguration"
+
+msgid "Purchased ZBounce API key"
+msgstr "Gekaufter ZBounce-API-Schlüssel"
+
+msgid "Cache Duration"
+msgstr "Cache-Dauer"
+
+msgid "Enable Debug Logging"
+msgstr "Debug-Protokollierung aktivieren"
+
+msgid "External verification"
+msgstr "Externe Prüfung"
+
+msgid "Accepted verification results"
+msgstr "Akzeptierte Prüfergebnisse"
+
+msgid "Advanced Integrations"
+msgstr "Erweiterte Integrationen"
+
+msgid "Contact Form 7 to Validate"
+msgstr "Zu prüfende Contact Form 7-Formulare"
+
+msgid "Enable WooCommerce Checkout"
+msgstr "WooCommerce-Kassenprüfung aktivieren"
+
+msgid "Enable WP Registration"
+msgstr "WordPress-Registrierungsprüfung aktivieren"
+
+msgid "Gravity Forms to Validate"
+msgstr "Gravity Forms zur Validierung"
+
+msgid "WPForms to Validate"
+msgstr "WPForms zur Validierung"
+
+msgid "Ninja Forms to Validate"
+msgstr "Ninja Forms zur Validierung"
+
+msgid ""
+"Buy verification credits at zbounce.net/pricing.html and paste the API key "
+"received after payment."
+msgstr ""
+"Kaufen Sie Prüfguthaben auf zbounce.net/pricing.html und fügen Sie den nach "
+"der Zahlung erhaltenen API-Schlüssel ein."
+
+msgid "hours"
+msgstr "Stunden"
+
+msgid "Cache storage duration (hours)"
+msgstr "Cache-Speicherzeit (Stunden)"
+
+msgid "Enable logging to PHP error_log"
+msgstr "Protokollierung in PHP error_log aktivieren"
+
+msgid "Debug logs are written to PHP error_log"
+msgstr "Debug-Logs werden in PHP error_log geschrieben"
+
+msgid ""
+"To write logs into wp-content/debug.log, add these lines to your wp-"
+"config.php:"
+msgstr ""
+"Fügen Sie in wp-config.php diese Zeilen ein, damit Logs nach wp-"
+"content/debug.log geschrieben werden:"
+
+msgid "Contact Form 7 not detected."
+msgstr "Contact Form 7 nicht gefunden."
+
+msgid ""
+"Select the forms to validate. An empty selection validates all Contact Form "
+"7 forms; disable external verification to stop all checks."
+msgstr ""
+"Wählen Sie die zu prüfenden Formulare. Ohne Auswahl werden alle Contact Form"
+" 7-Formulare geprüft; deaktivieren Sie die externe Prüfung, um alle "
+"Prüfungen zu stoppen."
+
+msgid "Enable WooCommerce checkout validation"
+msgstr "WooCommerce-Kassenprüfung aktivieren"
+
+msgid "Enable WP registration validation"
+msgstr "WordPress-Registrierungsprüfung aktivieren"
+
+msgid "Gravity Forms not detected."
+msgstr "Gravity Forms nicht gefunden."
+
+msgid "Select Gravity Forms by ID"
+msgstr "Gravity Forms per ID auswählen"
+
+msgid "WPForms not detected."
+msgstr "WPForms nicht gefunden."
+
+msgid "Select WPForms by ID"
+msgstr "WPForms per ID auswählen"
+
+msgid "Enter your purchased API key before enabling external verification."
+msgstr ""
+"Geben Sie Ihren gekauften API-Schlüssel ein, bevor Sie die externe Prüfung "
+"aktivieren."
+
+msgid "Valid — mailbox confirmed"
+msgstr "Valid — Postfach bestätigt"
+
+msgid "Risky — accept-all domain"
+msgstr "Risky — Domain akzeptiert alle Adressen"
+
+msgid "Disposable email"
+msgstr "Wegwerfadresse"
+
+msgid "Domain does not accept mail"
+msgstr "Domain empfängt keine E-Mails"
+
+msgid "Mailbox does not exist"
+msgstr "Postfach existiert nicht"
+
+msgid "Unknown — mailbox could not be confirmed"
+msgstr "Unknown — Postfach nicht bestätigt"
+
+msgid "API unavailable — connection, key or balance problem"
+msgstr "API nicht verfügbar — Verbindung, Schlüssel oder Guthaben prüfen"
+
+msgid ""
+"Checked results pass; unchecked results reject the submission. Rules apply "
+"to every enabled integration, including cached results. Native form email-"
+"format validation still applies. API availability is separate from an "
+"unknown mailbox result."
+msgstr ""
+"Markierte Ergebnisse werden akzeptiert, andere verhindern das Absenden. Die "
+"Regeln gelten für alle aktivierten Integrationen und zwischengespeicherten "
+"Ergebnisse. Die Formatprüfung des Formulars bleibt bestehen. API-Ausfälle "
+"werden getrennt von unbekannten Postfächern behandelt."
+
+msgid "Enable checks and send submitted email addresses to ZBounce."
+msgstr ""
+"Prüfungen aktivieren und eingereichte E-Mail-Adressen an ZBounce senden."
+
+msgid ""
+"Checks use your purchased credits. No requests are sent until you enable "
+"this option and enter a key."
+msgstr ""
+"Prüfungen verbrauchen Ihr gekauftes Guthaben. Anfragen werden erst gesendet,"
+" wenn Sie diese Option aktivieren und einen Schlüssel eingeben."
+
+msgid "Ninja Forms not detected."
+msgstr "Ninja Forms nicht gefunden."
+
+msgid "Select Ninja Forms by ID"
+msgstr "Ninja Forms per ID auswählen"
+
+msgid "Enter email address"
+msgstr "E-Mail-Adresse eingeben"
+
+msgid "Validate"
+msgstr "Überprüfen"
+
+#, php-format
+msgid "Results for: %s"
+msgstr "Ergebnisse für: %s"
+
+msgid "Email Format:"
+msgstr "E-Mail-Format:"
+
+msgid "Mailbox Exists:"
+msgstr "Postfach vorhanden:"
+
+msgid "Disposable:"
+msgstr "Einweg:"
+
+msgid "Accepts All:"
+msgstr "Akzeptiert alles:"
+
+msgid "Disposable emails are not allowed"
+msgstr "Einweg-E-Mails sind nicht erlaubt"
+
+msgid "Email address does not exist"
+msgstr "E-Mail-Adresse existiert nicht"
+
+msgid "Accept-all email domains are not allowed"
+msgstr "Domains, die alle Adressen akzeptieren, sind nicht erlaubt"
+
+msgid "Email verification is temporarily unavailable. Please try again."
+msgstr ""
+"Die E-Mail-Prüfung ist vorübergehend nicht verfügbar. Bitte versuchen Sie es"
+" erneut."
+
+msgid "The mailbox could not be confirmed. Please use another email address."
+msgstr ""
+"Das Postfach konnte nicht bestätigt werden. Bitte verwenden Sie eine andere "
+"Adresse."
+
+msgid "ZBounce Email Validator Settings"
+msgstr "Einstellungen ZBounce Email Validator"
+
+msgid ""
+"Buy verification credits on ZBounce, then paste the API key you receive "
+"after payment. The plugin itself is free; remote checks use your credits."
+msgstr ""
+"Kaufen Sie Prüfguthaben bei ZBounce und fügen Sie den nach der Zahlung "
+"erhaltenen API-Schlüssel ein. Das Plugin ist kostenlos; externe Prüfungen "
+"verbrauchen Ihr Guthaben."
+
+msgid "Buy credits / get an API key"
+msgstr "Guthaben kaufen / API-Schlüssel erhalten"
+
+msgid "Save Settings"
+msgstr "Einstellungen speichern"
+
+msgid "Check connection and balance"
+msgstr "Verbindung und Guthaben prüfen"
+
+msgid "External service and privacy"
+msgstr "Externer Dienst und Datenschutz"
+
+msgid ""
+"When enabled, the plugin sends the email address being checked and your API "
+"key to https://api.zbounce.net/v1/fast-verify over HTTPS. Checking the "
+"connection sends your key to /v1/me without an email address. ZBounce also "
+"receives the network address of your WordPress server. Other form fields, "
+"passwords, names and payment details are not included by this plugin."
+msgstr ""
+"Bei aktivierter Prüfung sendet das Plugin die E-Mail-Adresse und Ihren API-"
+"Schlüssel per HTTPS an https://api.zbounce.net/v1/fast-verify. Die "
+"Verbindungsprüfung sendet Ihren Schlüssel ohne E-Mail-Adresse an /v1/me. "
+"ZBounce erhält auch die Netzwerkadresse Ihres WordPress-Servers. Andere "
+"Formularfelder, Passwörter, Namen und Zahlungsdaten werden vom Plugin nicht "
+"übertragen."
+
+msgid "Privacy policy"
+msgstr "Datenschutzerklärung"
+
+msgid "Terms of service"
+msgstr "Nutzungsbedingungen"
+
+msgid ""
+"Verification results, including email addresses, are cached in your "
+"WordPress database. Expired results are ignored and removed on later writes."
+" Include this external processing in your own site privacy information."
+msgstr ""
+"Prüfergebnisse einschließlich E-Mail-Adressen werden in Ihrer WordPress-"
+"Datenbank zwischengespeichert. Abgelaufene Ergebnisse werden ignoriert und "
+"bei späteren Schreibvorgängen gelöscht. Beschreiben Sie diese externe "
+"Verarbeitung in den Datenschutzhinweisen Ihrer Website."
+
+msgid "Using the plugin"
+msgstr "Plugin verwenden"
+
+msgid ""
+"Select integrations and accepted results above. The API unavailable rule "
+"controls whether a service outage allows or rejects a submission."
+msgstr ""
+"Wählen Sie oben Integrationen und akzeptierte Ergebnisse. Die Regel für eine"
+" nicht verfügbare API entscheidet bei Ausfällen über Annahme oder Ablehnung."
+
+msgid ""
+"The standalone test shortcode is available only to logged-in administrators:"
+msgstr "Der Test-Shortcode ist nur für angemeldete Administratoren verfügbar:"

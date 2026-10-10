@@ -1,0 +1,404 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ZBounce Email Validator 1.2.0\n"
+"Report-Msgid-Bugs-To: https://zbounce.net\n"
+"POT-Creation-Date: 2026-10-10 09:58+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: plugins/zbounce-email-validator/includes/ApiClient.php:15
+#: plugins/zbounce-email-validator/includes/ApiClient.php:44
+msgid "Administrator access required."
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/ApiClient.php:18
+msgid "Enable external verification and save your API key first."
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/ApiClient.php:27
+msgid "Connection failed. Check your API key and try again."
+msgstr ""
+
+#. translators: %s: remaining verification credits.
+#: plugins/zbounce-email-validator/includes/ApiClient.php:32
+#, php-format
+msgid "Connected. Remaining verification credits: %s."
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/ApiClient.php:47
+msgid "Enable ZBounce and enter your purchased API key in Settings first."
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/ApiClient.php:51
+#: plugins/zbounce-email-validator/includes/Assets.php:35
+#: plugins/zbounce-email-validator/includes/Settings.php:320
+#: plugins/zbounce-email-validator/includes/Validator.php:116
+msgid "Invalid email format"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/ApiClient.php:57
+msgid ""
+"ZBounce could not complete this check. Check your key, balance and "
+"connection."
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Assets.php:36
+msgid "Valid"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Assets.php:37
+msgid "Invalid"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Assets.php:38
+msgid "Yes"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Assets.php:39
+msgid "No"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Assets.php:40
+msgid "Not checked"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Assets.php:41
+msgid "Yes (unreliable)"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Assets.php:42
+msgid "Server accepts all"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Assets.php:43
+msgid "Checking…"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Assets.php:44
+msgid "Validation error"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Core.php:73
+msgid "ZBounce Email Validator"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Core.php:74
+msgid "ZBounce Email"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Privacy.php:42
+msgid "Email verification cache"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Privacy.php:44
+msgid "Email address"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Privacy.php:44
+msgid "Cached at (UTC)"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Privacy.php:44
+msgid "Verification result"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Privacy.php:62
+msgid "Could not remove cached verification data. Try again."
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:36
+msgid "API Configuration"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:42
+msgid "Purchased ZBounce API key"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:49
+msgid "Cache Duration"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:56
+msgid "Enable Debug Logging"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:64
+msgid "External verification"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:70
+msgid "Accepted verification results"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:75
+msgid "Advanced Integrations"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:82
+msgid "Contact Form 7 to Validate"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:90
+msgid "Enable WooCommerce Checkout"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:98
+msgid "Enable WP Registration"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:106
+msgid "Gravity Forms to Validate"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:113
+msgid "WPForms to Validate"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:120
+msgid "Ninja Forms to Validate"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:133
+msgid ""
+"Buy verification credits at zbounce.net/pricing.html and paste the API key "
+"received after payment."
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:143
+msgid "hours"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:145
+msgid "Cache storage duration (hours)"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:157
+msgid "Enable logging to PHP error_log"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:160
+msgid "Debug logs are written to PHP error_log"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:166
+msgid ""
+"To write logs into wp-content/debug.log, add these lines to your wp-"
+"config.php:"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:204
+msgid "Contact Form 7 not detected."
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:208
+msgid ""
+"Select the forms to validate. An empty selection validates all Contact Form "
+"7 forms; disable external verification to stop all checks."
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:219
+msgid "Enable WooCommerce checkout validation"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:231
+msgid "Enable WP registration validation"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:255
+msgid "Gravity Forms not detected."
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:257
+msgid "Select Gravity Forms by ID"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:278
+msgid "WPForms not detected."
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:280
+msgid "Select WPForms by ID"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:310
+msgid "Enter your purchased API key before enabling external verification."
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:317
+msgid "Valid — mailbox confirmed"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:318
+msgid "Risky — accept-all domain"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:319
+msgid "Disposable email"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:321
+msgid "Domain does not accept mail"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:322
+msgid "Mailbox does not exist"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:323
+msgid "Unknown — mailbox could not be confirmed"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:324
+msgid "API unavailable — connection, key or balance problem"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:335
+msgid ""
+"Checked results pass; unchecked results reject the submission. Rules apply "
+"to every enabled integration, including cached results. Native form email-"
+"format validation still applies. API availability is separate from an "
+"unknown mailbox result."
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:342
+msgid "Enable checks and send submitted email addresses to ZBounce."
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:343
+msgid ""
+"Checks use your purchased credits. No requests are sent until you enable "
+"this option and enter a key."
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:366
+msgid "Ninja Forms not detected."
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Settings.php:368
+msgid "Select Ninja Forms by ID"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Validator.php:44
+#: plugins/zbounce-email-validator/includes/Validator.php:46
+msgid "Enter email address"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Validator.php:47
+msgid "Validate"
+msgstr ""
+
+#. translators: %s: email address displayed in a text-only span.
+#: plugins/zbounce-email-validator/includes/Validator.php:54
+#, php-format
+msgid "Results for: %s"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Validator.php:59
+msgid "Email Format:"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Validator.php:63
+msgid "Mailbox Exists:"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Validator.php:67
+msgid "Disposable:"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Validator.php:71
+msgid "Accepts All:"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Validator.php:117
+msgid "Disposable emails are not allowed"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Validator.php:118
+msgid "Email address does not exist"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Validator.php:119
+msgid "Accept-all email domains are not allowed"
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Validator.php:120
+msgid "Email verification is temporarily unavailable. Please try again."
+msgstr ""
+
+#: plugins/zbounce-email-validator/includes/Validator.php:121
+msgid "The mailbox could not be confirmed. Please use another email address."
+msgstr ""
+
+#: plugins/zbounce-email-validator/templates/settings-page.php:3
+msgid "ZBounce Email Validator Settings"
+msgstr ""
+
+#: plugins/zbounce-email-validator/templates/settings-page.php:5
+msgid ""
+"Buy verification credits on ZBounce, then paste the API key you receive "
+"after payment. The plugin itself is free; remote checks use your credits."
+msgstr ""
+
+#: plugins/zbounce-email-validator/templates/settings-page.php:6
+msgid "Buy credits / get an API key"
+msgstr ""
+
+#: plugins/zbounce-email-validator/templates/settings-page.php:11
+msgid "Save Settings"
+msgstr ""
+
+#: plugins/zbounce-email-validator/templates/settings-page.php:25
+msgid "Check connection and balance"
+msgstr ""
+
+#: plugins/zbounce-email-validator/templates/settings-page.php:29
+msgid "External service and privacy"
+msgstr ""
+
+#: plugins/zbounce-email-validator/templates/settings-page.php:30
+msgid ""
+"When enabled, the plugin sends the email address being checked and your API "
+"key to https://api.zbounce.net/v1/fast-verify over HTTPS. Checking the "
+"connection sends your key to /v1/me without an email address. ZBounce also "
+"receives the network address of your WordPress server. Other form fields, "
+"passwords, names and payment details are not included by this plugin."
+msgstr ""
+
+#: plugins/zbounce-email-validator/templates/settings-page.php:31
+msgid "Privacy policy"
+msgstr ""
+
+#: plugins/zbounce-email-validator/templates/settings-page.php:31
+msgid "Terms of service"
+msgstr ""
+
+#: plugins/zbounce-email-validator/templates/settings-page.php:32
+msgid ""
+"Verification results, including email addresses, are cached in your "
+"WordPress database. Expired results are ignored and removed on later writes."
+" Include this external processing in your own site privacy information."
+msgstr ""
+
+#: plugins/zbounce-email-validator/templates/settings-page.php:33
+msgid "Using the plugin"
+msgstr ""
+
+#: plugins/zbounce-email-validator/templates/settings-page.php:34
+msgid ""
+"Select integrations and accepted results above. The API unavailable rule "
+"controls whether a service outage allows or rejects a submission."
+msgstr ""
+
+#: plugins/zbounce-email-validator/templates/settings-page.php:35
+msgid ""
+"The standalone test shortcode is available only to logged-in administrators:"
+msgstr ""

@@ -1,0 +1,8 @@
+# Private LAN preview only; replaces the loopback port in the base test compose.
+services:
+  wordpress:
+    ports: !override
+      - "192.168.77.252:18990:80"
+    restart: unless-stopped
+  db:
+    restart: unless-stopped

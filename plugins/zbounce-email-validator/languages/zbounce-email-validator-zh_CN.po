@@ -1,0 +1,311 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ZBounce Email Validator 1.2.0\n"
+"Report-Msgid-Bugs-To: https://zbounce.net\n"
+"POT-Creation-Date: 2026-10-10 09:58+0300\n"
+"PO-Revision-Date: 2026-10-10 00:00+0000\n"
+"Last-Translator: ZBounce\n"
+"Language-Team: ZBounce\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Administrator access required."
+msgstr "需要管理员权限。"
+
+msgid "Enable external verification and save your API key first."
+msgstr "请先启用外部验证并保存 API 密钥。"
+
+msgid "Connection failed. Check your API key and try again."
+msgstr "连接失败。请检查 API 密钥后重试。"
+
+#, php-format
+msgid "Connected. Remaining verification credits: %s."
+msgstr "已连接。剩余验证额度：%s。"
+
+msgid "Enable ZBounce and enter your purchased API key in Settings first."
+msgstr "请先在设置中启用 ZBounce 并输入购买后获得的 API 密钥。"
+
+msgid "Invalid email format"
+msgstr "无效的电子邮件格式"
+
+msgid ""
+"ZBounce could not complete this check. Check your key, balance and "
+"connection."
+msgstr "ZBounce 无法完成验证。请检查密钥、余额和连接。"
+
+msgid "Valid"
+msgstr "有效"
+
+msgid "Invalid"
+msgstr "无效"
+
+msgid "Yes"
+msgstr "是"
+
+msgid "No"
+msgstr "否"
+
+msgid "Not checked"
+msgstr "未检查"
+
+msgid "Yes (unreliable)"
+msgstr "是（不可靠）"
+
+msgid "Server accepts all"
+msgstr "服务器接受所有地址"
+
+msgid "Checking…"
+msgstr "正在检查…"
+
+msgid "Validation error"
+msgstr "验证错误"
+
+msgid "ZBounce Email Validator"
+msgstr "ZBounce Email Validator"
+
+msgid "ZBounce Email"
+msgstr "ZBounce Email"
+
+msgid "Email verification cache"
+msgstr "邮箱验证缓存"
+
+msgid "Email address"
+msgstr "邮箱地址"
+
+msgid "Cached at (UTC)"
+msgstr "缓存时间（UTC）"
+
+msgid "Verification result"
+msgstr "验证结果"
+
+msgid "Could not remove cached verification data. Try again."
+msgstr "无法删除验证缓存数据。请重试。"
+
+msgid "API Configuration"
+msgstr "API 配置"
+
+msgid "Purchased ZBounce API key"
+msgstr "购买后获得的 ZBounce API 密钥"
+
+msgid "Cache Duration"
+msgstr "缓存时长"
+
+msgid "Enable Debug Logging"
+msgstr "启用调试日志"
+
+msgid "External verification"
+msgstr "外部验证"
+
+msgid "Accepted verification results"
+msgstr "允许的验证结果"
+
+msgid "Advanced Integrations"
+msgstr "高级集成"
+
+msgid "Contact Form 7 to Validate"
+msgstr "需要验证的 Contact Form 7 表单"
+
+msgid "Enable WooCommerce Checkout"
+msgstr "启用 WooCommerce 结账验证"
+
+msgid "Enable WP Registration"
+msgstr "启用 WordPress 注册验证"
+
+msgid "Gravity Forms to Validate"
+msgstr "要验证的 Gravity Forms"
+
+msgid "WPForms to Validate"
+msgstr "要验证的 WPForms"
+
+msgid "Ninja Forms to Validate"
+msgstr "要验证的 Ninja Forms"
+
+msgid ""
+"Buy verification credits at zbounce.net/pricing.html and paste the API key "
+"received after payment."
+msgstr "请在 zbounce.net/pricing.html 购买验证额度，然后粘贴付款后获得的 API 密钥。"
+
+msgid "hours"
+msgstr "小时"
+
+msgid "Cache storage duration (hours)"
+msgstr "缓存存储时长（小时）"
+
+msgid "Enable logging to PHP error_log"
+msgstr "启用记录到 PHP error_log"
+
+msgid "Debug logs are written to PHP error_log"
+msgstr "调试日志将写入 PHP error_log"
+
+msgid ""
+"To write logs into wp-content/debug.log, add these lines to your wp-"
+"config.php:"
+msgstr "要将日志写入 wp-content/debug.log，请将以下行添加到您的 wp-config.php："
+
+msgid "Contact Form 7 not detected."
+msgstr "未检测到 Contact Form 7。"
+
+msgid ""
+"Select the forms to validate. An empty selection validates all Contact Form "
+"7 forms; disable external verification to stop all checks."
+msgstr "请选择需要验证的表单。未选择时将验证所有 Contact Form 7 表单；关闭外部验证即可停止全部检查。"
+
+msgid "Enable WooCommerce checkout validation"
+msgstr "启用 WooCommerce 结账验证"
+
+msgid "Enable WP registration validation"
+msgstr "启用 WordPress 注册验证"
+
+msgid "Gravity Forms not detected."
+msgstr "未检测到 Gravity Forms。"
+
+msgid "Select Gravity Forms by ID"
+msgstr "按 ID 选择 Gravity Forms"
+
+msgid "WPForms not detected."
+msgstr "未检测到 WPForms。"
+
+msgid "Select WPForms by ID"
+msgstr "按 ID 选择 WPForms"
+
+msgid "Enter your purchased API key before enabling external verification."
+msgstr "请先输入购买后获得的 API 密钥，再启用外部验证。"
+
+msgid "Valid — mailbox confirmed"
+msgstr "Valid — 邮箱已确认"
+
+msgid "Risky — accept-all domain"
+msgstr "Risky — 接受所有地址的域名"
+
+msgid "Disposable email"
+msgstr "临时邮箱"
+
+msgid "Domain does not accept mail"
+msgstr "域名不接收邮件"
+
+msgid "Mailbox does not exist"
+msgstr "邮箱不存在"
+
+msgid "Unknown — mailbox could not be confirmed"
+msgstr "Unknown — 无法确认邮箱"
+
+msgid "API unavailable — connection, key or balance problem"
+msgstr "API 不可用 — 连接、密钥或余额问题"
+
+msgid ""
+"Checked results pass; unchecked results reject the submission. Rules apply "
+"to every enabled integration, including cached results. Native form email-"
+"format validation still applies. API availability is separate from an "
+"unknown mailbox result."
+msgstr ""
+"选中的结果允许提交，未选中的结果拒绝提交。规则适用于所有已启用的集成及缓存结果。表单自身的邮箱格式验证仍然有效。API 不可用与邮箱结果不确定分别处理。"
+
+msgid "Enable checks and send submitted email addresses to ZBounce."
+msgstr "启用检查并将提交的邮箱地址发送给 ZBounce。"
+
+msgid ""
+"Checks use your purchased credits. No requests are sent until you enable "
+"this option and enter a key."
+msgstr "检查会消耗已购买的额度。启用此选项并输入密钥之前不会发送任何请求。"
+
+msgid "Ninja Forms not detected."
+msgstr "未检测到 Ninja Forms。"
+
+msgid "Select Ninja Forms by ID"
+msgstr "按 ID 选择 Ninja Forms"
+
+msgid "Enter email address"
+msgstr "输入电子邮件地址"
+
+msgid "Validate"
+msgstr "验证"
+
+#, php-format
+msgid "Results for: %s"
+msgstr "结果：%s"
+
+msgid "Email Format:"
+msgstr "电子邮件格式："
+
+msgid "Mailbox Exists:"
+msgstr "邮箱存在："
+
+msgid "Disposable:"
+msgstr "一次性邮箱："
+
+msgid "Accepts All:"
+msgstr "接受所有："
+
+msgid "Disposable emails are not allowed"
+msgstr "不允许使用一次性电子邮件"
+
+msgid "Email address does not exist"
+msgstr "电子邮件地址不存在"
+
+msgid "Accept-all email domains are not allowed"
+msgstr "不允许使用接受所有地址的域名"
+
+msgid "Email verification is temporarily unavailable. Please try again."
+msgstr "邮箱验证暂时不可用，请重试。"
+
+msgid "The mailbox could not be confirmed. Please use another email address."
+msgstr "无法确认邮箱，请使用其他邮箱地址。"
+
+msgid "ZBounce Email Validator Settings"
+msgstr "ZBounce 电子邮件验证器 设置"
+
+msgid ""
+"Buy verification credits on ZBounce, then paste the API key you receive "
+"after payment. The plugin itself is free; remote checks use your credits."
+msgstr "请在 ZBounce 购买验证额度，然后粘贴付款后收到的 API 密钥。插件本身免费，远程检查会消耗您的额度。"
+
+msgid "Buy credits / get an API key"
+msgstr "购买额度 / 获取 API 密钥"
+
+msgid "Save Settings"
+msgstr "保存设置"
+
+msgid "Check connection and balance"
+msgstr "检查连接和余额"
+
+msgid "External service and privacy"
+msgstr "外部服务与隐私"
+
+msgid ""
+"When enabled, the plugin sends the email address being checked and your API "
+"key to https://api.zbounce.net/v1/fast-verify over HTTPS. Checking the "
+"connection sends your key to /v1/me without an email address. ZBounce also "
+"receives the network address of your WordPress server. Other form fields, "
+"passwords, names and payment details are not included by this plugin."
+msgstr ""
+"启用后，插件通过 HTTPS 将待检查的邮箱地址和 API 密钥发送至 https://api.zbounce.net/v1/fast-"
+"verify。连接测试仅向 /v1/me 发送密钥，不发送邮箱地址。ZBounce 还会收到 WordPress "
+"服务器的网络地址。插件不会发送其他表单字段、密码、姓名或支付信息。"
+
+msgid "Privacy policy"
+msgstr "隐私政策"
+
+msgid "Terms of service"
+msgstr "服务条款"
+
+msgid ""
+"Verification results, including email addresses, are cached in your "
+"WordPress database. Expired results are ignored and removed on later writes."
+" Include this external processing in your own site privacy information."
+msgstr "验证结果（包括邮箱地址）缓存在 WordPress 数据库中。过期结果不会被使用，并在后续写入时删除。请在网站隐私说明中披露此项外部处理。"
+
+msgid "Using the plugin"
+msgstr "使用插件"
+
+msgid ""
+"Select integrations and accepted results above. The API unavailable rule "
+"controls whether a service outage allows or rejects a submission."
+msgstr "请在上方选择集成和允许的结果。API 不可用规则决定服务故障时允许还是拒绝提交。"
+
+msgid ""
+"The standalone test shortcode is available only to logged-in administrators:"
+msgstr "独立测试短代码仅供已登录的管理员使用："

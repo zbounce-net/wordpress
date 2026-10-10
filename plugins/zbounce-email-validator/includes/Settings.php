@@ -1,6 +1,8 @@
 <?php
 namespace ZbEmailValidator;
 
+defined( 'ABSPATH' ) || exit;
+
 use WPCF7_ContactForm;
 
 class Settings {
@@ -8,8 +10,9 @@ class Settings {
     const DEFAULT_SETTINGS = [
         'api_key'        => '',
         'cache_duration' => 24,
+        'allowed_statuses' => [ 'valid', 'risky', 'unknown', 'unavailable' ],
         'enable_logging' => false,
-        'api_key_expired'=> false,
+        'service_enabled'=> false,
 
         'cf7_forms'      => [],    // Contact Form 7 IDs
         'wc_enable'      => true,  // WooCommerce checkout
@@ -25,88 +28,98 @@ class Settings {
     }
 
     public static function register_settings() {
-        register_setting( 'zb_email_validator_settings', self::OPTION_KEY );
+        register_setting( 'zb_email_validator_settings', self::OPTION_KEY, [ 'sanitize_callback' => [ __CLASS__, 'sanitize_settings' ] ] );
 
         // --- API Section ---
         add_settings_section(
             'api_settings',
-            __( 'API Configuration', 'zb-email-validator' ),
+            __( 'API Configuration', 'zbounce-email-validator' ),
             null,
-            'zb-email-validator'
+            'zbounce-email-validator'
         );
         add_settings_field(
             'api_key',
-            __( 'API Key (Pro Version)', 'zb-email-validator' ),
+            __( 'Purchased ZBounce API key', 'zbounce-email-validator' ),
             [ __CLASS__, 'render_api_key_field' ],
-            'zb-email-validator',
+            'zbounce-email-validator',
             'api_settings'
         );
         add_settings_field(
             'cache_duration',
-            __( 'Cache Duration', 'zb-email-validator' ),
+            __( 'Cache Duration', 'zbounce-email-validator' ),
             [ __CLASS__, 'render_cache_duration_field' ],
-            'zb-email-validator',
+            'zbounce-email-validator',
             'api_settings'
         );
         add_settings_field(
             'enable_logging',
-            __( 'Enable Debug Logging', 'zb-email-validator' ),
+            __( 'Enable Debug Logging', 'zbounce-email-validator' ),
             [ __CLASS__, 'render_logging_field' ],
-            'zb-email-validator',
+            'zbounce-email-validator',
             'api_settings'
         );
+
+        add_settings_field(
+            'service_enabled',
+            __( 'External verification', 'zbounce-email-validator' ),
+            [ __CLASS__, 'render_service_enabled_field' ],
+            'zbounce-email-validator',
+            'api_settings'
+        );
+
+        add_settings_field( 'allowed_statuses', __( 'Accepted verification results', 'zbounce-email-validator' ), [ __CLASS__, 'render_allowed_statuses_field' ], 'zbounce-email-validator', 'api_settings' );
 
         // --- Advanced Integrations ---
         add_settings_section(
             'advanced_settings',
-            __( 'Advanced Integrations', 'zb-email-validator' ),
+            __( 'Advanced Integrations', 'zbounce-email-validator' ),
             null,
-            'zb-email-validator'
+            'zbounce-email-validator'
         );
         // CF7
         add_settings_field(
             'cf7_forms',
-            __( 'Contact Form 7 to Validate', 'zb-email-validator' ),
+            __( 'Contact Form 7 to Validate', 'zbounce-email-validator' ),
             [ __CLASS__, 'render_cf7_forms_field' ],
-            'zb-email-validator',
+            'zbounce-email-validator',
             'advanced_settings'
         );
         // WooCommerce
         add_settings_field(
             'wc_enable',
-            __( 'Enable WooCommerce Checkout', 'zb-email-validator' ),
+            __( 'Enable WooCommerce Checkout', 'zbounce-email-validator' ),
             [ __CLASS__, 'render_wc_enable_field' ],
-            'zb-email-validator',
+            'zbounce-email-validator',
             'advanced_settings'
         );
         // WP Registration
         add_settings_field(
             'reg_enable',
-            __( 'Enable WP Registration', 'zb-email-validator' ),
+            __( 'Enable WP Registration', 'zbounce-email-validator' ),
             [ __CLASS__, 'render_reg_enable_field' ],
-            'zb-email-validator',
+            'zbounce-email-validator',
             'advanced_settings'
         );
         // Gravity Forms, WPForms, Ninja Forms
         add_settings_field(
             'gf_forms',
-            __( 'Gravity Forms to Validate', 'zb-email-validator' ),
+            __( 'Gravity Forms to Validate', 'zbounce-email-validator' ),
             [ __CLASS__, 'render_gf_forms_field' ],
-            'zb-email-validator',
+            'zbounce-email-validator',
             'advanced_settings'
         );
         add_settings_field(
             'wpf_forms',
-            __( 'WPForms to Validate', 'zb-email-validator' ),
+            __( 'WPForms to Validate', 'zbounce-email-validator' ),
             [ __CLASS__, 'render_wpf_forms_field' ],
-            'zb-email-validator',
+            'zbounce-email-validator',
             'advanced_settings'
         );
         add_settings_field(
             'nf_forms',
-            __( 'Ninja Forms to Validate', 'zb-email-validator' ),
+            __( 'Ninja Forms to Validate', 'zbounce-email-validator' ),
             [ __CLASS__, 'render_nf_forms_field' ],
-            'zb-email-validator',
+            'zbounce-email-validator',
             'advanced_settings'
         );
     }
@@ -114,10 +127,10 @@ class Settings {
     public static function render_api_key_field() {
         $s = self::get_settings();
         ?>
-        <input type="password" name="<?= self::OPTION_KEY ?>[api_key]"
-               value="<?= esc_attr( $s['api_key'] ) ?>" class="regular-text">
+        <input type="password" name="<?php echo esc_attr( self::OPTION_KEY ); ?>[api_key]"
+               value="<?php echo esc_attr( $s['api_key'] ); ?>" class="regular-text" autocomplete="off">
         <p class="description">
-            <?php _e( 'Leave empty to use the free demo endpoint', 'zb-email-validator' ); ?>
+            <?php esc_html_e( 'Buy verification credits at zbounce.net/pricing.html and paste the API key received after payment.', 'zbounce-email-validator' ); ?>
         </p>
         <?php
     }
@@ -125,11 +138,11 @@ class Settings {
     public static function render_cache_duration_field() {
         $s = self::get_settings();
         ?>
-        <input type="number" name="<?= self::OPTION_KEY ?>[cache_duration]"
-               value="<?= esc_attr( $s['cache_duration'] ) ?>" min="1" step="1">
-        <?php _e( 'hours', 'zb-email-validator' ); ?>
+        <input type="number" name="<?php echo esc_attr( self::OPTION_KEY ); ?>[cache_duration]"
+               value="<?php echo esc_attr( $s['cache_duration'] ); ?>" min="1" max="168" step="1">
+        <?php esc_html_e( 'hours', 'zbounce-email-validator' ); ?>
         <p class="description">
-            <?php _e( 'Cache storage duration (hours)', 'zb-email-validator' ); ?>
+            <?php esc_html_e( 'Cache storage duration (hours)', 'zbounce-email-validator' ); ?>
         </p>
         <?php
     }
@@ -139,19 +152,19 @@ class Settings {
         $on = ! empty( $s['enable_logging'] );
         ?>
         <label>
-            <input type="checkbox" name="<?= self::OPTION_KEY ?>[enable_logging]"
-                   value="1" <?= checked( $on, true, false ); ?>>
-            <?php _e( 'Enable logging to PHP error_log', 'zb-email-validator' ); ?>
+            <input type="checkbox" name="<?php echo esc_attr( self::OPTION_KEY ); ?>[enable_logging]"
+                   value="1" <?php checked( $on, true ); ?>>
+            <?php esc_html_e( 'Enable logging to PHP error_log', 'zbounce-email-validator' ); ?>
         </label>
         <p class="description">
-            <?php _e( 'Debug logs are written to PHP error_log', 'zb-email-validator' ); ?>
+            <?php esc_html_e( 'Debug logs are written to PHP error_log', 'zbounce-email-validator' ); ?>
         </p>
         <?php if ( $on ): ?>
             <div style="margin-top:10px;padding:10px;background:#fffbe6;border-left:4px solid #ffba00;">
                 <strong>
-                    <?php _e(
+                    <?php esc_html_e(
                         'To write logs into wp-content/debug.log, add these lines to your wp-config.php:',
-                        'zb-email-validator'
+                        'zbounce-email-validator'
                     ); ?>
                 </strong>
                 <pre style="background:#f6f8fa;padding:8px;border:1px solid #ddd;border-radius:4px;">
@@ -188,11 +201,11 @@ define('WP_DEBUG_DISPLAY', false);
                 );
             }
         } else {
-            echo '<p>' . esc_html__( 'Contact Form 7 not detected.', 'zb-email-validator' ) . '</p>';
+            echo '<p>' . esc_html__( 'Contact Form 7 not detected.', 'zbounce-email-validator' ) . '</p>';
         }
 
         echo '<p class="description">'
-            . esc_html__( 'Leave all checked to validate all forms. Uncheck to disable validation for a specific form.', 'zb-email-validator' )
+            . esc_html__( 'Select the forms to validate. An empty selection validates all Contact Form 7 forms; disable external verification to stop all checks.', 'zbounce-email-validator' )
             . '</p>';
     }
 
@@ -201,9 +214,9 @@ define('WP_DEBUG_DISPLAY', false);
         $on = ! empty( $s['wc_enable'] );
         ?>
         <label>
-            <input type="checkbox" name="<?= self::OPTION_KEY ?>[wc_enable]"
-                   value="1" <?= checked( $on, true, false ); ?>>
-            <?php _e( 'Enable WooCommerce checkout validation', 'zb-email-validator' ); ?>
+            <input type="checkbox" name="<?php echo esc_attr( self::OPTION_KEY ); ?>[wc_enable]"
+                   value="1" <?php checked( $on, true ); ?>>
+            <?php esc_html_e( 'Enable WooCommerce checkout validation', 'zbounce-email-validator' ); ?>
         </label>
         <?php
     }
@@ -213,9 +226,9 @@ define('WP_DEBUG_DISPLAY', false);
         $on = ! empty( $s['reg_enable'] );
         ?>
         <label>
-            <input type="checkbox" name="<?= self::OPTION_KEY ?>[reg_enable]"
-                   value="1" <?= checked( $on, true, false ); ?>>
-            <?php _e( 'Enable WP registration validation', 'zb-email-validator' ); ?>
+            <input type="checkbox" name="<?php echo esc_attr( self::OPTION_KEY ); ?>[reg_enable]"
+                   value="1" <?php checked( $on, true ); ?>>
+            <?php esc_html_e( 'Enable WP registration validation', 'zbounce-email-validator' ); ?>
         </label>
         <?php
     }
@@ -239,9 +252,9 @@ define('WP_DEBUG_DISPLAY', false);
                 );
             }
         } else {
-            echo '<p>' . esc_html__( 'Gravity Forms not detected.', 'zb-email-validator' ) . '</p>';
+            echo '<p>' . esc_html__( 'Gravity Forms not detected.', 'zbounce-email-validator' ) . '</p>';
         }
-        echo '<p class="description">' . esc_html__( 'Select Gravity Forms by ID', 'zb-email-validator' ) . '</p>';
+        echo '<p class="description">' . esc_html__( 'Select Gravity Forms by ID', 'zbounce-email-validator' ) . '</p>';
     }
 
     public static function render_wpf_forms_field() {
@@ -262,9 +275,9 @@ define('WP_DEBUG_DISPLAY', false);
                 );
             }
         } else {
-            echo '<p>' . esc_html__( 'WPForms not detected.', 'zb-email-validator' ) . '</p>';
+            echo '<p>' . esc_html__( 'WPForms not detected.', 'zbounce-email-validator' ) . '</p>';
         }
-        echo '<p class="description">' . esc_html__( 'Select WPForms by ID', 'zb-email-validator' ) . '</p>';
+        echo '<p class="description">' . esc_html__( 'Select WPForms by ID', 'zbounce-email-validator' ) . '</p>';
     }
 
     public static function is_logging_enabled(): bool {
@@ -272,9 +285,63 @@ define('WP_DEBUG_DISPLAY', false);
         return ! empty( $s['enable_logging'] );
     }
 
-    public static function is_pro(): bool {
+    public static function is_connected(): bool {
         $s = self::get_settings();
-        return (bool) trim( $s['api_key'] ?? '' );
+        return ! empty( $s['service_enabled'] ) && '' !== trim( $s['api_key'] );
+    }
+
+    public static function sanitize_settings( $input ): array {
+        $input = is_array( $input ) ? $input : [];
+        $clean = self::DEFAULT_SETTINGS;
+        $clean['api_key'] = isset( $input['api_key'] ) && is_string( $input['api_key'] ) ? sanitize_text_field( $input['api_key'] ) : '';
+        $clean['cache_duration'] = max( 1, min( 168, absint( $input['cache_duration'] ?? 24 ) ) );
+        foreach ( [ 'service_enabled', 'enable_logging', 'wc_enable', 'reg_enable' ] as $field ) {
+            $clean[ $field ] = ! empty( $input[ $field ] );
+        }
+        foreach ( [ 'cf7_forms', 'gf_forms', 'wpf_forms', 'nf_forms' ] as $field ) {
+            $clean[ $field ] = array_values( array_unique( array_filter( array_map( 'absint', (array) ( $input[ $field ] ?? [] ) ) ) ) );
+        }
+        if ( array_key_exists( 'allowed_statuses', $input ) ) {
+            $values = is_array( $input['allowed_statuses'] ) ? $input['allowed_statuses'] : [];
+            $clean['allowed_statuses'] = array_values( array_intersect( array_keys( self::status_labels() ), array_filter( $values, 'is_string' ) ) );
+        }
+        if ( $clean['service_enabled'] && '' === $clean['api_key'] ) {
+            $clean['service_enabled'] = false;
+            add_settings_error( self::OPTION_KEY, 'zb_missing_key', __( 'Enter your purchased API key before enabling external verification.', 'zbounce-email-validator' ) );
+        }
+        return $clean;
+    }
+
+    public static function status_labels(): array {
+        return [
+            'valid' => __( 'Valid — mailbox confirmed', 'zbounce-email-validator' ),
+            'risky' => __( 'Risky — accept-all domain', 'zbounce-email-validator' ),
+            'disposable' => __( 'Disposable email', 'zbounce-email-validator' ),
+            'invalid' => __( 'Invalid email format', 'zbounce-email-validator' ),
+            'no_mx' => __( 'Domain does not accept mail', 'zbounce-email-validator' ),
+            'mailbox_not_found' => __( 'Mailbox does not exist', 'zbounce-email-validator' ),
+            'unknown' => __( 'Unknown — mailbox could not be confirmed', 'zbounce-email-validator' ),
+            'unavailable' => __( 'API unavailable — connection, key or balance problem', 'zbounce-email-validator' ),
+        ];
+    }
+
+    public static function render_allowed_statuses_field() {
+        $settings = self::get_settings();
+        // The hidden marker permits saving an intentionally empty selection.
+        printf( '<input type="hidden" name="%s[allowed_statuses][]" value="">', esc_attr( self::OPTION_KEY ) );
+        foreach ( self::status_labels() as $status => $label ) {
+            printf( '<label><input type="checkbox" name="%1$s[allowed_statuses][]" value="%2$s" %3$s> %4$s</label><br>', esc_attr( self::OPTION_KEY ), esc_attr( $status ), checked( in_array( $status, $settings['allowed_statuses'], true ), true, false ), esc_html( $label ) );
+        }
+        echo '<p class="description">' . esc_html__( 'Checked results pass; unchecked results reject the submission. Rules apply to every enabled integration, including cached results. Native form email-format validation still applies. API availability is separate from an unknown mailbox result.', 'zbounce-email-validator' ) . '</p>';
+    }
+
+    public static function render_service_enabled_field() {
+        $s = self::get_settings();
+        ?>
+        <label><input type="checkbox" name="<?php echo esc_attr( self::OPTION_KEY ); ?>[service_enabled]" value="1" <?php checked( ! empty( $s['service_enabled'] ) ); ?>>
+        <?php esc_html_e( 'Enable checks and send submitted email addresses to ZBounce.', 'zbounce-email-validator' ); ?></label>
+        <p class="description"><?php esc_html_e( 'Checks use your purchased credits. No requests are sent until you enable this option and enter a key.', 'zbounce-email-validator' ); ?></p>
+        <?php
     }
 
     public static function get_cache_duration(): int {
@@ -283,25 +350,21 @@ define('WP_DEBUG_DISPLAY', false);
     }
 
     public static function render_nf_forms_field() {
-        $s     = self::get_settings();
-        $sel   = (array) $s['nf_forms'];
-        $posts = get_posts( [
-            'post_type'      => 'nf_form',
-            'posts_per_page' => -1,
-        ] );
-        if ( $posts ) {
-            foreach ( $posts as $p ) {
+        $s = self::get_settings();
+        if ( function_exists( 'Ninja_Forms' ) ) {
+            foreach ( Ninja_Forms()->form()->get_forms() as $form ) {
+                $id = absint( $form->get_id() );
                 printf(
                     '<label><input type="checkbox" name="%1$s[nf_forms][]" value="%2$d"%3$s> %4$s (ID:%2$d)</label><br>',
                     esc_attr( self::OPTION_KEY ),
-                    intval( $p->ID ),
-                    in_array( $p->ID, $sel, true ) ? ' checked' : '',
-                    esc_html( $p->post_title )
+                    absint( $id ),
+                    in_array( $id, $s['nf_forms'], true ) ? ' checked' : '',
+                    esc_html( $form->get_setting( 'title' ) )
                 );
             }
         } else {
-            echo '<p>' . esc_html__( 'Ninja Forms not detected.', 'zb-email-validator' ) . '</p>';
+            echo '<p>' . esc_html__( 'Ninja Forms not detected.', 'zbounce-email-validator' ) . '</p>';
         }
-        echo '<p class="description">' . esc_html__( 'Select Ninja Forms by ID', 'zb-email-validator' ) . '</p>';
+        echo '<p class="description">' . esc_html__( 'Select Ninja Forms by ID', 'zbounce-email-validator' ) . '</p>';
     }
 }

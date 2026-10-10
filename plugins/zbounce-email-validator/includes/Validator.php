@@ -1,6 +1,8 @@
 <?php
 namespace ZbEmailValidator;
 
+defined( 'ABSPATH' ) || exit;
+
 use ZbEmailValidator\Settings;
 use ZbEmailValidator\Logger;
 use WPCF7_ContactForm;
@@ -18,6 +20,7 @@ class Validator {
         }
 
         if ( ! empty( $s['wc_enable'] ) && class_exists( 'WooCommerce' ) ) {
+            add_action( 'woocommerce_store_api_checkout_update_order_from_request', [ __CLASS__, 'validate_store_api_email' ], 10, 2 );
             add_action( 'woocommerce_after_checkout_validation', [ __CLASS__, 'validate_woocommerce_email' ], 10, 2 );
         }
         if ( ! empty( $s['reg_enable'] ) ) {
@@ -26,40 +29,46 @@ class Validator {
     }
 
     public static function render_validator( $atts ) {
-        wp_enqueue_style(  'zb-email-validator' );
-        wp_enqueue_script( 'zb-email-validator' );
+        if ( ! current_user_can( 'manage_options' ) || ! Settings::is_connected() ) {
+            return '';
+        }
+        wp_enqueue_style(  'zbounce-email-validator' );
+        wp_enqueue_script( 'zbounce-email-validator' );
 
+        static $instance = 0;
+        $zbounce_input_id = 'zb-email-' . ++$instance;
         ob_start();
         ?>
         <div class="zb-email-validator">
-            <!-- UI markup не изменился -->
             <div class="zb-input-group">
-                <input type="email" class="zb-email-input"
-                       placeholder="<?php echo esc_attr( __( 'Enter email address', 'zb-email-validator' ) ); ?>">
-                <button class="zb-validate-btn"><?php echo esc_html( __( 'Validate', 'zb-email-validator' ) ); ?></button>
+                <label class="screen-reader-text" for="<?php echo esc_attr( $zbounce_input_id ); ?>"><?php esc_html_e( 'Enter email address', 'zbounce-email-validator' ); ?></label>
+                <input id="<?php echo esc_attr( $zbounce_input_id ); ?>" type="email" class="zb-email-input"
+                       placeholder="<?php echo esc_attr( __( 'Enter email address', 'zbounce-email-validator' ) ); ?>">
+                <button type="button" class="zb-validate-btn"><?php echo esc_html( __( 'Validate', 'zbounce-email-validator' ) ); ?></button>
             </div>
-            <div class="zb-status-value" style="display:none;"></div>
+            <div class="zb-status-value" role="status" aria-live="polite" style="display:none;"></div>
             <div class="zb-validation-results" style="display:none;">
                 <h3>
                     <?php printf(
-                        __( 'Results for: %s', 'zb-email-validator' ),
+                        /* translators: %s: email address displayed in a text-only span. */
+                        esc_html__( 'Results for: %s', 'zbounce-email-validator' ),
                         '<span class="zb-result-email"></span>'
                     ); ?>
                 </h3>
                 <div class="zb-result-item">
-                    <span class="zb-result-label"><?php _e( 'Email Format:', 'zb-email-validator' ); ?></span>
+                    <span class="zb-result-label"><?php esc_html_e( 'Email Format:', 'zbounce-email-validator' ); ?></span>
                     <span class="zb-result-value zb-validity-badge"></span>
                 </div>
                 <div class="zb-result-item">
-                    <span class="zb-result-label"><?php _e( 'Mailbox Exists:', 'zb-email-validator' ); ?></span>
+                    <span class="zb-result-label"><?php esc_html_e( 'Mailbox Exists:', 'zbounce-email-validator' ); ?></span>
                     <span class="zb-result-value zb-exists-status"></span>
                 </div>
                 <div class="zb-result-item">
-                    <span class="zb-result-label"><?php _e( 'Disposable:', 'zb-email-validator' ); ?></span>
+                    <span class="zb-result-label"><?php esc_html_e( 'Disposable:', 'zbounce-email-validator' ); ?></span>
                     <span class="zb-result-value zb-disposable-status"></span>
                 </div>
                 <div class="zb-result-item">
-                    <span class="zb-result-label"><?php _e( 'Accepts All:', 'zb-email-validator' ); ?></span>
+                    <span class="zb-result-label"><?php esc_html_e( 'Accepts All:', 'zbounce-email-validator' ); ?></span>
                     <span class="zb-result-value zb-acceptall-status"></span>
                 </div>
             </div>
@@ -69,33 +78,57 @@ class Validator {
     }
 
     public static function run_sync_validation( string $email ): array {
-        Logger::log( "Validator::run_sync_validation email={$email}" );
+        $email = sanitize_email( $email );
 
         $defaults = [
             'email'           => $email,
-            'valid'           => false,
+            'valid'           => (bool) is_email( $email ),
             'exists'          => null,
             'disposable'      => false,
             'accept_all'      => false,
             'permanent_error' => false,
             'error_category'  => '',
+            'verification_status' => 'unavailable',
         ];
 
+        if ( ! Settings::is_connected() || ! is_email( $email ) ) {
+            return $defaults;
+        }
         $cache_key = md5( $email );
         $cached    = ApiClient::get_cached_result( $cache_key );
         if ( $cached ) {
-            Logger::log( "Cache HIT for {$email}" );
             return wp_parse_args( $cached, $defaults );
         }
-        Logger::log( "Cache MISS for {$email}" );
 
         $data = ApiClient::sync_verify( $email ) ?: [];
-        Logger::log( "Validator result: " . print_r( $data, true ) );
 
         ApiClient::cache_result( $cache_key, $data );
-        Logger::log( "Result cached under {$cache_key}" );
 
         return wp_parse_args( $data, $defaults );
+    }
+
+    public static function validation_error( string $email ): string {
+        if ( ! Settings::is_connected() || '' === $email ) { return ''; }
+        $result = self::run_sync_validation( $email );
+        $status = ! $result['valid'] ? 'invalid' : $result['verification_status'];
+        $settings = Settings::get_settings();
+        if ( in_array( $status, $settings['allowed_statuses'], true ) ) { return ''; }
+        if ( 'invalid' === $status ) { return __( 'Invalid email format', 'zbounce-email-validator' ); }
+        if ( 'disposable' === $status ) { return __( 'Disposable emails are not allowed', 'zbounce-email-validator' ); }
+        if ( in_array( $status, [ 'mailbox_not_found', 'no_mx' ], true ) ) { return __( 'Email address does not exist', 'zbounce-email-validator' ); }
+        if ( 'risky' === $status ) { return __( 'Accept-all email domains are not allowed', 'zbounce-email-validator' ); }
+        if ( 'unavailable' === $status ) { return __( 'Email verification is temporarily unavailable. Please try again.', 'zbounce-email-validator' ); }
+        return __( 'The mailbox could not be confirmed. Please use another email address.', 'zbounce-email-validator' );
+    }
+
+    public static function validate_store_api_email( $order, $request ) {
+        // PUT/PATCH update checkout drafts; only placing an order spends credits.
+        if ( ! $request instanceof \WP_REST_Request || 'POST' !== $request->get_method() || empty( Settings::get_settings()['wc_enable'] ) ) { return; }
+        if ( ! class_exists( '\Automattic\WooCommerce\StoreApi\Exceptions\RouteException' ) ) { return; }
+        $message = self::validation_error( sanitize_email( $order->get_billing_email() ) );
+        if ( '' !== $message ) {
+            throw new \Automattic\WooCommerce\StoreApi\Exceptions\RouteException( 'zbounce_email_rejected', esc_html( $message ), 400 );
+        }
     }
 
     public static function validate_cf7_email( $result, $tag ) {
@@ -110,23 +143,15 @@ class Validator {
             return $result;
         }
 
-        $email = sanitize_email( $_POST[ $tag->name ] ?? '' );
-        Logger::log( "CF7 validate email={$email}" );
+        // Contact Form 7 performs nonce/submission checks before this validation filter.
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
+        $email = sanitize_email( isset( $_POST[ $tag->name ] ) && is_string( $_POST[ $tag->name ] ) ? wp_unslash( $_POST[ $tag->name ] ) : '' );
         if ( ! $email ) {
             return $result;
         }
 
-        $v = self::run_sync_validation( $email );
-        if ( ! $v['valid'] ) {
-            Logger::log( "CF7 invalid format" );
-            $result->invalidate( $tag, __( 'Invalid email format', 'zb-email-validator' ) );
-        } elseif ( $v['disposable'] ) {
-            Logger::log( "CF7 disposable email" );
-            $result->invalidate( $tag, __( 'Disposable emails are not allowed', 'zb-email-validator' ) );
-        } elseif ( $v['exists'] === false ) {
-            Logger::log( "CF7 email does not exist" );
-            $result->invalidate( $tag, __( 'Email address does not exist', 'zb-email-validator' ) );
-        }
+        $message = self::validation_error( $email );
+        if ( '' !== $message ) { $result->invalidate( $tag, $message ); }
 
         return $result;
     }
@@ -138,22 +163,13 @@ class Validator {
         }
 
         $email = sanitize_email( $data['billing_email'] ?? '' );
-        Logger::log( "WC validate billing_email={$email}" );
         if ( ! $email ) {
             return;
         }
 
-        $v = self::run_sync_validation( $email );
-        if ( ! $v['valid'] ) {
-            Logger::log( "WC invalid format" );
-            $errors->add( 'validation', __( 'Invalid email format', 'zb-email-validator' ) );
-        } elseif ( $v['disposable'] ) {
-            Logger::log( "WC disposable email" );
-            $errors->add( 'validation', __( 'Disposable emails are not allowed', 'zb-email-validator' ) );
-        } elseif ( $v['exists'] === false ) {
-            Logger::log( "WC email does not exist" );
-            $errors->add( 'validation', __( 'Email address does not exist', 'zb-email-validator' ) );
-        }
+        $message = self::validation_error( $email );
+        if ( '' !== $message ) { $errors->add( 'validation', $message ); }
+
     }
 
     public static function validate_registration_email( $errors, $user_login, $user_email ) {
@@ -163,22 +179,12 @@ class Validator {
         }
 
         $email = sanitize_email( $user_email );
-        Logger::log( "WP registration validate email={$email}" );
         if ( ! $email ) {
             return $errors;
         }
 
-        $v = self::run_sync_validation( $email );
-        if ( ! $v['valid'] ) {
-            Logger::log( "Reg invalid format" );
-            $errors->add( 'invalid_email', __( 'Invalid email format', 'zb-email-validator' ) );
-        } elseif ( $v['disposable'] ) {
-            Logger::log( "Reg disposable email" );
-            $errors->add( 'disposable_email', __( 'Disposable emails are not allowed', 'zb-email-validator' ) );
-        } elseif ( $v['exists'] === false ) {
-            Logger::log( "Reg email does not exist" );
-            $errors->add( 'email_not_exists', __( 'Email address does not exist', 'zb-email-validator' ) );
-        }
+        $message = self::validation_error( $email );
+        if ( '' !== $message ) { $errors->add( 'zbounce_email_rejected', $message ); }
 
         return $errors;
     }

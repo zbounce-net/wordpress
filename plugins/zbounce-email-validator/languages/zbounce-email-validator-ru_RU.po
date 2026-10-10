@@ -1,0 +1,331 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ZBounce Email Validator 1.2.0\n"
+"Report-Msgid-Bugs-To: https://zbounce.net\n"
+"POT-Creation-Date: 2026-10-10 09:58+0300\n"
+"PO-Revision-Date: 2026-10-10 00:00+0000\n"
+"Last-Translator: ZBounce\n"
+"Language-Team: ZBounce\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+
+msgid "Administrator access required."
+msgstr "Требуется доступ администратора."
+
+msgid "Enable external verification and save your API key first."
+msgstr "Сначала включите внешнюю проверку и сохраните API-ключ."
+
+msgid "Connection failed. Check your API key and try again."
+msgstr "Не удалось подключиться. Проверьте API-ключ и попробуйте снова."
+
+#, php-format
+msgid "Connected. Remaining verification credits: %s."
+msgstr "Подключено. Осталось кредитов проверки: %s."
+
+msgid "Enable ZBounce and enter your purchased API key in Settings first."
+msgstr "Сначала включите ZBounce и укажите купленный API-ключ в настройках."
+
+msgid "Invalid email format"
+msgstr "Неверный формат email"
+
+msgid ""
+"ZBounce could not complete this check. Check your key, balance and "
+"connection."
+msgstr ""
+"ZBounce не смог завершить проверку. Проверьте ключ, баланс и соединение."
+
+msgid "Valid"
+msgstr "Корректный"
+
+msgid "Invalid"
+msgstr "Некорректный"
+
+msgid "Yes"
+msgstr "Да"
+
+msgid "No"
+msgstr "Нет"
+
+msgid "Not checked"
+msgstr "Не проверено"
+
+msgid "Yes (unreliable)"
+msgstr "Да (ненадёжно)"
+
+msgid "Server accepts all"
+msgstr "Сервер принимает все адреса"
+
+msgid "Checking…"
+msgstr "Проверяем…"
+
+msgid "Validation error"
+msgstr "Ошибка проверки"
+
+msgid "ZBounce Email Validator"
+msgstr "ZBounce Email Validator"
+
+msgid "ZBounce Email"
+msgstr "ZBounce Email"
+
+msgid "Email verification cache"
+msgstr "Кэш проверки адресов"
+
+msgid "Email address"
+msgstr "Адрес электронной почты"
+
+msgid "Cached at (UTC)"
+msgstr "Сохранено в кэше (UTC)"
+
+msgid "Verification result"
+msgstr "Результат проверки"
+
+msgid "Could not remove cached verification data. Try again."
+msgstr "Не удалось удалить данные проверки из кэша. Попробуйте снова."
+
+msgid "API Configuration"
+msgstr "Конфигурация API"
+
+msgid "Purchased ZBounce API key"
+msgstr "Купленный API-ключ ZBounce"
+
+msgid "Cache Duration"
+msgstr "Длительность кэша"
+
+msgid "Enable Debug Logging"
+msgstr "Включить отладочное логирование"
+
+msgid "External verification"
+msgstr "Внешняя проверка"
+
+msgid "Accepted verification results"
+msgstr "Разрешённые результаты проверки"
+
+msgid "Advanced Integrations"
+msgstr "Расширенные интеграции"
+
+msgid "Contact Form 7 to Validate"
+msgstr "Формы Contact Form 7 для проверки"
+
+msgid "Enable WooCommerce Checkout"
+msgstr "Проверять оформление заказа WooCommerce"
+
+msgid "Enable WP Registration"
+msgstr "Проверять регистрацию WordPress"
+
+msgid "Gravity Forms to Validate"
+msgstr "Gravity Forms для проверки"
+
+msgid "WPForms to Validate"
+msgstr "WPForms для проверки"
+
+msgid "Ninja Forms to Validate"
+msgstr "Ninja Forms для проверки"
+
+msgid ""
+"Buy verification credits at zbounce.net/pricing.html and paste the API key "
+"received after payment."
+msgstr ""
+"Купите кредиты проверки на zbounce.net/pricing.html и вставьте API-ключ, "
+"полученный после оплаты."
+
+msgid "hours"
+msgstr "часов"
+
+msgid "Cache storage duration (hours)"
+msgstr "Время хранения кэша (в часах)"
+
+msgid "Enable logging to PHP error_log"
+msgstr "Включить запись логов в PHP error_log"
+
+msgid "Debug logs are written to PHP error_log"
+msgstr "Логи отладки записываются в PHP error_log"
+
+msgid ""
+"To write logs into wp-content/debug.log, add these lines to your wp-"
+"config.php:"
+msgstr "Чтобы писать логи в wp-content/debug.log, добавьте в wp-config.php:"
+
+msgid "Contact Form 7 not detected."
+msgstr "Contact Form 7 не найден."
+
+msgid ""
+"Select the forms to validate. An empty selection validates all Contact Form "
+"7 forms; disable external verification to stop all checks."
+msgstr ""
+"Выберите формы для проверки. Если ничего не выбрано, проверяются все формы "
+"Contact Form 7; отключите внешнюю проверку, чтобы остановить все проверки."
+
+msgid "Enable WooCommerce checkout validation"
+msgstr "Включить проверку при оформлении заказа WooCommerce"
+
+msgid "Enable WP registration validation"
+msgstr "Включить проверку при регистрации WordPress"
+
+msgid "Gravity Forms not detected."
+msgstr "Gravity Forms не обнаружен."
+
+msgid "Select Gravity Forms by ID"
+msgstr "Выберите Gravity Forms по ID"
+
+msgid "WPForms not detected."
+msgstr "WPForms не обнаружен."
+
+msgid "Select WPForms by ID"
+msgstr "Выберите WPForms по ID"
+
+msgid "Enter your purchased API key before enabling external verification."
+msgstr "Укажите купленный API-ключ перед включением внешней проверки."
+
+msgid "Valid — mailbox confirmed"
+msgstr "Valid — ящик подтверждён"
+
+msgid "Risky — accept-all domain"
+msgstr "Risky — домен принимает все адреса"
+
+msgid "Disposable email"
+msgstr "Одноразовый адрес"
+
+msgid "Domain does not accept mail"
+msgstr "Домен не принимает почту"
+
+msgid "Mailbox does not exist"
+msgstr "Почтовый ящик не существует"
+
+msgid "Unknown — mailbox could not be confirmed"
+msgstr "Unknown — ящик не удалось подтвердить"
+
+msgid "API unavailable — connection, key or balance problem"
+msgstr "API недоступен — проблема соединения, ключа или баланса"
+
+msgid ""
+"Checked results pass; unchecked results reject the submission. Rules apply "
+"to every enabled integration, including cached results. Native form email-"
+"format validation still applies. API availability is separate from an "
+"unknown mailbox result."
+msgstr ""
+"Отмеченные результаты пропускаются, остальные отклоняют отправку формы. "
+"Правила действуют во всех включённых интеграциях, в том числе для кэша. "
+"Проверка формата адреса самой формой сохраняется. Недоступность API "
+"учитывается отдельно от неопределённого результата проверки ящика."
+
+msgid "Enable checks and send submitted email addresses to ZBounce."
+msgstr "Включить проверки и отправлять введённые адреса в ZBounce."
+
+msgid ""
+"Checks use your purchased credits. No requests are sent until you enable "
+"this option and enter a key."
+msgstr ""
+"Проверки расходуют купленные кредиты. Запросы не отправляются, пока вы не "
+"включите эту опцию и не укажете ключ."
+
+msgid "Ninja Forms not detected."
+msgstr "Ninja Forms не обнаружен."
+
+msgid "Select Ninja Forms by ID"
+msgstr "Выберите Ninja Forms по ID"
+
+msgid "Enter email address"
+msgstr "Введите адрес электронной почты"
+
+msgid "Validate"
+msgstr "Проверить"
+
+#, php-format
+msgid "Results for: %s"
+msgstr "Результаты для: %s"
+
+msgid "Email Format:"
+msgstr "Формат Email:"
+
+msgid "Mailbox Exists:"
+msgstr "Почта существует:"
+
+msgid "Disposable:"
+msgstr "Одноразовый:"
+
+msgid "Accepts All:"
+msgstr "Принимает все:"
+
+msgid "Disposable emails are not allowed"
+msgstr "Одноразовые email не разрешены"
+
+msgid "Email address does not exist"
+msgstr "Адрес электронной почты не существует"
+
+msgid "Accept-all email domains are not allowed"
+msgstr "Домены, принимающие все адреса, не разрешены"
+
+msgid "Email verification is temporarily unavailable. Please try again."
+msgstr "Проверка почты временно недоступна. Попробуйте ещё раз."
+
+msgid "The mailbox could not be confirmed. Please use another email address."
+msgstr "Не удалось подтвердить почтовый ящик. Укажите другой адрес."
+
+msgid "ZBounce Email Validator Settings"
+msgstr "Настройки ZBounce Email Validator"
+
+msgid ""
+"Buy verification credits on ZBounce, then paste the API key you receive "
+"after payment. The plugin itself is free; remote checks use your credits."
+msgstr ""
+"Купите кредиты проверки в ZBounce и вставьте API-ключ, полученный после "
+"оплаты. Сам плагин бесплатный; удалённые проверки расходуют ваши кредиты."
+
+msgid "Buy credits / get an API key"
+msgstr "Купить кредиты / получить API-ключ"
+
+msgid "Save Settings"
+msgstr "Сохранить настройки"
+
+msgid "Check connection and balance"
+msgstr "Проверить соединение и баланс"
+
+msgid "External service and privacy"
+msgstr "Внешний сервис и конфиденциальность"
+
+msgid ""
+"When enabled, the plugin sends the email address being checked and your API "
+"key to https://api.zbounce.net/v1/fast-verify over HTTPS. Checking the "
+"connection sends your key to /v1/me without an email address. ZBounce also "
+"receives the network address of your WordPress server. Other form fields, "
+"passwords, names and payment details are not included by this plugin."
+msgstr ""
+"При включённой проверке плагин отправляет проверяемый адрес и API-ключ на "
+"https://api.zbounce.net/v1/fast-verify по HTTPS. Проверка соединения "
+"отправляет ключ на /v1/me без адреса. ZBounce также получает сетевой адрес "
+"вашего сервера WordPress. Другие поля формы, пароли, имена и платёжные "
+"данные плагин не передаёт."
+
+msgid "Privacy policy"
+msgstr "Политика конфиденциальности"
+
+msgid "Terms of service"
+msgstr "Условия использования"
+
+msgid ""
+"Verification results, including email addresses, are cached in your "
+"WordPress database. Expired results are ignored and removed on later writes."
+" Include this external processing in your own site privacy information."
+msgstr ""
+"Результаты проверки, включая адреса, кэшируются в базе WordPress. "
+"Просроченные результаты не используются и удаляются при последующих записях."
+" Укажите эту внешнюю обработку в политике конфиденциальности своего сайта."
+
+msgid "Using the plugin"
+msgstr "Использование плагина"
+
+msgid ""
+"Select integrations and accepted results above. The API unavailable rule "
+"controls whether a service outage allows or rejects a submission."
+msgstr ""
+"Выберите интеграции и разрешённые результаты выше. Правило недоступности API"
+" определяет, разрешать или отклонять отправку при сбое сервиса."
+
+msgid ""
+"The standalone test shortcode is available only to logged-in administrators:"
+msgstr ""
+"Шорткод отдельной проверки доступен только авторизованным администраторам:"

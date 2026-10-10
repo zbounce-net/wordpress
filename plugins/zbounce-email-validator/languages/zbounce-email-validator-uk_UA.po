@@ -1,0 +1,335 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ZBounce Email Validator 1.2.0\n"
+"Report-Msgid-Bugs-To: https://zbounce.net\n"
+"POT-Creation-Date: 2026-10-10 09:58+0300\n"
+"PO-Revision-Date: 2026-10-10 00:00+0000\n"
+"Last-Translator: ZBounce\n"
+"Language-Team: ZBounce\n"
+"Language: uk_UA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+
+msgid "Administrator access required."
+msgstr "Потрібен доступ адміністратора."
+
+msgid "Enable external verification and save your API key first."
+msgstr "Спочатку увімкніть зовнішню перевірку та збережіть API-ключ."
+
+msgid "Connection failed. Check your API key and try again."
+msgstr "Не вдалося підключитися. Перевірте API-ключ і спробуйте знову."
+
+#, php-format
+msgid "Connected. Remaining verification credits: %s."
+msgstr "Підключено. Залишилося кредитів перевірки: %s."
+
+msgid "Enable ZBounce and enter your purchased API key in Settings first."
+msgstr ""
+"Спочатку увімкніть ZBounce і введіть придбаний API-ключ у налаштуваннях."
+
+msgid "Invalid email format"
+msgstr "Невірний формат електронної пошти"
+
+msgid ""
+"ZBounce could not complete this check. Check your key, balance and "
+"connection."
+msgstr ""
+"ZBounce не зміг завершити перевірку. Перевірте ключ, баланс і з’єднання."
+
+msgid "Valid"
+msgstr "Коректна"
+
+msgid "Invalid"
+msgstr "Некоректна"
+
+msgid "Yes"
+msgstr "Так"
+
+msgid "No"
+msgstr "Ні"
+
+msgid "Not checked"
+msgstr "Не перевірено"
+
+msgid "Yes (unreliable)"
+msgstr "Так (ненадійно)"
+
+msgid "Server accepts all"
+msgstr "Сервер приймає всі адреси"
+
+msgid "Checking…"
+msgstr "Перевіряємо…"
+
+msgid "Validation error"
+msgstr "Помилка перевірки"
+
+msgid "ZBounce Email Validator"
+msgstr "ZBounce Email Validator"
+
+msgid "ZBounce Email"
+msgstr "ZBounce Email"
+
+msgid "Email verification cache"
+msgstr "Кеш перевірки адрес"
+
+msgid "Email address"
+msgstr "Адреса електронної пошти"
+
+msgid "Cached at (UTC)"
+msgstr "Збережено в кеші (UTC)"
+
+msgid "Verification result"
+msgstr "Результат перевірки"
+
+msgid "Could not remove cached verification data. Try again."
+msgstr "Не вдалося видалити дані перевірки з кешу. Спробуйте знову."
+
+msgid "API Configuration"
+msgstr "Конфігурація API"
+
+msgid "Purchased ZBounce API key"
+msgstr "Придбаний API-ключ ZBounce"
+
+msgid "Cache Duration"
+msgstr "Тривалість кешу"
+
+msgid "Enable Debug Logging"
+msgstr "Увімкнути логування налагодження"
+
+msgid "External verification"
+msgstr "Зовнішня перевірка"
+
+msgid "Accepted verification results"
+msgstr "Дозволені результати перевірки"
+
+msgid "Advanced Integrations"
+msgstr "Розширені інтеграції"
+
+msgid "Contact Form 7 to Validate"
+msgstr "Форми Contact Form 7 для перевірки"
+
+msgid "Enable WooCommerce Checkout"
+msgstr "Перевіряти оформлення замовлення WooCommerce"
+
+msgid "Enable WP Registration"
+msgstr "Перевіряти реєстрацію WordPress"
+
+msgid "Gravity Forms to Validate"
+msgstr "Gravity Forms для перевірки"
+
+msgid "WPForms to Validate"
+msgstr "WPForms для перевірки"
+
+msgid "Ninja Forms to Validate"
+msgstr "Ninja Forms для перевірки"
+
+msgid ""
+"Buy verification credits at zbounce.net/pricing.html and paste the API key "
+"received after payment."
+msgstr ""
+"Придбайте кредити перевірки на zbounce.net/pricing.html і вставте API-ключ, "
+"отриманий після оплати."
+
+msgid "hours"
+msgstr "годин"
+
+msgid "Cache storage duration (hours)"
+msgstr "Час збереження кешу (години)"
+
+msgid "Enable logging to PHP error_log"
+msgstr "Увімкнути запис у PHP error_log"
+
+msgid "Debug logs are written to PHP error_log"
+msgstr "Логи налагодження пишуться в PHP error_log"
+
+msgid ""
+"To write logs into wp-content/debug.log, add these lines to your wp-"
+"config.php:"
+msgstr "Щоб писати логи в wp-content/debug.log, додайте в wp-config.php:"
+
+msgid "Contact Form 7 not detected."
+msgstr "Contact Form 7 не знайдено."
+
+msgid ""
+"Select the forms to validate. An empty selection validates all Contact Form "
+"7 forms; disable external verification to stop all checks."
+msgstr ""
+"Виберіть форми для перевірки. Якщо нічого не вибрано, перевіряються всі "
+"форми Contact Form 7; вимкніть зовнішню перевірку, щоб зупинити всі "
+"перевірки."
+
+msgid "Enable WooCommerce checkout validation"
+msgstr "Увімкнути перевірку під час оформлення замовлення WooCommerce"
+
+msgid "Enable WP registration validation"
+msgstr "Увімкнути перевірку під час реєстрації WordPress"
+
+msgid "Gravity Forms not detected."
+msgstr "Gravity Forms не знайдено."
+
+msgid "Select Gravity Forms by ID"
+msgstr "Виберіть Gravity Forms за ID"
+
+msgid "WPForms not detected."
+msgstr "WPForms не знайдено."
+
+msgid "Select WPForms by ID"
+msgstr "Виберіть WPForms за ID"
+
+msgid "Enter your purchased API key before enabling external verification."
+msgstr "Введіть придбаний API-ключ перед увімкненням зовнішньої перевірки."
+
+msgid "Valid — mailbox confirmed"
+msgstr "Valid — скриньку підтверджено"
+
+msgid "Risky — accept-all domain"
+msgstr "Risky — домен приймає всі адреси"
+
+msgid "Disposable email"
+msgstr "Одноразова адреса"
+
+msgid "Domain does not accept mail"
+msgstr "Домен не приймає пошту"
+
+msgid "Mailbox does not exist"
+msgstr "Поштова скринька не існує"
+
+msgid "Unknown — mailbox could not be confirmed"
+msgstr "Unknown — скриньку не вдалося підтвердити"
+
+msgid "API unavailable — connection, key or balance problem"
+msgstr "API недоступний — проблема з’єднання, ключа або балансу"
+
+msgid ""
+"Checked results pass; unchecked results reject the submission. Rules apply "
+"to every enabled integration, including cached results. Native form email-"
+"format validation still applies. API availability is separate from an "
+"unknown mailbox result."
+msgstr ""
+"Позначені результати пропускаються, решта відхиляє надсилання форми. Правила"
+" діють у всіх увімкнених інтеграціях, включно з кешем. Власна перевірка "
+"формату адреси формою залишається. Недоступність API враховується окремо від"
+" невизначеного результату перевірки скриньки."
+
+msgid "Enable checks and send submitted email addresses to ZBounce."
+msgstr "Увімкнути перевірки та надсилати введені адреси до ZBounce."
+
+msgid ""
+"Checks use your purchased credits. No requests are sent until you enable "
+"this option and enter a key."
+msgstr ""
+"Перевірки витрачають придбані кредити. Запити не надсилаються, доки ви не "
+"ввімкнете цю опцію та не введете ключ."
+
+msgid "Ninja Forms not detected."
+msgstr "Ninja Forms не знайдено."
+
+msgid "Select Ninja Forms by ID"
+msgstr "Виберіть Ninja Forms за ID"
+
+msgid "Enter email address"
+msgstr "Введіть електронну адресу"
+
+msgid "Validate"
+msgstr "Перевірити"
+
+#, php-format
+msgid "Results for: %s"
+msgstr "Результати для: %s"
+
+msgid "Email Format:"
+msgstr "Формат електронної пошти:"
+
+msgid "Mailbox Exists:"
+msgstr "Пошта існує:"
+
+msgid "Disposable:"
+msgstr "Одноразова:"
+
+msgid "Accepts All:"
+msgstr "Приймає всі:"
+
+msgid "Disposable emails are not allowed"
+msgstr "Одноразові адреси не дозволені"
+
+msgid "Email address does not exist"
+msgstr "Адреса не існує"
+
+msgid "Accept-all email domains are not allowed"
+msgstr "Домени, що приймають усі адреси, не дозволені"
+
+msgid "Email verification is temporarily unavailable. Please try again."
+msgstr "Перевірка пошти тимчасово недоступна. Спробуйте ще раз."
+
+msgid "The mailbox could not be confirmed. Please use another email address."
+msgstr "Не вдалося підтвердити поштову скриньку. Укажіть іншу адресу."
+
+msgid "ZBounce Email Validator Settings"
+msgstr "Налаштування ZBounce Email Validator"
+
+msgid ""
+"Buy verification credits on ZBounce, then paste the API key you receive "
+"after payment. The plugin itself is free; remote checks use your credits."
+msgstr ""
+"Придбайте кредити перевірки в ZBounce і вставте API-ключ, отриманий після "
+"оплати. Сам плагін безкоштовний; віддалені перевірки витрачають ваші "
+"кредити."
+
+msgid "Buy credits / get an API key"
+msgstr "Придбати кредити / отримати API-ключ"
+
+msgid "Save Settings"
+msgstr "Зберегти налаштування"
+
+msgid "Check connection and balance"
+msgstr "Перевірити з’єднання та баланс"
+
+msgid "External service and privacy"
+msgstr "Зовнішній сервіс і конфіденційність"
+
+msgid ""
+"When enabled, the plugin sends the email address being checked and your API "
+"key to https://api.zbounce.net/v1/fast-verify over HTTPS. Checking the "
+"connection sends your key to /v1/me without an email address. ZBounce also "
+"receives the network address of your WordPress server. Other form fields, "
+"passwords, names and payment details are not included by this plugin."
+msgstr ""
+"Коли перевірку ввімкнено, плагін надсилає адресу та API-ключ на "
+"https://api.zbounce.net/v1/fast-verify через HTTPS. Перевірка з’єднання "
+"надсилає ключ на /v1/me без адреси. ZBounce також отримує мережеву адресу "
+"вашого сервера WordPress. Інші поля форми, паролі, імена та платіжні дані "
+"плагін не передає."
+
+msgid "Privacy policy"
+msgstr "Політика конфіденційності"
+
+msgid "Terms of service"
+msgstr "Умови використання"
+
+msgid ""
+"Verification results, including email addresses, are cached in your "
+"WordPress database. Expired results are ignored and removed on later writes."
+" Include this external processing in your own site privacy information."
+msgstr ""
+"Результати перевірки, включно з адресами, кешуються в базі WordPress. "
+"Прострочені результати не використовуються та видаляються під час наступних "
+"записів. Зазначте цю зовнішню обробку в політиці конфіденційності свого "
+"сайту."
+
+msgid "Using the plugin"
+msgstr "Використання плагіна"
+
+msgid ""
+"Select integrations and accepted results above. The API unavailable rule "
+"controls whether a service outage allows or rejects a submission."
+msgstr ""
+"Виберіть інтеграції та дозволені результати вище. Правило недоступності API "
+"визначає, дозволяти чи відхиляти надсилання при збої сервісу."
+
+msgid ""
+"The standalone test shortcode is available only to logged-in administrators:"
+msgstr ""
+"Шорткод окремої перевірки доступний лише авторизованим адміністраторам:"

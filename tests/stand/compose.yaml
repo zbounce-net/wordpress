@@ -1,0 +1,41 @@
+name: zbounce-wp-review-20261010
+services:
+  db:
+    image: mariadb:11.4
+    environment:
+      MARIADB_ROOT_PASSWORD: isolated-root-only
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: wordpress
+      MARIADB_PASSWORD: isolated-test-only
+    volumes: [database:/var/lib/mysql]
+    networks: [test]
+  wordpress:
+    image: wordpress:php8.3-apache
+    ports: ["127.0.0.1:18990:80"]
+    environment: &wp-env
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: isolated-test-only
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - site:/var/www/html
+      - ../../plugins/zbounce-email-validator:/var/www/html/wp-content/plugins/zbounce-email-validator:ro
+      - ../:/tests:ro
+    depends_on: [db]
+    networks: [test]
+  cli:
+    image: wordpress:cli
+    user: "33:33"
+    entrypoint: ["wp"]
+    environment: *wp-env
+    volumes:
+      - site:/var/www/html
+      - ../../plugins/zbounce-email-validator:/var/www/html/wp-content/plugins/zbounce-email-validator:ro
+      - ../:/tests:ro
+    depends_on: [wordpress]
+    networks: [test]
+volumes:
+  site:
+  database:
+networks:
+  test:
