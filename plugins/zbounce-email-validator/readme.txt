@@ -25,7 +25,7 @@ Integrations:
 * WordPress registration.
 * Selected Gravity Forms, WPForms and Ninja Forms forms.
 
-Results are cached locally for a configurable 1–168 hours (24 hours by default). If the service is unavailable, returns an error, or cannot complete the check, the plugin does not invent a successful verification or cache that failure; normal form validation continues.
+Results are cached locally for a configurable 1–168 hours (24 hours by default). Unknown mailbox results and API failures are not cached or presented as confirmed mailboxes. Your accepted-results policy determines whether those submissions pass; the default policy allows them.
 
 The [zb_email_validator] shortcode provides a standalone tester for logged-in administrators only. It is not a public widget that can consume your credits anonymously.
 
@@ -63,10 +63,10 @@ No. The plugin is GPL software. The remote ZBounce verification service requires
 No. You must enter an API key and explicitly enable external verification first. There is no automatic demo mode.
 
 = Does it block catch-all addresses? =
-No. Catch-all and unknown mailbox outcomes are not automatically treated as a missing mailbox. The plugin uses the API result without changing the verification engine's classifications.
+By default they pass. Uncheck Risky in Accepted verification results to reject accept-all domains, or Unknown to reject unconfirmed mailboxes. These outcomes are kept separate from missing mailboxes.
 
 = What happens if I run out of credits or the API is unavailable? =
-Remote verification cannot complete. Normal form validation continues; no successful remote result is fabricated or cached. Check your balance using the settings page.
+The result is API unavailable. It passes by default; uncheck API unavailable to reject submissions until verification works again. No successful remote result is fabricated or cached. Check your balance using the settings page.
 
 = How do I disable all remote checks? =
 Uncheck External verification and save. An empty Contact Form 7 selection means all Contact Form 7 forms; other optional form integrations require selecting form IDs.
