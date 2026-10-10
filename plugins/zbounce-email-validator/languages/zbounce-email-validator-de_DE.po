@@ -1,7 +1,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ZBounce Email Validator 1.2.2\n"
+"Project-Id-Version: ZBounce Email Validator 1.2.3\n"
 "Report-Msgid-Bugs-To: https://zbounce.net\n"
 "POT-Creation-Date: 2026-10-10 10:59+0300\n"
 "PO-Revision-Date: 2026-10-10 00:00+0000\n"

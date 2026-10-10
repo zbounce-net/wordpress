@@ -2,7 +2,7 @@
 
 Plugin source: `plugins/zbounce-email-validator/`. Its `readme.txt` is the authoritative product description.
 
-Version 1.2.2 requires purchased ZBounce verification credits and an API key, plus explicit administrator enablement and acceptance of the ZBounce service license agreement. Settings include the live key balance and an email tester with optional cache bypass. No anonymous demo fallback.
+Version 1.2.3 requires purchased ZBounce verification credits and an API key, plus explicit administrator enablement and acceptance of the ZBounce service license agreement. Settings include the live key balance and an email tester with optional cache bypass. No anonymous demo fallback.
 
 Purchase: https://zbounce.net/pricing.html
 

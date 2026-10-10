@@ -3,7 +3,7 @@ Tags: email validation, email verification, contact form 7, woocommerce, spam pr
 Requires at least: 5.0
 Requires PHP: 7.4
 Tested up to: 7.1
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -75,6 +75,9 @@ Uncheck External verification and save. An empty Contact Form 7 selection means 
 Yes. PHP, JavaScript and CSS are supplied as readable source. Compiled translation MO files have the corresponding PO sources in languages/.
 
 == Changelog ==
+
+= 1.2.3 =
+* Keep the connection/balance refresh button visible beside the balance; disable it until setup is complete.
 
 = 1.2.2 =
 * Always show the balance and email tester at the top of settings, with disabled controls and setup guidance until verification is enabled.
