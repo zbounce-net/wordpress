@@ -8,6 +8,8 @@ import re
 root = Path(__file__).resolve().parents[1]
 source = root / 'plugins' / 'zbounce-email-validator'
 headers = (source / 'email-validator.php').read_text()
+if re.search(r'^\s*\*\s*Tested up to:', headers, re.M | re.I):
+    raise ValueError('Tested up to belongs only in readme.txt, not the PHP plugin header')
 version = re.search(r'\* Version:\s*(\S+)', headers).group(1)
 plugin_uri = re.search(r'\* Plugin URI:\s*(\S+)', headers)
 author_uri = re.search(r'\* Author URI:\s*(\S+)', headers)
