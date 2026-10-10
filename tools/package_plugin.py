@@ -7,7 +7,12 @@ import re
 
 root = Path(__file__).resolve().parents[1]
 source = root / 'plugins' / 'zbounce-email-validator'
-version = re.search(r'\* Version:\s*(\S+)', (source / 'email-validator.php').read_text()).group(1)
+headers = (source / 'email-validator.php').read_text()
+version = re.search(r'\* Version:\s*(\S+)', headers).group(1)
+plugin_uri = re.search(r'\* Plugin URI:\s*(\S+)', headers)
+author_uri = re.search(r'\* Author URI:\s*(\S+)', headers)
+if plugin_uri and author_uri and plugin_uri.group(1).rstrip('/') == author_uri.group(1).rstrip('/'):
+    raise ValueError('Plugin URI must describe the plugin and differ from Author URI')
 readme = (source / 'readme.txt').read_text()
 if not re.search(r'^Stable tag:\s*' + re.escape(version) + r'\s*$', readme, re.M):
     raise ValueError('Plugin header and readme version differ')

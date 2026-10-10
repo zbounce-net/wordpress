@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: ZBounce Email Validator
- * Plugin URI:  https://zbounce.net
+ * Plugin URI:  https://github.com/zbounce-net/wordpress
  * Description: Checks form email addresses through the ZBounce service using your purchased API key.
  * Version:     1.2.5
  * Author:      ZBounce.net
